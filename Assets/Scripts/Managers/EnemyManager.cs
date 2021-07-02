@@ -30,6 +30,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private void JobsMovement()
     {
+        move.deltaTime = Time.deltaTime;
         move.Schedule(enemies).Complete();
     }
 
