@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TowerShootingController : MonoBehaviour
@@ -7,6 +8,7 @@ public class TowerShootingController : MonoBehaviour
     [SerializeField] private Transform turret;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float shootCooldown;
+    [SerializeField] private float detectionCooldown;
     [SerializeField] private ParticleSystem bulletCasing;
     [SerializeField] private float towerRaduis;
     [SerializeField] private LayerMask enemyLayers;
@@ -24,6 +26,7 @@ public class TowerShootingController : MonoBehaviour
 
         targetForward = new Vector3();
         UpdateParticleDuration(bulletCasing);
+        StartCoroutine(LookForTarget());
     }
 
     // Update is called once per frame
@@ -37,10 +40,16 @@ public class TowerShootingController : MonoBehaviour
         currentCooldown -= Time.deltaTime;
     }
 
-    private void FixedUpdate()
+    private IEnumerator LookForTarget()
     {
-        if (currentTarget == null || !currentTarget.gameObject.activeInHierarchy)
-            FindTarget();
+        while (true)
+        {
+            if (currentTarget == null || !currentTarget.gameObject.activeInHierarchy)
+                FindTarget();
+
+            yield return new WaitForSeconds(detectionCooldown);
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     protected virtual void FindTarget()

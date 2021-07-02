@@ -61,6 +61,7 @@ MonoBehaviour:
   turret: {fileID: 4157467693730916024}
   shootPoint: {fileID: 6559590307037961522}
   shootCooldown: 0.15
+  detectionCooldown: 0.25
   bulletCasing: {fileID: 6470161864054571114}
   towerRaduis: 10
   enemyLayers:
