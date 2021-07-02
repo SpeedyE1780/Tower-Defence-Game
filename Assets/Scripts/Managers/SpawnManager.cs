@@ -23,12 +23,12 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void OnEnable()
     {
-        EventManager.OnEnemyKilled += EnemyKilled;
+        EventManager.OnEnemyDisabled += EnemyKilled;
     }
 
     private void OnDisable()
     {
-        EventManager.OnEnemyKilled -= EnemyKilled;
+        EventManager.OnEnemyDisabled -= EnemyKilled;
     }
 
     public void SetFormationsDifficulty(GameDifficulty difficulty)
@@ -71,7 +71,7 @@ public class SpawnManager : Singleton<SpawnManager>
         }
     }
 
-    private void EnemyKilled(int points, int coins)
+    private void EnemyKilled()
     {
         activeEnemies -= 1;
     }

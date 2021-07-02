@@ -36,6 +36,8 @@ public class EnemyController : MonoBehaviour
     {
         if (EnemyManager.Instance)
             EnemyManager.Instance.RemoveEnemy(transform);
+
+        EventManager.RaiseEnemyDisabled();
     }
 
     private void OnTriggerEnter(Collider other)
