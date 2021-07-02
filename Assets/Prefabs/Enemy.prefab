@@ -591,11 +591,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  maxHits: 5
+  maxHits: 2
   points: 1
   coins: 10
   decaySpeed: 4
-  useAnim: 1
 --- !u!1 &2556778763883194927
 GameObject:
   m_ObjectHideFlags: 0

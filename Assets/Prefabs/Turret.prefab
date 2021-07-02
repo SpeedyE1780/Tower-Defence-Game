@@ -62,7 +62,7 @@ MonoBehaviour:
   shootPoint: {fileID: 6559590307037961522}
   shootCooldown: 0.15
   bulletCasing: {fileID: 6470161864054571114}
-  turretRaduis: 60
+  turretRaduis: 10
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8

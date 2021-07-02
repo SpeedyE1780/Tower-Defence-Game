@@ -8,9 +8,9 @@ public class UnitPlacementController : MonoBehaviour
     [SerializeField] private LayerMask unitLayers;
     [SerializeField] private Camera mainCamera;
 
-    public void StartUnitPlacement(GameObject unit) => StartCoroutine(PlaceUnit(unit));
+    public void StartUnitPlacement(GameObject unit, int unitPrice) => StartCoroutine(PlaceUnit(unit, unitPrice));
 
-    private IEnumerator PlaceUnit(GameObject unit)
+    private IEnumerator PlaceUnit(GameObject unit, int unitPrice)
     {
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         while (Input.GetMouseButton(0))
@@ -22,6 +22,9 @@ public class UnitPlacementController : MonoBehaviour
 
             if (Physics.CheckSphere(hitPoint, distanceBetweenUnits, unitLayers, QueryTriggerInteraction.Ignore))
                 continue;
+
+            if (!ShopManager.Instance.CanBuyUnit(unitPrice))
+                yield break;
 
             Instantiate(unit, hitPoint, Quaternion.identity);
         }

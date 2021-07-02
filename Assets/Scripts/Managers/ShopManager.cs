@@ -3,14 +3,13 @@ using UnityEngine;
 public class ShopManager : Singleton<ShopManager>
 {
     [SerializeField] private int startingCoins;
-    [SerializeField] private int unitPrice;
 
     private int currentCoins;
 
     private void Start()
     {
-        currentCoins = startingCoins;
-        UIManager.Instance.UpdateCurrencyText(currentCoins);
+        currentCoins = 0;
+        UpdateCurrency(startingCoins);
     }
 
     private void OnEnable()
@@ -22,9 +21,15 @@ public class ShopManager : Singleton<ShopManager>
     {
         EventManager.OnEnemyKilled -= AddCurrency;
     }
+
     private void AddCurrency(int points, int coins)
     {
-        currentCoins += coins;
+        UpdateCurrency(coins);
+    }
+
+    private void UpdateCurrency(int amount)
+    {
+        currentCoins += amount;
         UIManager.Instance.UpdateCurrencyText(currentCoins);
     }
 
@@ -33,13 +38,24 @@ public class ShopManager : Singleton<ShopManager>
         if (currentCoins < price)
             return;
 
-        currentCoins -= price;
-        UIManager.Instance.UpdateCurrencyText(currentCoins);
+        UpdateCurrency(-price);
         UnitPlacementManager.Instance.PlaceTower(tower);
     }
 
-    public void BuyUnit(int price, GameObject unit)
+    public void BuyUnits(int price, GameObject unit)
     {
-        
+        if (currentCoins < price)
+            return;
+
+        UnitPlacementManager.Instance.PlaceUnit(unit, price);
+    }
+
+    public bool CanBuyUnit(int price)
+    {
+        if (currentCoins < price)
+            return false;
+
+        UpdateCurrency(-price);
+        return true;
     }
 }

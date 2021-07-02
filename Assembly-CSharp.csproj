@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Controllers\UnitPlacementController.cs" />
     <Compile Include="Assets\Scripts\Utilities\CameraRay.cs" />
     <Compile Include="Assets\Scripts\Managers\UnitPlacementManager.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BuyUnitController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
