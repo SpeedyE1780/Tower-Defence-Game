@@ -590,11 +590,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c793a759623e064ba22b389cfb909cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   maxHits: 10
   points: 5
   coins: 100
-  decaySpeed: 4
 --- !u!1 &2556778763883194927
 GameObject:
   m_ObjectHideFlags: 0
