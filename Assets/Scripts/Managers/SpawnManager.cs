@@ -52,7 +52,6 @@ public class SpawnManager : Singleton<SpawnManager>
             StartCoroutine(UIManager.Instance.ShowWaveNumber(currentWave));
             SpawnFormation();
             yield return new WaitUntil(() => activeEnemies == 0);
-
             if (currentWave % bossWaveFrequency == 0)
                 yield return StartCoroutine(SpawnBoss());
 
@@ -66,6 +65,7 @@ public class SpawnManager : Singleton<SpawnManager>
         GameObject b = Instantiate(bossEnemy, transform.position, Quaternion.identity);
         b.transform.forward = Vector3.back;
         b.GetComponent<EnemyController>().SetEnemyController();
+        activeEnemies++;
         yield return new WaitUntil(() => !b.activeSelf);
         Destroy(b);
     }
