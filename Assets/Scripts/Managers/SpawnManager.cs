@@ -81,6 +81,7 @@ public class SpawnManager : Singleton<SpawnManager>
                 GameObject enemy = enemyPool.Spawn();
                 activeEnemies += 1;
                 enemy.transform.SetPositionAndRotation(point.position, point.rotation);
+                enemy.SetActive(true);
                 enemy.GetComponent<EnemyController>().SetEnemyController();
             }
         }

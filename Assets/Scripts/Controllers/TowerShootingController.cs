@@ -8,7 +8,7 @@ public class TowerShootingController : MonoBehaviour
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float shootCooldown;
     [SerializeField] private ParticleSystem bulletCasing;
-    [SerializeField] private float turretRaduis;
+    [SerializeField] private float towerRaduis;
     [SerializeField] private LayerMask enemyLayers;
     [Range(0, 1)]
     [SerializeField] private float rotationSpeed;
@@ -39,13 +39,14 @@ public class TowerShootingController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        FindTarget();
+        if (currentTarget == null || !currentTarget.gameObject.activeInHierarchy)
+            FindTarget();
     }
 
     protected virtual void FindTarget()
     {
         currentTarget = null;
-        Collider[] enemies = Physics.OverlapSphere(transform.position, turretRaduis, enemyLayers, QueryTriggerInteraction.Ignore);
+        Collider[] enemies = Physics.OverlapSphere(transform.position, towerRaduis, enemyLayers, QueryTriggerInteraction.Ignore);
 
         if (enemies.Length == 0)
             return;
@@ -70,8 +71,14 @@ public class TowerShootingController : MonoBehaviour
 
     private void ActivateTurret()
     {
+        RotateTurret();
         Shoot();
-        bulletCasing.Play();
+    }
+
+    private void RotateTurret()
+    {
+        targetForward = currentTarget.position - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
     }
 
     private void Shoot()
@@ -80,9 +87,11 @@ public class TowerShootingController : MonoBehaviour
             return;
 
         GameObject projectile = projectilePool.Spawn();
+        projectile.SetActive(true);
         projectile.transform.position = shootPoint.position;
         projectile.transform.forward = shootPoint.forward;
         currentCooldown = shootCooldown;
+        bulletCasing.Play();
     }
 
     private void UpdateParticleDuration(ParticleSystem system)
@@ -95,10 +104,5 @@ public class TowerShootingController : MonoBehaviour
             ParticleSystem.MainModule childMain = childSystem.main;
             childMain.duration = shootCooldown;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, turretRaduis);
     }
 }

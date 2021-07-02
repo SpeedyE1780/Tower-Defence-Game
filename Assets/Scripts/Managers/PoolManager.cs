@@ -10,7 +10,6 @@ public class PoolManager : MonoBehaviour
         {
             GameObject spawned = transform.GetChild(0).gameObject;
             spawned.transform.SetParent(null);
-            spawned.SetActive(true);
             return spawned;
         }
         else
