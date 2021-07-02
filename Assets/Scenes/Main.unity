@@ -10432,7 +10432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultTowerPosition: {fileID: 2104358862}
-  checkRaduis: 5
+  checkRaduis: 2.5
   towerLayer:
     serializedVersion: 2
     m_Bits: 128
