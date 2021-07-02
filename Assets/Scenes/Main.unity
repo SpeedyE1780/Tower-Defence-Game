@@ -7880,7 +7880,9 @@ MonoBehaviour:
   meduimFormations: {fileID: 1868073150}
   hardFormations: {fileID: 1083894747}
   enemyPool: {fileID: 1965181047}
+  bossEnemy: {fileID: 2483648066514071804, guid: 58aa7cc252b2cc2459c93eaa0956d50c, type: 3}
   waveDelay: 5
+  bossWaveFrequency: 3
 --- !u!1001 &1453232150
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,7 +7,9 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private Transform meduimFormations;
     [SerializeField] private Transform hardFormations;
     [SerializeField] private PoolManager enemyPool;
+    [SerializeField] private GameObject bossEnemy;
     [SerializeField] private float waveDelay;
+    [SerializeField] private int bossWaveFrequency;
     private int activeEnemies;
     private int currentWave;
     private Transform currentFormations;
@@ -50,9 +52,22 @@ public class SpawnManager : Singleton<SpawnManager>
             StartCoroutine(UIManager.Instance.ShowWaveNumber(currentWave));
             SpawnFormation();
             yield return new WaitUntil(() => activeEnemies == 0);
+
+            if (currentWave % bossWaveFrequency == 0)
+                yield return StartCoroutine(SpawnBoss());
+
             StartCoroutine(UIManager.Instance.ShowWaveCompleted());
             yield return new WaitForSeconds(waveDelay);
         }
+    }
+
+    private IEnumerator SpawnBoss()
+    {
+        GameObject b = Instantiate(bossEnemy, transform.position, Quaternion.identity);
+        b.transform.forward = Vector3.back;
+        b.GetComponent<EnemyController>().SetEnemyController();
+        yield return new WaitUntil(() => !b.activeSelf);
+        Destroy(b);
     }
 
     private void SpawnFormation()

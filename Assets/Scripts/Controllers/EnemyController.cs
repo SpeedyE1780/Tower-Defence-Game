@@ -10,7 +10,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int maxHits;
     [SerializeField] private int points;
     [SerializeField] private int coins;
-    [SerializeField] private float decaySpeed;
     private Animator anim;
     private int hits;
 
