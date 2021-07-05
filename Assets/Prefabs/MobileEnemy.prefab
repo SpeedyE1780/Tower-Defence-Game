@@ -82,7 +82,7 @@ MonoBehaviour:
   speed: 3
   maxHits: 10
   points: 10
-  coins: 100
+  coins: 25
   enemyRaduis: 50
   troopsLayers:
     serializedVersion: 2
