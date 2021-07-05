@@ -34,7 +34,7 @@ public class TowerShootingController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.gameObject.activeInHierarchy)
             ActivateTurret();
         else
             bulletCasing.Stop();

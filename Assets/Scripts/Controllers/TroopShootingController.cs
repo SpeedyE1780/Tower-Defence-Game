@@ -34,7 +34,7 @@ public class TroopShootingController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.gameObject.activeInHierarchy)
             ShootTarget();
         else
             bulletCasing.Stop();
