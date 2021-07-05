@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   troopMesh: {fileID: 4698152120088058464, guid: 36078ab0369161e49a29d349ae3e0739, type: 3}
-  troopMaterial: {fileID: 2100000, guid: 33d4c0fdf4c4700439fc2820890846a0, type: 2}
+  highlightColor: {r: 0, g: 0.62352943, b: 1, a: 0.4745098}
 --- !u!1 &5115095170669339300
 GameObject:
   m_ObjectHideFlags: 0
