@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 4395813}
   - component: {fileID: 4395812}
   m_Layer: 6
-  m_Name: Highlight
+  m_Name: TroopsHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4910,7 +4910,7 @@ GameObject:
   - component: {fileID: 571729255}
   - component: {fileID: 571729254}
   m_Layer: 6
-  m_Name: Highlight
+  m_Name: LeftTowerHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8689,7 +8689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 136.4987, y: 0}
   m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &969522603
@@ -9078,7 +9078,7 @@ GameObject:
   - component: {fileID: 1031679352}
   - component: {fileID: 1031679351}
   m_Layer: 6
-  m_Name: Highlight
+  m_Name: RightTowerHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17238,6 +17238,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  highlightedArea:
+  - {fileID: 571729252}
+  - {fileID: 1031679349}
 --- !u!114 &1953519221
 MonoBehaviour:
   m_ObjectHideFlags: 0
