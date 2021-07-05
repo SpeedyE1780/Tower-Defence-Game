@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TropPlacementController : MonoBehaviour
@@ -7,8 +8,13 @@ public class TropPlacementController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask unitLayers;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private List<GameObject> highlightedArea;
 
-    public void StartUnitPlacement(GameObject unit, int unitPrice) => StartCoroutine(PlaceUnit(unit, unitPrice));
+    public void StartUnitPlacement(GameObject unit, int unitPrice)
+    {
+        SetHighlightedAreaState(true);
+        StartCoroutine(PlaceUnit(unit, unitPrice));
+    }
 
     private IEnumerator PlaceUnit(GameObject unit, int unitPrice)
     {
@@ -24,9 +30,17 @@ public class TropPlacementController : MonoBehaviour
                 continue;
 
             if (!ShopManager.Instance.CanBuyUnit(unitPrice))
-                yield break;
+                break;
 
             Instantiate(unit, hitPoint, Quaternion.identity);
         }
+
+        SetHighlightedAreaState(false);
+    }
+
+    private void SetHighlightedAreaState(bool state)
+    {
+        foreach (GameObject area in highlightedArea)
+            area.SetActive(state);
     }
 }

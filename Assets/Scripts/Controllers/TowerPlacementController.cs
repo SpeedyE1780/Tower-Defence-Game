@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerPlacementController : MonoBehaviour
@@ -7,8 +8,13 @@ public class TowerPlacementController : MonoBehaviour
     [SerializeField] private float checkRaduis;
     [SerializeField] private LayerMask towerLayer;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private List<GameObject> highlightedArea;
 
-    public void StartTowerPlacement(TowerShootingController tower) => StartCoroutine(PlaceTower(tower));
+    public void StartTowerPlacement(TowerShootingController tower)
+    {
+        SetHighlightedAreaState(true);
+        StartCoroutine(PlaceTower(tower));
+    }
 
     IEnumerator PlaceTower(TowerShootingController tower)
     {
@@ -33,8 +39,16 @@ public class TowerPlacementController : MonoBehaviour
                     continue;
 
                 tower.enabled = true;
-                yield break;
+                break;
             }
         }
+
+        SetHighlightedAreaState(false);
+    }
+
+    private void SetHighlightedAreaState(bool state)
+    {
+        foreach (GameObject area in highlightedArea)
+            area.SetActive(state);
     }
 }
