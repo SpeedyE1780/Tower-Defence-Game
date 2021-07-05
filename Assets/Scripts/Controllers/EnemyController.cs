@@ -43,11 +43,9 @@ public class EnemyController : MonoBehaviour
     {
         if (other.CompareTag("Respawn"))
             pool.Pool(gameObject);
-
-        TakeHit();
     }
 
-    private void TakeHit()
+    public void TakeHit()
     {
         hits++;
         if (hits == maxHits)

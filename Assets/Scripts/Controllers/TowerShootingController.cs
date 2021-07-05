@@ -14,9 +14,11 @@ public class TowerShootingController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayers;
     [Range(0, 1)]
     [SerializeField] private float rotationSpeed;
+    [Range(0, 1)]
+    [SerializeField] private float hitChance;
 
     private float currentCooldown;
-    private Transform currentTarget;
+    private EnemyController currentTarget;
     private Vector3 targetForward;
 
     private void Start()
@@ -61,7 +63,7 @@ public class TowerShootingController : MonoBehaviour
             return;
 
         float maxDistance = Mathf.Infinity;
-        currentTarget = enemies[0].transform;
+        Transform target = enemies[0].transform;
         Vector3 temp;
 
         for (int enemy = 1; enemy < enemies.Length; enemy++)
@@ -69,13 +71,14 @@ public class TowerShootingController : MonoBehaviour
             temp = transform.position - enemies[enemy].transform.position;
             if (temp.sqrMagnitude < maxDistance)
             {
-                currentTarget = enemies[enemy].transform;
+                target = enemies[enemy].transform;
                 maxDistance = temp.sqrMagnitude;
             }
         }
 
-        targetForward = currentTarget.position - transform.position;
+        targetForward = target.position - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
+        currentTarget = target.GetComponent<EnemyController>();
     }
 
     private void ActivateTurret()
@@ -86,7 +89,7 @@ public class TowerShootingController : MonoBehaviour
 
     private void RotateTurret()
     {
-        targetForward = currentTarget.position - transform.position;
+        targetForward = currentTarget.transform.position - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
     }
 
@@ -95,12 +98,20 @@ public class TowerShootingController : MonoBehaviour
         if (currentCooldown > 0)
             return;
 
+        SpawnProjectile();
+        currentCooldown = shootCooldown;
+        bulletCasing.Play();
+
+        if (Random.Range(0, 1f) < hitChance)
+            currentTarget.TakeHit();
+    }
+
+    private void SpawnProjectile()
+    {
         GameObject projectile = projectilePool.Spawn();
         projectile.SetActive(true);
         projectile.transform.position = shootPoint.position;
         projectile.transform.forward = shootPoint.forward;
-        currentCooldown = shootCooldown;
-        bulletCasing.Play();
     }
 
     private void UpdateParticleDuration(ParticleSystem system)
