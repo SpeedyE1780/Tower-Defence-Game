@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TroopMovementController : MonoBehaviour
 {
     private const string speedParameter = "Speed";
     private const string motionParameter = "MotionSpeed";
 
+    [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float speed;
     [SerializeField] private int maxHits;
     [SerializeField] private bool useAnim;
@@ -23,6 +25,7 @@ public class TroopMovementController : MonoBehaviour
         if (useAnim)
             SetAnimator();
 
+        agent.speed = speed;
         StartCoroutine(LookForTarget());
     }
 
@@ -30,8 +33,13 @@ public class TroopMovementController : MonoBehaviour
     {
         if (TargetFinder.IsTargetActive(currentTarget))
             ActivateTroop();
-        else if (useAnim)
-            anim.SetFloat(speedParameter, 0);
+        else
+        {
+            if (useAnim)
+                anim.SetFloat(speedParameter, 0);
+
+            agent.isStopped = true;
+        }
 
         currentCooldown -= Time.deltaTime;
     }
@@ -63,6 +71,7 @@ public class TroopMovementController : MonoBehaviour
         if (enemies.Length == 0)
             return;
 
+        agent.isStopped = false;
         currentTarget = TargetFinder.GetNearestTarget(enemies, transform.position).GetComponent<EnemyController>();
     }
 
@@ -73,10 +82,9 @@ public class TroopMovementController : MonoBehaviour
             anim.SetFloat(speedParameter, speed);
         }
 
-        transform.position += (currentTarget.transform.position - transform.position).normalized * (speed * Time.deltaTime);
-        transform.forward = currentTarget.transform.position - transform.position;
+        agent.SetDestination(currentTarget.transform.position);
 
-        if ((currentTarget.transform.position - transform.position).sqrMagnitude < 9 && currentCooldown < 0)
+        if ((currentTarget.transform.position - transform.position).sqrMagnitude < 25 && currentCooldown < 0)
             AttackTarget();
     }
 

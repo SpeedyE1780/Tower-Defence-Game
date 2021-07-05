@@ -1,11 +1,14 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
     private const string speedParameter = "Speed";
     private const string motionParameter = "MotionSpeed";
     private static PoolManager pool;
+    private static Transform destination;
 
+    [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float speed;
     [SerializeField] private int maxHits;
     [SerializeField] private int points;
@@ -20,14 +23,22 @@ public class EnemyController : MonoBehaviour
     {
         if (pool == null)
             pool = GameObject.Find("EnemyPool").GetComponent<PoolManager>();
+        if (destination == null)
+            destination = GameObject.FindGameObjectWithTag("Respawn").transform;
 
         if (useAnim)
             anim = GetComponent<Animator>();
+
+        agent.speed = speed;
+    }
+
+    private void OnEnable()
+    {
+        agent.SetDestination(destination.position);
     }
 
     public void SetEnemyController()
     {
-        EnemyManager.Instance.AddEnemy(transform);
         hits = 0;
         if (useAnim)
         {
@@ -38,9 +49,6 @@ public class EnemyController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (EnemyManager.Instance)
-            EnemyManager.Instance.RemoveEnemy(transform);
-
         EventManager.RaiseEnemyDisabled();
     }
 
