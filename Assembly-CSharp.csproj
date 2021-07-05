@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ShopManager.cs" />
     <Compile Include="Assets\Scripts\Controllers\ProjectileController.cs" />
+    <Compile Include="Assets\Scripts\Utilities\CameraRay.cs" />
     <Compile Include="Assets\Scripts\Utilities\Singleton.cs" />
     <Compile Include="Assets\Scripts\Managers\EventManager.cs" />
     <Compile Include="Assets\Bullet Casing\Scripts\Sound.cs" />
@@ -69,15 +70,14 @@
     <Compile Include="Assets\Scripts\Utilities\FollowTarget.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Controllers\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Managers\UnitPlacementManager.cs" />
     <Compile Include="Assets\Scripts\Managers\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\Controllers\UnitPlacementController.cs" />
     <Compile Include="Assets\Scripts\Managers\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Controllers\BuyTowerController.cs" />
     <Compile Include="Assets\Scripts\Controllers\TowerPlacementController.cs" />
     <Compile Include="Assets\Scripts\Managers\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\FPSDisplay.cs" />
-    <Compile Include="Assets\Scripts\Controllers\UnitPlacementController.cs" />
-    <Compile Include="Assets\Scripts\Utilities\CameraRay.cs" />
-    <Compile Include="Assets\Scripts\Managers\UnitPlacementManager.cs" />
     <Compile Include="Assets\Scripts\Controllers\BuyUnitController.cs" />
   </ItemGroup>
   <ItemGroup>
