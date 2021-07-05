@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045362104901613648}
+  - component: {fileID: -4173535970747092286}
   m_Layer: 0
   m_Name: 8-Man Diamond
   m_TagString: Untagged
@@ -38,6 +39,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4173535970747092286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045362104901613649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54574b1d0a6e4c74eb499b1fcbe827b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  troopMesh: {fileID: 4698152120088058464, guid: 36078ab0369161e49a29d349ae3e0739, type: 3}
+  highlightColor: {r: 0, g: 0.62352943, b: 1, a: 0.4745098}
 --- !u!1 &1045362105060304650
 GameObject:
   m_ObjectHideFlags: 0
