@@ -1,16 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerShootingController : MonoBehaviour
+public class TroopShootingController : MonoBehaviour
 {
     private static PoolManager projectilePool;
 
-    [SerializeField] private Transform turret;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float shootCooldown;
     [SerializeField] private float detectionCooldown;
     [SerializeField] private ParticleSystem bulletCasing;
-    [SerializeField] private float towerRaduis;
+    [SerializeField] private float troopRaduis;
     [SerializeField] private LayerMask enemyLayers;
     [Range(0, 1)]
     [SerializeField] private float rotationSpeed;
@@ -35,7 +35,7 @@ public class TowerShootingController : MonoBehaviour
     private void Update()
     {
         if (currentTarget != null)
-            ActivateTurret();
+            ShootTarget();
         else
             bulletCasing.Stop();
 
@@ -57,7 +57,7 @@ public class TowerShootingController : MonoBehaviour
     protected virtual void FindTarget()
     {
         currentTarget = null;
-        Collider[] enemies = Physics.OverlapSphere(transform.position, towerRaduis, enemyLayers, QueryTriggerInteraction.Ignore);
+        Collider[] enemies = Physics.OverlapSphere(transform.position, troopRaduis, enemyLayers, QueryTriggerInteraction.Ignore);
 
         if (enemies.Length == 0)
             return;
@@ -81,16 +81,16 @@ public class TowerShootingController : MonoBehaviour
         currentTarget = target.GetComponent<EnemyController>();
     }
 
-    private void ActivateTurret()
+    private void ShootTarget()
     {
-        RotateTurret();
+        Rotate();
         Shoot();
     }
 
-    private void RotateTurret()
+    private void Rotate()
     {
         targetForward = currentTarget.transform.position - transform.position;
-        turret.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
     }
 
     private void Shoot()
@@ -128,6 +128,6 @@ public class TowerShootingController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, towerRaduis);
+        Gizmos.DrawWireSphere(transform.position, troopRaduis);
     }
 }
