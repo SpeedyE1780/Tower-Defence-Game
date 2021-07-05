@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6331432194337663219}
   - component: {fileID: 6331432194337663216}
   m_Layer: 5
-  m_Name: BuyUnit
+  m_Name: BuyTroop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   priceText: {fileID: 6331432195914373725}
   unitSprite: {fileID: 21300000, guid: db962a0db01a42e45a6cf228b2cdb93a, type: 3}
   price: 50
-  unit: {fileID: 2483648066514071804, guid: e6896d969849eb14abc1c0056204393e, type: 3}
+  unit: {fileID: 2483648066514071804, guid: 5e68d990af0803640bc66a64558e0ebc, type: 3}
 --- !u!1 &6331432194549605201
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuyUnitController : MonoBehaviour
+public class BuyTroopController : MonoBehaviour
 {
     [SerializeField] private Image unitIcon;
     [SerializeField] private Text priceText;
