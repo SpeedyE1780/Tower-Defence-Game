@@ -594,6 +594,7 @@ MonoBehaviour:
   maxHits: 10
   points: 5
   coins: 100
+  useAnim: 1
 --- !u!1 &2556778763883194927
 GameObject:
   m_ObjectHideFlags: 0
