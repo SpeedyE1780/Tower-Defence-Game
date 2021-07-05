@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     private float currentCooldown;
     public bool useAnim;
     private HealthController currentTarget;
+    private Vector3 initialScale;
 
     public float Speed => speed;
 
@@ -37,6 +38,7 @@ public class EnemyController : MonoBehaviour
             anim = GetComponent<Animator>();
 
         agent.speed = speed;
+        initialScale = transform.localScale;
         StartCoroutine(LookForTarget());
     }
 
@@ -102,6 +104,7 @@ public class EnemyController : MonoBehaviour
     private void OnEnable()
     {
         agent.SetDestination(destination.position);
+        transform.localScale = initialScale;
     }
 
     public void SetEnemyController()
@@ -128,6 +131,7 @@ public class EnemyController : MonoBehaviour
     public void TakeHit()
     {
         hits++;
+        transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, (float)hits / maxHits);
         if (hits == maxHits)
         {
             pool.Pool(gameObject);
