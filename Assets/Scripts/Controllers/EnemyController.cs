@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int coins;
     private Animator anim;
     private int hits;
+    public bool useAnim;
 
     public float Speed => speed;
 
@@ -20,15 +21,19 @@ public class EnemyController : MonoBehaviour
         if (pool == null)
             pool = GameObject.Find("EnemyPool").GetComponent<PoolManager>();
 
-        anim = GetComponent<Animator>();
+        if (useAnim)
+            anim = GetComponent<Animator>();
     }
 
     public void SetEnemyController()
     {
         EnemyManager.Instance.AddEnemy(transform);
         hits = 0;
-        anim.SetFloat(speedParameter, 2);
-        anim.SetFloat(motionParameter, 1);
+        if (useAnim)
+        {
+            anim.SetFloat(speedParameter, 2);
+            anim.SetFloat(motionParameter, 1);
+        }
     }
 
     private void OnDisable()

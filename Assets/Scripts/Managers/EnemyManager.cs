@@ -25,7 +25,8 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private void Update()
     {
-        JobsMovement();
+        if (activeEnemies.Count > 0)
+            JobsMovement();
     }
 
     private void JobsMovement()

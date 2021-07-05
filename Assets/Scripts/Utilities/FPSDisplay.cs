@@ -4,6 +4,7 @@ public class FPSDisplay : MonoBehaviour
 {
     float deltaTime = 0.0f;
     [SerializeField] private int targetRate;
+
     private void Awake()
     {
         Application.targetFrameRate = targetRate;

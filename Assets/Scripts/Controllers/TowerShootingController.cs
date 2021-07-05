@@ -77,7 +77,7 @@ public class TowerShootingController : MonoBehaviour
         }
 
         targetForward = target.position - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
+        turret.rotation = Quaternion.Slerp(turret.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
         currentTarget = target.GetComponent<EnemyController>();
     }
 
@@ -90,7 +90,7 @@ public class TowerShootingController : MonoBehaviour
     private void RotateTurret()
     {
         targetForward = currentTarget.transform.position - transform.position;
-        turret.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
+        turret.rotation = Quaternion.Slerp(turret.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
     }
 
     private void Shoot()
