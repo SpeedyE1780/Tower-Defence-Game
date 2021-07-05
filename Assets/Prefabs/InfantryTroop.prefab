@@ -504,9 +504,9 @@ GameObject:
   - component: {fileID: 9213323299179049020}
   - component: {fileID: 4618477994666530619}
   - component: {fileID: 1131257113313240411}
-  - component: {fileID: -8763756309073309906}
+  - component: {fileID: -1507151396190622543}
   m_Layer: 8
-  m_Name: Troop
+  m_Name: InfantryTroop
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +579,7 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &-8763756309073309906
+--- !u!114 &-1507151396190622543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -588,19 +588,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2483648066514071804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d9f48aef4764b4429f4d98942ac2680, type: 3}
+  m_Script: {fileID: 11500000, guid: 25bb9598d9792ad4c94281ea5f56d062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootPoint: {fileID: 5675790934846551605}
-  shootCooldown: 1
-  detectionCooldown: 0.25
-  bulletCasing: {fileID: 1657632849762034008}
+  speed: 2
+  maxHits: 10
+  useAnim: 1
   troopRaduis: 10
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
-  rotationSpeed: 0.6
-  hitChance: 1
+  detectionCooldown: 1
+  attackCooldown: 0.25
 --- !u!1 &2556778763883194927
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,10 +2564,5 @@ PrefabInstance:
 --- !u!4 &1570734268438073394 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8132381712988303946, guid: 379f9343b552e1f4a8b6dbc045ef9e2c, type: 3}
-  m_PrefabInstance: {fileID: 7282417810121433720}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1657632849762034008 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8219421306686374688, guid: 379f9343b552e1f4a8b6dbc045ef9e2c, type: 3}
   m_PrefabInstance: {fileID: 7282417810121433720}
   m_PrefabAsset: {fileID: 0}
