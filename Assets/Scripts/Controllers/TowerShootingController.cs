@@ -114,4 +114,9 @@ public class TowerShootingController : MonoBehaviour
             childMain.duration = shootCooldown;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, towerRaduis);
+    }
 }
