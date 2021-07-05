@@ -68,7 +68,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   rotationSpeed: 0.1
-  hitChance: 0.7
+  hitChance: 0.4
 --- !u!1 &6559590307037961533
 GameObject:
   m_ObjectHideFlags: 0
