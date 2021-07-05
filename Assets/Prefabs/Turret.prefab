@@ -63,7 +63,7 @@ MonoBehaviour:
   shootCooldown: 0.15
   detectionCooldown: 0.25
   bulletCasing: {fileID: 6470161864054571114}
-  towerRaduis: 30
+  towerRaduis: 40
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
