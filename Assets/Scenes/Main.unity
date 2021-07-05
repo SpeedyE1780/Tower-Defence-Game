@@ -4982,7 +4982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 136.97424, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &969522603
@@ -12363,6 +12363,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1269944851}
     m_Modifications:
+    - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 2483648066514071804, guid: 6ee764d30fc16c54d88a2ccb73412389, type: 3}
     - target: {fileID: 6331432194337663217, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_Name
       value: BuyTroop

@@ -30,7 +30,7 @@ public class TroopMovementController : MonoBehaviour
     {
         if (TargetFinder.IsTargetActive(currentTarget))
             ActivateTroop();
-        else
+        else if (useAnim)
             anim.SetFloat(speedParameter, 0);
 
         currentCooldown -= Time.deltaTime;
@@ -68,7 +68,11 @@ public class TroopMovementController : MonoBehaviour
 
     private void ActivateTroop()
     {
-        anim.SetFloat(speedParameter, speed);
+        if (useAnim)
+        {
+            anim.SetFloat(speedParameter, speed);
+        }
+
         transform.position += (currentTarget.transform.position - transform.position).normalized * (speed * Time.deltaTime);
         transform.forward = currentTarget.transform.position - transform.position;
 
