@@ -80,9 +80,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: -7693562772515885505}
   speed: 3
-  maxHits: 2
-  points: 1
-  coins: 10
+  maxHits: 10
+  points: 10
+  coins: 100
+  enemyRaduis: 50
+  troopsLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  detectionCooldown: 0.5
+  attackCooldown: 0.2
   useAnim: 0
 --- !u!195 &-7693562772515885505
 NavMeshAgent:

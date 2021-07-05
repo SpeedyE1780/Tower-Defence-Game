@@ -9,14 +9,12 @@ public class TroopMovementController : MonoBehaviour
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float speed;
-    [SerializeField] private int maxHits;
     [SerializeField] private bool useAnim;
     [SerializeField] private float troopRaduis;
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private float detectionCooldown;
     [SerializeField] private float attackCooldown;
     private float currentCooldown;
-    private int hits;
     private Animator anim;
     private EnemyController currentTarget;
 
@@ -38,7 +36,7 @@ public class TroopMovementController : MonoBehaviour
             if (useAnim)
                 anim.SetFloat(speedParameter, 0);
 
-            agent.isStopped = true;
+            agent.SetDestination(transform.position);
         }
 
         currentCooldown -= Time.deltaTime;
@@ -71,7 +69,6 @@ public class TroopMovementController : MonoBehaviour
         if (enemies.Length == 0)
             return;
 
-        agent.isStopped = false;
         currentTarget = TargetFinder.GetNearestTarget(enemies, transform.position).GetComponent<EnemyController>();
     }
 
@@ -92,9 +89,5 @@ public class TroopMovementController : MonoBehaviour
     {
         currentTarget.TakeHit();
         currentCooldown = attackCooldown;
-        hits++;
-
-        if (hits == maxHits)
-            Destroy(gameObject);
     }
 }

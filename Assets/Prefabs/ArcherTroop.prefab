@@ -505,6 +505,7 @@ GameObject:
   - component: {fileID: 4618477994666530619}
   - component: {fileID: 1131257113313240411}
   - component: {fileID: -8763756309073309906}
+  - component: {fileID: -2760263632264079363}
   m_Layer: 8
   m_Name: ArcherTroop
   m_TagString: Player
@@ -601,6 +602,19 @@ MonoBehaviour:
     m_Bits: 8
   rotationSpeed: 0.6
   hitChance: 1
+--- !u!114 &-2760263632264079363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
 --- !u!1 &2556778763883194927
 GameObject:
   m_ObjectHideFlags: 0

@@ -179,6 +179,12 @@ MonoBehaviour:
   maxHits: 100
   points: 5
   coins: 100
+  enemyRaduis: 50
+  troopsLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  detectionCooldown: 0.25
+  attackCooldown: 0.1
   useAnim: 0
 --- !u!195 &5257766207834060127
 NavMeshAgent:

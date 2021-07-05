@@ -4,8 +4,10 @@ using UnityEngine;
 
 public static class TargetFinder
 {
-    public static bool IsTargetActive(EnemyController target) => target != null && target.gameObject.activeInHierarchy;
-
+    public static bool IsTargetActive<T>(T target) where T : MonoBehaviour
+    {
+        return target != null && target.gameObject.activeInHierarchy;
+    }
     public static Transform GetNearestTarget(Collider[] targetsInRange, Vector3 center)
     {
         float maxDistance = Mathf.Infinity;

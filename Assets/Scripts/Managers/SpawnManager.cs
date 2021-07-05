@@ -66,7 +66,7 @@ public class SpawnManager : Singleton<SpawnManager>
         b.transform.forward = Vector3.back;
         b.GetComponent<EnemyController>().SetEnemyController();
         activeEnemies++;
-        yield return new WaitUntil(() => !b.activeSelf);
+        yield return new WaitUntil(() => b == null || !b.activeSelf);
         Destroy(b);
     }
 
