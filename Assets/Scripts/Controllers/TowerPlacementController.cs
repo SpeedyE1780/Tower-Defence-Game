@@ -44,6 +44,7 @@ public class TowerPlacementController : MonoBehaviour
         }
 
         SetHighlightedAreaState(false);
+        UnitPlacementManager.Instance.SetCanPlaceUnits(true);
     }
 
     private void SetHighlightedAreaState(bool state)

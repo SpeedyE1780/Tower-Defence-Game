@@ -29,13 +29,14 @@ public class TropPlacementController : MonoBehaviour
             if (Physics.CheckSphere(hitPoint, distanceBetweenUnits, unitLayers, QueryTriggerInteraction.Ignore))
                 continue;
 
-            if (!ShopManager.Instance.CanBuyUnit(unitPrice))
+            if (!ShopManager.Instance.BoughtUnit(unitPrice))
                 break;
 
             Instantiate(unit, hitPoint, Quaternion.identity);
         }
 
         SetHighlightedAreaState(false);
+        UnitPlacementManager.Instance.SetCanPlaceUnits(true);
     }
 
     private void SetHighlightedAreaState(bool state)

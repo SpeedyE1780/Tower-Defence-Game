@@ -35,7 +35,7 @@ public class ShopManager : Singleton<ShopManager>
 
     public void BuyTower(int price, TowerShootingController tower)
     {
-        if (currentCoins < price)
+        if (currentCoins < price || !UnitPlacementManager.Instance.CanPlaceUnits)
             return;
 
         UpdateCurrency(-price);
@@ -44,13 +44,13 @@ public class ShopManager : Singleton<ShopManager>
 
     public void BuyUnits(int price, GameObject unit)
     {
-        if (currentCoins < price)
+        if (currentCoins < price || !UnitPlacementManager.Instance.CanPlaceUnits)
             return;
 
         UnitPlacementManager.Instance.PlaceTroop(unit, price);
     }
 
-    public bool CanBuyUnit(int price)
+    public bool BoughtUnit(int price)
     {
         if (currentCoins < price)
             return false;
