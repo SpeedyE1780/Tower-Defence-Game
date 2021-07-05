@@ -67,7 +67,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
-  rotationSpeed: 0.05
+  rotationSpeed: 0.1
 --- !u!1 &6559590307037961533
 GameObject:
   m_ObjectHideFlags: 0
