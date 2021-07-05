@@ -103,8 +103,8 @@ public class EnemyController : MonoBehaviour
 
     private void OnEnable()
     {
-        agent.SetDestination(destination.position);
         transform.localScale = initialScale;
+        agent.SetDestination(destination.position);
     }
 
     public void SetEnemyController()
@@ -136,6 +136,7 @@ public class EnemyController : MonoBehaviour
         {
             pool.Pool(gameObject);
             EventManager.RaiseEnemyKilled(points, coins);
+            transform.localScale = initialScale;
         }
     }
 }
