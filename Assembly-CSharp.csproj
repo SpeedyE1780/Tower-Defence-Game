@@ -72,7 +72,7 @@
     <Compile Include="Assets\Scripts\Controllers\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Managers\UnitPlacementManager.cs" />
     <Compile Include="Assets\Scripts\Managers\EnemyManager.cs" />
-    <Compile Include="Assets\Scripts\Controllers\UnitPlacementController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\TropPlacementController.cs" />
     <Compile Include="Assets\Scripts\Managers\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Controllers\BuyTowerController.cs" />
     <Compile Include="Assets\Scripts\Controllers\TowerPlacementController.cs" />

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class UnitPlacementController : MonoBehaviour
+public class TropPlacementController : MonoBehaviour
 {
     [SerializeField] private float distanceBetweenUnits;
     [SerializeField] private LayerMask groundLayer;

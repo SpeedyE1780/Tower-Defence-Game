@@ -47,7 +47,7 @@ public class ShopManager : Singleton<ShopManager>
         if (currentCoins < price)
             return;
 
-        UnitPlacementManager.Instance.PlaceUnit(unit, price);
+        UnitPlacementManager.Instance.PlaceTroop(unit, price);
     }
 
     public bool CanBuyUnit(int price)
