@@ -46,7 +46,7 @@ public class TroopShootingController : MonoBehaviour
     {
         while (true)
         {
-            if (currentTarget == null || !currentTarget.gameObject.activeInHierarchy)
+            if (!TargetFinder.IsTargetActive(currentTarget))
                 FindTarget();
 
             yield return new WaitForSeconds(detectionCooldown);
@@ -62,23 +62,7 @@ public class TroopShootingController : MonoBehaviour
         if (enemies.Length == 0)
             return;
 
-        float maxDistance = Mathf.Infinity;
-        Transform target = enemies[0].transform;
-        Vector3 temp;
-
-        for (int enemy = 1; enemy < enemies.Length; enemy++)
-        {
-            temp = transform.position - enemies[enemy].transform.position;
-            if (temp.sqrMagnitude < maxDistance)
-            {
-                target = enemies[enemy].transform;
-                maxDistance = temp.sqrMagnitude;
-            }
-        }
-
-        targetForward = target.position - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
-        currentTarget = target.GetComponent<EnemyController>();
+        currentTarget = TargetFinder.GetNearestTarget(enemies, transform.position).GetComponent<EnemyController>();
     }
 
     private void ShootTarget()
