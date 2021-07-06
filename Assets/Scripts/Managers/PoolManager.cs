@@ -19,6 +19,7 @@ public class PoolManager : Singleton<PoolManager>
         {
             GameObject poolItem = pooledObjects[id].Dequeue();
             poolItem.transform.SetParent(null);
+            poolItem.SetActive(true);
 
             if (pooledObjects[id].Count <= 0)
                 pooledObjects.Remove(id);
@@ -66,5 +67,7 @@ public enum PoolID
     Enemy,
     Projectile,
     EnemyBoss,
-    Tower
+    Tower,
+    Infantry,
+    Archer
 }

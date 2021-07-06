@@ -892,6 +892,10 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 2483648066514071804, guid: 23417bbf29ec3f548958105c55b871ba, type: 3}
+    - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
+      propertyPath: troopID
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6331432194337663217, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_Name
       value: BuyTroop (1)
@@ -2311,13 +2315,15 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 00000000020000000100000003000000
-    _keys: 00000000020000000100000003000000
+    _keyValues: 000000000200000001000000030000000400000005000000
+    _keys: 000000000200000001000000030000000400000005000000
     _values:
     - {fileID: 11400000, guid: 56f502b4d0d7e0e4b93d2f68747b48f8, type: 2}
     - {fileID: 11400000, guid: 75abcbab3342b9e4c94865afafa68153, type: 2}
     - {fileID: 11400000, guid: e0d68689c6f15f74a94032aba2dc30dc, type: 2}
     - {fileID: 11400000, guid: 1fe943c8380e0d140975177297d98500, type: 2}
+    - {fileID: 11400000, guid: 0350ca9ec620c8045aa1f792f6d7ce05, type: 2}
+    - {fileID: 11400000, guid: cdc3a23437f07a442a5208544074c7d2, type: 2}
 --- !u!1 &1953519217
 GameObject:
   m_ObjectHideFlags: 0
@@ -5159,6 +5165,10 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 2483648066514071804, guid: 6ee764d30fc16c54d88a2ccb73412389, type: 3}
+    - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
+      propertyPath: troopID
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6331432194337663217, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_Name
       value: BuyTroop

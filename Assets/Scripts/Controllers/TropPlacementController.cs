@@ -10,13 +10,13 @@ public class TropPlacementController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private List<GameObject> highlightedArea;
 
-    public void StartUnitPlacement(GameObject unit, int unitPrice)
+    public void StartUnitPlacement(PoolID troopID, int unitPrice)
     {
         SetHighlightedAreaState(true);
-        StartCoroutine(PlaceUnit(unit, unitPrice));
+        StartCoroutine(PlaceUnit(troopID, unitPrice));
     }
 
-    private IEnumerator PlaceUnit(GameObject unit, int unitPrice)
+    private IEnumerator PlaceUnit(PoolID troopID, int unitPrice)
     {
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         while (Input.GetMouseButton(0))
@@ -32,7 +32,8 @@ public class TropPlacementController : MonoBehaviour
             if (!ShopManager.Instance.BoughtUnit(unitPrice))
                 break;
 
-            Instantiate(unit, hitPoint, Quaternion.identity);
+            GameObject troop = PoolManager.Instance.GetPooledObject(troopID);
+            troop.transform.SetPositionAndRotation(hitPoint, Quaternion.identity);
         }
 
         SetHighlightedAreaState(false);

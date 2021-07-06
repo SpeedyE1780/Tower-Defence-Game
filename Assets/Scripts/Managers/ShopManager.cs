@@ -42,12 +42,12 @@ public class ShopManager : Singleton<ShopManager>
         UnitPlacementManager.Instance.PlaceTower(tower);
     }
 
-    public void BuyUnits(int price, GameObject unit)
+    public void BuyUnits(int price, PoolID troopID)
     {
         if (currentCoins < price || !UnitPlacementManager.Instance.CanPlaceUnits)
             return;
 
-        UnitPlacementManager.Instance.PlaceTroop(unit, price);
+        UnitPlacementManager.Instance.PlaceTroop(troopID, price);
     }
 
     public bool BoughtUnit(int price)

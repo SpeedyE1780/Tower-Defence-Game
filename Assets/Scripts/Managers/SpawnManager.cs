@@ -63,7 +63,6 @@ public class SpawnManager : Singleton<SpawnManager>
     private IEnumerator SpawnBoss()
     {
         GameObject b = PoolManager.Instance.GetPooledObject(bossID);
-        b.SetActive(true);
         b.transform.forward = Vector3.back;
         b.GetComponent<EnemyController>().SetEnemyController();
         activeEnemies++;
@@ -81,7 +80,6 @@ public class SpawnManager : Singleton<SpawnManager>
                 GameObject enemy = PoolManager.Instance.GetPooledObject(enemyID);
                 activeEnemies += 1;
                 enemy.transform.SetPositionAndRotation(point.position, point.rotation);
-                enemy.SetActive(true);
                 enemy.GetComponent<EnemyController>().SetEnemyController();
             }
         }

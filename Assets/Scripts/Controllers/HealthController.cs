@@ -17,18 +17,18 @@ public class HealthController : MonoBehaviour
         health = maxHealth;
     }
 
-    private void OnEnable()
-    {
-        transform.localScale = initialScale;
-    }
-
     public void TakeHit()
     {
+        if (!gameObject.activeSelf)
+            return;
+
         health = Mathf.Clamp(health - 1, 0, maxHealth);
         transform.localScale = Vector3.Lerp(Vector3.zero, initialScale, (float)health / maxHealth);
 
         if (health <= 0)
-            Destroy(gameObject);
-            //PoolManager.Instance.AddToPool(poolID, gameObject);
+        {
+            transform.localScale = initialScale;
+            PoolManager.Instance.AddToPool(poolID, gameObject);
+        }
     }
 }

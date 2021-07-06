@@ -17,9 +17,9 @@ public class UnitPlacementManager : Singleton<UnitPlacementManager>
         CanPlaceUnits = false;
     }
 
-    public void PlaceTroop(GameObject troop, int unitPrice)
+    public void PlaceTroop(PoolID troopID, int unitPrice)
     {
-        unitPlacement.StartUnitPlacement(troop, unitPrice);
+        unitPlacement.StartUnitPlacement(troopID, unitPrice);
         CanPlaceUnits = false;
     }
 

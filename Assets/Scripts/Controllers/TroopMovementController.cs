@@ -18,13 +18,19 @@ public class TroopMovementController : MonoBehaviour
     private Animator anim;
     private EnemyController currentTarget;
 
-    void Start()
+    void Awake()
     {
         if (useAnim)
-            SetAnimator();
+            anim = GetComponent<Animator>();
 
         agent.speed = speed;
+    }
+
+    private void OnEnable()
+    {
         StartCoroutine(LookForTarget());
+        if (useAnim)
+            SetAnimator();
     }
 
     private void Update()
@@ -44,7 +50,6 @@ public class TroopMovementController : MonoBehaviour
 
     private void SetAnimator()
     {
-        anim = GetComponent<Animator>();
         anim.SetFloat(speedParameter, 2);
         anim.SetFloat(motionParameter, 1);
     }

@@ -88,7 +88,6 @@ public class TroopShootingController : MonoBehaviour
     private void SpawnProjectile()
     {
         GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID);
-        projectile.SetActive(true);
         projectile.transform.position = shootPoint.position;
         projectile.transform.forward = shootPoint.forward;
     }

@@ -595,7 +595,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: -7493919820558565216}
   speed: 6
-  maxHits: 10
   useAnim: 1
   troopRaduis: 50
   enemyLayers:
@@ -637,6 +636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolID: 4
   maxHealth: 5
 --- !u!1 &2556778763883194927
 GameObject:

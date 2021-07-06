@@ -7,7 +7,7 @@ public class BuyTroopController : MonoBehaviour
     [SerializeField] private Text priceText;
     [SerializeField] private Sprite unitSprite;
     [SerializeField] private int price;
-    [SerializeField] private GameObject unit;
+    [SerializeField] private PoolID troopID;
 
     private void Awake()
     {
@@ -17,6 +17,6 @@ public class BuyTroopController : MonoBehaviour
 
     public void BuyUnit()
     {
-        ShopManager.Instance.BuyUnits(price, unit);
+        ShopManager.Instance.BuyUnits(price, troopID);
     }
 }
