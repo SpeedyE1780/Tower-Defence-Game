@@ -1,22 +1,7 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-public class BuyTowerController : MonoBehaviour
+public class BuyTowerController : BuyUnitController
 {
-    [SerializeField] private Image towerIcon;
-    [SerializeField] private Text priceText;
-    [SerializeField] private Sprite towerSprite;
-    [SerializeField] private int price;
-    [SerializeField] private PoolID towerID;
-
-    private void Awake()
+    public override void BuyUnit()
     {
-        towerIcon.sprite = towerSprite;
-        priceText.text = price.ToString();
-    }
-
-    public void BuyTower()
-    {
-        ShopManager.Instance.BuyTower(price, towerID);
+        ShopManager.Instance.BuyTower(unitPrice, unitID);
     }
 }
