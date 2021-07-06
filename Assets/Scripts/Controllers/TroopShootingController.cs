@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TroopShootingController : MonoBehaviour
 {
-    private static PoolManager projectilePool;
-
+    [SerializeField] private PoolID projectileID;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float shootCooldown;
     [SerializeField] private float detectionCooldown;
@@ -23,9 +22,6 @@ public class TroopShootingController : MonoBehaviour
 
     private void Start()
     {
-        if (projectilePool == null)
-            projectilePool = GameObject.Find("ProjectilePool").GetComponent<PoolManager>();
-
         targetForward = new Vector3();
         UpdateParticleDuration(bulletCasing);
         StartCoroutine(LookForTarget());
@@ -92,7 +88,7 @@ public class TroopShootingController : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        GameObject projectile = projectilePool.Spawn();
+        GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID);
         projectile.SetActive(true);
         projectile.transform.position = shootPoint.position;
         projectile.transform.forward = shootPoint.forward;

@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class SpawnManager : Singleton<SpawnManager>
 {
+    [SerializeField] private PoolID enemyID;
+    [SerializeField] private PoolID bossID;
     [SerializeField] private Transform easyFormations;
     [SerializeField] private Transform meduimFormations;
     [SerializeField] private Transform hardFormations;
-    [SerializeField] private PoolManager enemyPool;
-    [SerializeField] private GameObject bossEnemy;
     [SerializeField] private float waveDelay;
     [SerializeField] private int bossWaveFrequency;
     private int activeEnemies;
@@ -62,12 +62,12 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator SpawnBoss()
     {
-        GameObject b = Instantiate(bossEnemy, transform.position, Quaternion.identity);
+        GameObject b = PoolManager.Instance.GetPooledObject(bossID);
+        b.SetActive(true);
         b.transform.forward = Vector3.back;
         b.GetComponent<EnemyController>().SetEnemyController();
         activeEnemies++;
-        yield return new WaitUntil(() => b == null || !b.activeSelf);
-        Destroy(b);
+        yield return new WaitUntil(() => !b.activeSelf);
     }
 
     private void SpawnFormation()
@@ -78,7 +78,7 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             foreach (Transform point in subFormation)
             {
-                GameObject enemy = enemyPool.Spawn();
+                GameObject enemy = PoolManager.Instance.GetPooledObject(enemyID);
                 activeEnemies += 1;
                 enemy.transform.SetPositionAndRotation(point.position, point.rotation);
                 enemy.SetActive(true);

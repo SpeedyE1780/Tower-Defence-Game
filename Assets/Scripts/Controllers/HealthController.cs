@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
+    [SerializeField] private PoolID poolID;
     [SerializeField] private int maxHealth;
     private int health;
     Vector3 initialScale;
@@ -28,5 +29,6 @@ public class HealthController : MonoBehaviour
 
         if (health <= 0)
             Destroy(gameObject);
+            //PoolManager.Instance.AddToPool(poolID, gameObject);
     }
 }

@@ -6,9 +6,9 @@ public class EnemyController : MonoBehaviour
 {
     private const string speedParameter = "Speed";
     private const string motionParameter = "MotionSpeed";
-    private static PoolManager pool;
     private static Transform destination;
 
+    [SerializeField] private PoolID id;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float speed;
     [SerializeField] private int maxHits;
@@ -29,8 +29,6 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        if (pool == null)
-            pool = GameObject.Find("EnemyPool").GetComponent<PoolManager>();
         if (destination == null)
             destination = GameObject.FindGameObjectWithTag("Respawn").transform;
 
@@ -125,7 +123,7 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Respawn"))
-            pool.Pool(gameObject);
+            PoolManager.Instance.AddToPool(id, gameObject);
     }
 
     public void TakeHit()
@@ -134,7 +132,7 @@ public class EnemyController : MonoBehaviour
         transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, (float)hits / maxHits);
         if (hits == maxHits)
         {
-            pool.Pool(gameObject);
+            PoolManager.Instance.AddToPool(id, gameObject);
             EventManager.RaiseEnemyKilled(points, coins);
             transform.localScale = initialScale;
         }

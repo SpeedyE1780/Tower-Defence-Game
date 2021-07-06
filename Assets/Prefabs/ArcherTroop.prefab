@@ -592,6 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9f48aef4764b4429f4d98942ac2680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileID: 1
   shootPoint: {fileID: 5675790934846551605}
   shootCooldown: 1
   detectionCooldown: 0.25

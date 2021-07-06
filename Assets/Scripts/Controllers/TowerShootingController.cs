@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class TowerShootingController : MonoBehaviour
 {
-    private static PoolManager projectilePool;
-
+    [SerializeField] private PoolID projectileID;
     [SerializeField] private Transform turret;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float shootCooldown;
@@ -23,9 +22,6 @@ public class TowerShootingController : MonoBehaviour
 
     private void Start()
     {
-        if (projectilePool == null)
-            projectilePool = GameObject.Find("ProjectilePool").GetComponent<PoolManager>();
-
         targetForward = new Vector3();
         UpdateParticleDuration(bulletCasing);
         StartCoroutine(LookForTarget());
@@ -92,7 +88,7 @@ public class TowerShootingController : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        GameObject projectile = projectilePool.Spawn();
+        GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID);
         projectile.SetActive(true);
         projectile.transform.position = shootPoint.position;
         projectile.transform.forward = shootPoint.forward;
