@@ -21,6 +21,8 @@ public class TroopPlacementManager : UnitPlacementManager
 
         do
         {
+            yield return null;
+
             if (!CameraRay.GetCameraHitPoint(out Vector3 hitPoint, groundLayer))
                 continue;
 
@@ -31,8 +33,6 @@ public class TroopPlacementManager : UnitPlacementManager
             troop.transform.SetPositionAndRotation(hitPoint, Quaternion.identity);
             ShopManager.Instance.BuyUnit(unitPrice);
             canPlaceUnit = ShopManager.Instance.CanBuyUnit(unitPrice);
-
-            yield return null;
 
         } while (Input.GetMouseButton(0) && canPlaceUnit);
 
