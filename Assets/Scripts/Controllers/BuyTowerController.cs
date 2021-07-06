@@ -7,7 +7,7 @@ public class BuyTowerController : MonoBehaviour
     [SerializeField] private Text priceText;
     [SerializeField] private Sprite towerSprite;
     [SerializeField] private int price;
-    [SerializeField] private TowerShootingController tower;
+    [SerializeField] private PoolID towerID;
 
     private void Awake()
     {
@@ -17,6 +17,6 @@ public class BuyTowerController : MonoBehaviour
 
     public void BuyTower()
     {
-        ShopManager.Instance.BuyTower(price, tower);
+        ShopManager.Instance.BuyTower(price, towerID);
     }
 }

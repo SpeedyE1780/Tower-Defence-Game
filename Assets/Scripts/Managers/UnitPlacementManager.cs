@@ -11,7 +11,7 @@ public class UnitPlacementManager : Singleton<UnitPlacementManager>
         CanPlaceUnits = true;
     }
 
-    public void PlaceTower(TowerShootingController tower)
+    public void PlaceTower(PoolID tower)
     {
         towerPlacement.StartTowerPlacement(tower);
         CanPlaceUnits = false;

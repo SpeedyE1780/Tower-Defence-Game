@@ -906,7 +906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6331432194337663218, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6331432194337663218, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1075,7 +1075,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1269944851}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1174,7 +1174,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1269944851}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1461,7 +1461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 136.97424, y: 0}
+  m_AnchoredPosition: {x: 136.88034, y: 0}
   m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &969522603
@@ -1756,9 +1756,9 @@ RectTransform:
   - {fileID: 927032331}
   - {fileID: 793483606}
   - {fileID: 6966298242411619307}
+  - {fileID: 805618040}
   - {fileID: 907276073}
   - {fileID: 860983763}
-  - {fileID: 805618040}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2311,12 +2311,13 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 000000000200000001000000
-    _keys: 000000000200000001000000
+    _keyValues: 00000000020000000100000003000000
+    _keys: 00000000020000000100000003000000
     _values:
     - {fileID: 11400000, guid: 56f502b4d0d7e0e4b93d2f68747b48f8, type: 2}
     - {fileID: 11400000, guid: 75abcbab3342b9e4c94865afafa68153, type: 2}
     - {fileID: 11400000, guid: e0d68689c6f15f74a94032aba2dc30dc, type: 2}
+    - {fileID: 11400000, guid: 1fe943c8380e0d140975177297d98500, type: 2}
 --- !u!1 &1953519217
 GameObject:
   m_ObjectHideFlags: 0

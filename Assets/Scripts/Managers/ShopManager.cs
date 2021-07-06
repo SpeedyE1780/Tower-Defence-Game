@@ -33,7 +33,7 @@ public class ShopManager : Singleton<ShopManager>
         UIManager.Instance.UpdateCurrencyText(currentCoins);
     }
 
-    public void BuyTower(int price, TowerShootingController tower)
+    public void BuyTower(int price, PoolID tower)
     {
         if (currentCoins < price || !UnitPlacementManager.Instance.CanPlaceUnits)
             return;

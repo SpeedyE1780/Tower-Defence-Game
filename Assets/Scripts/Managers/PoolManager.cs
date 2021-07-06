@@ -32,6 +32,11 @@ public class PoolManager : Singleton<PoolManager>
         }
     }
 
+    public T GetPooledObject<T>(PoolID id) where T : Component
+    {
+        return GetPooledObject(id).GetComponent<T>();
+    }
+
     public void AddToPool(PoolID id, GameObject poolObject)
     {
         if (pooledObjects.ContainsKey(id) && !pooledObjects[id].Contains(poolObject))
@@ -60,5 +65,6 @@ public enum PoolID
 {
     Enemy,
     Projectile,
-    EnemyBoss
+    EnemyBoss,
+    Tower
 }

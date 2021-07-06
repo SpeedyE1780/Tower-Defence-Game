@@ -227,7 +227,7 @@ MonoBehaviour:
   priceText: {fileID: 4588187628830659217}
   towerSprite: {fileID: 21300000, guid: b2076d3ea944c6c4183589499aaccb9c, type: 3}
   price: 500
-  tower: {fileID: 6559590306770425524, guid: 087a27763c5fdc54cbd2438ea9c2285e, type: 3}
+  towerID: 3
 --- !u!1 &4588187628830659231
 GameObject:
   m_ObjectHideFlags: 0

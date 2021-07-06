@@ -10,15 +10,15 @@ public class TowerPlacementController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private List<GameObject> highlightedArea;
 
-    public void StartTowerPlacement(TowerShootingController tower)
+    public void StartTowerPlacement(PoolID tower)
     {
         SetHighlightedAreaState(true);
         StartCoroutine(PlaceTower(tower));
     }
 
-    IEnumerator PlaceTower(TowerShootingController tower)
+    IEnumerator PlaceTower(PoolID towerID)
     {
-        tower = Instantiate(tower);
+        TowerShootingController tower = PoolManager.Instance.GetPooledObject<TowerShootingController>(towerID);
         tower.enabled = false;
         Transform towerTransform = tower.transform;
         towerTransform.position = defaultTowerPosition.position;
