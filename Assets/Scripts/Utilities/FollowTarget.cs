@@ -6,8 +6,5 @@ public class FollowTarget : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private float lerpAlpha;
 
-    private void LateUpdate()
-    {
-        transform.position = Vector3.Lerp(transform.position, target.position + offset, lerpAlpha);
-    }
+    private void LateUpdate() => transform.position = Vector3.Lerp(transform.position, target.position + offset, lerpAlpha);
 }

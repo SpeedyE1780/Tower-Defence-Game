@@ -8,21 +8,9 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] private float speed;
     Rigidbody rb;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    private void OnEnable()
-    {
-        StartCoroutine(PoolObject());
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        rb.velocity = transform.forward * speed;
-    }
+    void Start() => rb = GetComponent<Rigidbody>();
+    private void OnEnable() => StartCoroutine(PoolObject());
+    void FixedUpdate() => rb.velocity = transform.forward * speed;
 
     IEnumerator PoolObject()
     {
