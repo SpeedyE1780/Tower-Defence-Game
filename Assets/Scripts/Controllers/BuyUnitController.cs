@@ -8,12 +8,20 @@ public abstract class BuyUnitController : MonoBehaviour
     [SerializeField] protected Sprite unitSprite;
     [SerializeField] protected int unitPrice;
     [SerializeField] protected PoolID unitID;
-    
+
     protected virtual void Awake()
     {
         unitIcon.sprite = unitSprite;
         priceText.text = unitPrice.ToString();
     }
 
-    public abstract void BuyUnit();
+    public void BuyUnit()
+    {
+        if (!ShopManager.Instance.CanBuyUnit(unitPrice))
+            return;
+
+        SpawnUnit();
+    }
+
+    protected abstract void SpawnUnit();
 }

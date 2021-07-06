@@ -6,56 +6,16 @@ public class ShopManager : Singleton<ShopManager>
 
     private int currentCoins;
 
-    private void Start()
-    {
-        currentCoins = 0;
-        UpdateCurrency(startingCoins);
-    }
-
-    private void OnEnable()
-    {
-        EventManager.OnEnemyKilled += AddCurrency;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.OnEnemyKilled -= AddCurrency;
-    }
-
-    private void AddCurrency(int points, int coins)
-    {
-        UpdateCurrency(coins);
-    }
+    private void OnEnable() => EventManager.OnEnemyKilled += AddCurrency;
+    private void OnDisable() => EventManager.OnEnemyKilled -= AddCurrency;
+    private void Start() => UpdateCurrency(startingCoins);
+    private void AddCurrency(int points, int coins) => UpdateCurrency(coins);
+    public bool CanBuyUnit(int price) => currentCoins >= price;
+    public void BuyUnit(int price) => UpdateCurrency(-price);
 
     private void UpdateCurrency(int amount)
     {
         currentCoins += amount;
         UIManager.Instance.UpdateCurrencyText(currentCoins);
-    }
-
-    public void BuyTower(int price, PoolID tower)
-    {
-        if (currentCoins < price || !UnitPlacementManager.Instance.CanPlaceUnits)
-            return;
-
-        UpdateCurrency(-price);
-        UnitPlacementManager.Instance.PlaceTower(tower);
-    }
-
-    public void BuyUnits(int price, PoolID troopID)
-    {
-        if (currentCoins < price || !UnitPlacementManager.Instance.CanPlaceUnits)
-            return;
-
-        UnitPlacementManager.Instance.PlaceTroop(troopID, price);
-    }
-
-    public bool BoughtUnit(int price)
-    {
-        if (currentCoins < price)
-            return false;
-
-        UpdateCurrency(-price);
-        return true;
     }
 }

@@ -1,30 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitPlacementManager : Singleton<UnitPlacementManager>
+public abstract class UnitPlacementManager : Singleton<UnitPlacementManager>
 {
-    [SerializeField] private TowerPlacementController towerPlacement;
-    [SerializeField] private TropPlacementController unitPlacement;
-    public bool CanPlaceUnits { get; private set; }
+    [SerializeField] protected float distanceBetweenUnits;
+    [SerializeField] protected LayerMask groundLayer;
+    [SerializeField] protected LayerMask unitLayers;
+    [SerializeField] protected List<GameObject> highlightedArea;
 
-    private void Start()
-    {
-        CanPlaceUnits = true;
-    }
+    public static bool CanPlaceUnits { get; private set; }
 
-    public void PlaceTower(PoolID tower)
+    private void Start() => CanPlaceUnits = true;
+
+    public void StartUnitPlacement(PoolID troopID, int unitPrice)
     {
-        towerPlacement.StartTowerPlacement(tower);
+        SetHighlightedAreaState(true);
+        StartCoroutine(PlaceUnit(troopID, unitPrice));
         CanPlaceUnits = false;
     }
 
-    public void PlaceTroop(PoolID troopID, int unitPrice)
+    protected void StopUnitPlacement()
     {
-        unitPlacement.StartUnitPlacement(troopID, unitPrice);
+        SetHighlightedAreaState(false);
         CanPlaceUnits = false;
     }
 
-    public void SetCanPlaceUnits(bool state)
+    protected abstract IEnumerator PlaceUnit(PoolID troopID, int unitPrice);
+
+    private void SetHighlightedAreaState(bool state)
     {
-        CanPlaceUnits = state;
+        foreach (GameObject area in highlightedArea)
+            area.SetActive(state);
     }
 }

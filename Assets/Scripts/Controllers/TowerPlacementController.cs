@@ -1,22 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerPlacementController : MonoBehaviour
+public class TowerPlacementController : UnitPlacementManager
 {
     [SerializeField] private Transform defaultTowerPosition;
-    [SerializeField] private float checkRaduis;
-    [SerializeField] private LayerMask towerLayer;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private List<GameObject> highlightedArea;
 
-    public void StartTowerPlacement(PoolID tower)
-    {
-        SetHighlightedAreaState(true);
-        StartCoroutine(PlaceTower(tower));
-    }
-
-    IEnumerator PlaceTower(PoolID towerID)
+    protected override IEnumerator PlaceUnit(PoolID towerID, int unitPrice)
     {
         TowerShootingController tower = PoolManager.Instance.GetPooledObject<TowerShootingController>(towerID);
         tower.enabled = false;
@@ -35,7 +24,7 @@ public class TowerPlacementController : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0))
             {
-                if (Physics.OverlapSphere(towerTransform.position, checkRaduis, towerLayer).Length > 1)
+                if (Physics.OverlapSphere(towerTransform.position, distanceBetweenUnits, unitLayers).Length > 1)
                     continue;
 
                 tower.enabled = true;
@@ -43,13 +32,7 @@ public class TowerPlacementController : MonoBehaviour
             }
         }
 
-        SetHighlightedAreaState(false);
-        UnitPlacementManager.Instance.SetCanPlaceUnits(true);
-    }
-
-    private void SetHighlightedAreaState(bool state)
-    {
-        foreach (GameObject area in highlightedArea)
-            area.SetActive(state);
+        ShopManager.Instance.BuyUnit(unitPrice);
+        StopUnitPlacement();
     }
 }

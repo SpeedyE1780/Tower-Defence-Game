@@ -1,7 +1,7 @@
 public class BuyTowerController : BuyUnitController
 {
-    public override void BuyUnit()
+    protected override void SpawnUnit()
     {
-        ShopManager.Instance.BuyTower(unitPrice, unitID);
+
     }
 }
