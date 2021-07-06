@@ -3,9 +3,14 @@ using UnityEngine;
 
 public class TroopPlacementManager : UnitPlacementManager
 {
-    private void Update()
+    public static TroopPlacementManager Instance { get; private set; }
+
+    private void Awake()
     {
-        Debug.Log(CanPlaceUnits == UnitPlacementManager.CanPlaceUnits == TowerPlacementManager.CanPlaceUnits);
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     protected override IEnumerator PlaceUnit(PoolID troopID, int unitPrice)

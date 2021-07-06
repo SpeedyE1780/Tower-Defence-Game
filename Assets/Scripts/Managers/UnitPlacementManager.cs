@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitPlacementManager : Singleton<UnitPlacementManager>
+public abstract class UnitPlacementManager : MonoBehaviour
 {
     [SerializeField] protected float distanceBetweenUnits;
     [SerializeField] protected LayerMask groundLayer;
@@ -23,7 +23,7 @@ public abstract class UnitPlacementManager : Singleton<UnitPlacementManager>
     protected void StopUnitPlacement()
     {
         SetHighlightedAreaState(false);
-        CanPlaceUnits = false;
+        CanPlaceUnits = true;
     }
 
     protected abstract IEnumerator PlaceUnit(PoolID troopID, int unitPrice);

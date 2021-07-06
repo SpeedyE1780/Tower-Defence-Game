@@ -3,7 +3,17 @@ using UnityEngine;
 
 public class TowerPlacementManager : UnitPlacementManager
 {
+    public static TowerPlacementManager Instance { get; private set; }
+
     [SerializeField] private Transform defaultTowerPosition;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     protected override IEnumerator PlaceUnit(PoolID towerID, int unitPrice)
     {
