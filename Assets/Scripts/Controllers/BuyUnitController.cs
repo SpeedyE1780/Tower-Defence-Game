@@ -3,12 +3,12 @@ using UnityEngine.UI;
 
 public abstract class BuyUnitController : MonoBehaviour
 {
-    [SerializeField] private Image unitIcon;
-    [SerializeField] private Text priceText;
-    [SerializeField] private Sprite unitSprite;
-    [SerializeField] private int unitPrice;
-    [SerializeField] private PoolID unitID;
-
+    [SerializeField] protected Image unitIcon;
+    [SerializeField] protected Text priceText;
+    [SerializeField] protected Sprite unitSprite;
+    [SerializeField] protected int unitPrice;
+    [SerializeField] protected PoolID unitID;
+    
     protected virtual void Awake()
     {
         unitIcon.sprite = unitSprite;
