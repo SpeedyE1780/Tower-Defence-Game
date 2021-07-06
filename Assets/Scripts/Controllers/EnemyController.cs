@@ -39,7 +39,6 @@ public class EnemyController : MonoBehaviour
 
         agent.speed = speed;
         initialScale = transform.localScale;
-        StartCoroutine(LookForTarget());
     }
 
     private void Update()
@@ -105,6 +104,7 @@ public class EnemyController : MonoBehaviour
     {
         transform.localScale = initialScale;
         agent.SetDestination(destination.position);
+        StartCoroutine(LookForTarget());
     }
 
     public void SetEnemyController()
