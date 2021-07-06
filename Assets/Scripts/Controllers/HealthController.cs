@@ -23,8 +23,9 @@ public class HealthController : MonoBehaviour
 
     public void TakeHit()
     {
-        health -= 1;
-        transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, (float)health / maxHealth);
+        health = Mathf.Clamp(health - 1, 0, maxHealth);
+        transform.localScale = Vector3.Lerp(Vector3.zero, initialScale, (float)health / maxHealth);
+
         if (health <= 0)
             Destroy(gameObject);
     }
