@@ -17,7 +17,7 @@ public abstract class BuyUnitController : MonoBehaviour
 
     public void BuyUnit()
     {
-        if (!ShopManager.Instance.CanBuyUnit(unitPrice))
+        if (!ShopManager.Instance.CanBuyUnit(unitPrice) || !UnitPlacementManager.CanPlaceUnits)
             return;
 
         SpawnUnit();

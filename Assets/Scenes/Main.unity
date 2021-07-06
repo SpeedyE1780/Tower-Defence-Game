@@ -2313,7 +2313,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1953519218}
-  - component: {fileID: 1953519221}
   - component: {fileID: 1953519219}
   - component: {fileID: 1953519220}
   m_Layer: 0
@@ -2356,7 +2355,6 @@ MonoBehaviour:
   unitLayers:
     serializedVersion: 2
     m_Bits: 384
-  mainCamera: {fileID: 86388257}
   highlightedArea:
   - {fileID: 4395809}
 --- !u!114 &1953519220
@@ -2371,31 +2369,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5cae54bd5dfc444a30568562317ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTowerPosition: {fileID: 2104358862}
-  checkRaduis: 2.5
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  distanceBetweenUnits: 2.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  unitLayers:
+    serializedVersion: 2
+    m_Bits: 128
   highlightedArea:
   - {fileID: 571729252}
   - {fileID: 1031679349}
---- !u!114 &1953519221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953519217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a7efcaab13aff46a9bad24d406eceb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerPlacement: {fileID: 1953519220}
-  unitPlacement: {fileID: 1953519219}
+  defaultTowerPosition: {fileID: 2104358862}
 --- !u!1 &1964569478
 GameObject:
   m_ObjectHideFlags: 0

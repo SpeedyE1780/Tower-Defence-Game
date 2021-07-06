@@ -1,8 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class TropPlacementController : UnitPlacementManager
+public class TroopPlacementManager : UnitPlacementManager
 {
+    private void Update()
+    {
+        Debug.Log(CanPlaceUnits == UnitPlacementManager.CanPlaceUnits == TowerPlacementManager.CanPlaceUnits);
+    }
+
     protected override IEnumerator PlaceUnit(PoolID troopID, int unitPrice)
     {
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
