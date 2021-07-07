@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class DeleteUnitManager : PlacementManager
 {
+    public static DeleteUnitManager Instance { get; private set; }
+
     [SerializeField] private LayerMask unitsLayer;
     [SerializeField] private List<GameObject> highlightedAreas;
 
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     public void StartDeleteUnit()
     {
