@@ -1693,7 +1693,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 130
+  field of view: 100
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1719,7 +1719,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86388255}
   m_LocalRotation: {x: 0.36243805, y: 0, z: 0, w: 0.9320079}
-  m_LocalPosition: {x: 0, y: 12.75, z: -47.5}
+  m_LocalPosition: {x: 0, y: 18.8, z: -58.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12653,8 +12653,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806957887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -22.5}
-  m_LocalScale: {x: 110, y: 1, z: 60}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 110, y: 1, z: 105}
   m_Children:
   - {fileID: 4395810}
   - {fileID: 983053110}
@@ -15339,7 +15339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 137.68832, y: 0}
+  m_AnchoredPosition: {x: 136.69492, y: 0}
   m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &969522603
@@ -25940,8 +25940,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608039920}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 110, y: 105.00004, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalScale: {x: 110, y: 115, z: 1}
   m_Children: []
   m_Father: {fileID: 1439243372}
   m_RootOrder: 0
@@ -32759,7 +32759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2090885638}
   m_Layer: 0
-  m_Name: TroopsPosition
+  m_Name: UnitsPositions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
