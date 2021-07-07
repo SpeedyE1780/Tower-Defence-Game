@@ -5,14 +5,14 @@ using UnityEngine;
 public abstract class UnitController : MonoBehaviour
 {
     [Header("Detection Stats")]
-    [SerializeField] private float detectionRaduis;
-    [SerializeField] private float detectionCooldown;
-    [SerializeField] private LayerMask detectionLayer;
+    [SerializeField] protected float detectionRaduis;
+    [SerializeField] protected float detectionCooldown;
+    [SerializeField] protected LayerMask detectionLayer;
 
     protected HealthController currentTarget;
     protected virtual bool HasIdleUpdate => true;
 
-    protected virtual void Start() => StartCoroutine(LookForTarget());
+    protected virtual void OnEnable() => StartCoroutine(LookForTarget());
 
     protected virtual void Update()
     {

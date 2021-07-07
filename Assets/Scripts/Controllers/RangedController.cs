@@ -8,10 +8,10 @@ public class RangedController : UnitController
     [Header("Shooting Stats")]
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float shootCooldown;
+    [Range(0, 1)]
     [SerializeField] private float hitChance;
     [Range(0, 1)]
     [SerializeField] private float rotationSpeed;
-    [Range(0, 1)]
 
     private float currentCooldown;
     private Vector3 targetForward;
@@ -19,9 +19,8 @@ public class RangedController : UnitController
     protected virtual Transform RotationTransform => transform;
     protected override bool HasIdleUpdate => false;
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
         targetForward = new Vector3();
     }
 
@@ -63,5 +62,18 @@ public class RangedController : UnitController
         GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID);
         projectile.transform.position = shootPoint.position;
         projectile.transform.forward = shootPoint.forward;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Color color = Color.white;
+
+        if (Application.isPlaying)
+        {
+            color = currentTarget == null ? Color.red : Color.green;
+        }
+
+        Gizmos.color = color;
+        Gizmos.DrawWireSphere(transform.position, detectionRaduis);
     }
 }
