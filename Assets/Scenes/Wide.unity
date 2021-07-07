@@ -27777,7 +27777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinText: {fileID: 969522603}
-  scoreText: {fileID: 1976725142}
+  killsText: {fileID: 1976725142}
   waveStarted: {fileID: 907276074}
   waveCompleted: {fileID: 860983762}
   waveTextAnimation: {fileID: 7400000, guid: 280ac9749a006ac449493b45064ba625, type: 2}
@@ -30976,7 +30976,7 @@ GameObject:
   - component: {fileID: 1976725143}
   - component: {fileID: 1976725142}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Kills
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31034,7 +31034,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score:'
+  m_Text: 'Kills:'
 --- !u!222 &1976725143
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ public class EnemyController : InfantryController
 
     [Header("Enemy Stats")]
     [SerializeField] private PoolID id;
-    [SerializeField] private int points;
     [SerializeField] private int coins;
     [SerializeField] private HealthController health;
 
@@ -25,7 +24,7 @@ public class EnemyController : InfantryController
         EventManager.RaiseEnemyDisabled();
 
         if (health.Health <= 0)
-            EventManager.RaiseEnemyKilled(points, coins);
+            EventManager.RaiseEnemyKilled(coins);
     }
 
     private void OnTriggerEnter(Collider other)

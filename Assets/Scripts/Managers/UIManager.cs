@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private Text coinText;
-    [SerializeField] private Text scoreText;
+    [SerializeField] private Text killsText;
     [SerializeField] private Text waveStarted;
     [SerializeField] private GameObject waveCompleted;
     [SerializeField] private AnimationClip waveTextAnimation;
 
-    public void UpdateScoreText(int score) => scoreText.text = $"Score: {score}";
+    public void UpdateKillText(int score) => killsText.text = $"Kills: {score}";
     public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
 
     public IEnumerator ShowWaveCompleted()
