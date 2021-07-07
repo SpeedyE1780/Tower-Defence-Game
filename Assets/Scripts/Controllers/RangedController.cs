@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UnitShootingController : UnitController
+public class RangedController : UnitController
 {
     [Header("Visual Elements")]
     [SerializeField] private PoolID projectileID;

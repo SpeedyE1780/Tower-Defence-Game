@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TowerShootingController : UnitShootingController
+public class TowerController : RangedController
 {
     [SerializeField] private Transform turret;
     protected override Transform RotationTransform => turret;
