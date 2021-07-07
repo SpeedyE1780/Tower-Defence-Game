@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(HealthController))]
+[DisallowMultipleComponent]
 public abstract class UnitController : MonoBehaviour
 {
     [Header("Detection Stats")]
