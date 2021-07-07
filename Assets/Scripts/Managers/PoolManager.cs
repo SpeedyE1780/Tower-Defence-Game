@@ -11,6 +11,21 @@ public class PoolManager : Singleton<PoolManager>
         base.Awake();
         pooledObjects = new Dictionary<PoolID, Queue<GameObject>>();
         poolParents = new Dictionary<PoolID, Transform>();
+        PopulatePool();
+    }
+
+    private void PopulatePool()
+    {
+        foreach (Transform child in transform)
+        {
+            System.Enum.TryParse(child.name, out PoolID id);
+            poolParents.Add(id, child);
+            pooledObjects.Add(id, new Queue<GameObject>());
+            foreach (Transform pooled in child)
+                pooledObjects[id].Enqueue(pooled.gameObject);
+
+            Debug.Log($"{id} initialized with {pooledObjects[id].Count} objects");
+        }
     }
 
     public GameObject GetPooledObject(PoolID id)
@@ -59,6 +74,24 @@ public class PoolManager : Singleton<PoolManager>
         GameObject poolParent = new GameObject($"{id}");
         poolParent.transform.SetParent(transform);
         poolParents.Add(id, poolParent.transform);
+    }
+
+    [ContextMenu("Populate Pool")]
+    public void ScenePopulatePool()
+    {
+        FactoryManager factory = FindObjectOfType<FactoryManager>();
+
+        foreach (PoolID id in factory.Catalog.Keys)
+        {
+            foreach (GameObject gameObject in factory.Catalog[id].CategoryItems)
+            {
+                GameObject g = Instantiate(gameObject, Vector3.zero, Quaternion.identity);
+                GameObject poolParent = new GameObject($"{id}");
+                poolParent.transform.SetParent(transform);
+                g.SetActive(false);
+                g.transform.SetParent(transform.GetChild(transform.childCount - 1));
+            }
+        }
     }
 }
 
