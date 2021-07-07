@@ -34,6 +34,9 @@ public class TroopPlacementManager : UnitPlacementManager
             ShopManager.Instance.BuyUnit(unitPrice);
             canPlaceUnit = ShopManager.Instance.CanBuyUnit(unitPrice);
 
+            if (troopID == PoolID.Infantry)
+                troop.GetComponent<InfantryController>().initialPosition = hitPoint;
+
         } while (Input.GetMouseButton(0) && canPlaceUnit);
 
         StopUnitPlacement();

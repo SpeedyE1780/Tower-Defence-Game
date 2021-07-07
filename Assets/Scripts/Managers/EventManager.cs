@@ -7,4 +7,8 @@ public static class EventManager
     public delegate void EnemyDisabled();
     public static event EnemyDisabled OnEnemyDisabled;
     public static void RaiseEnemyDisabled() => OnEnemyDisabled?.Invoke();
+
+    public delegate void WaveEnded();
+    public static event WaveEnded OnWaveEnded;
+    public static void RaiseWaveEnded() => OnWaveEnded?.Invoke();
 }

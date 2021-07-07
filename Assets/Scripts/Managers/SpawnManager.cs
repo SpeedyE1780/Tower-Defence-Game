@@ -50,6 +50,7 @@ public class SpawnManager : Singleton<SpawnManager>
                 yield return StartCoroutine(SpawnBoss());
 
             StartCoroutine(UIManager.Instance.ShowWaveCompleted());
+            EventManager.RaiseWaveEnded();
             yield return new WaitForSeconds(waveDelay);
         }
     }
