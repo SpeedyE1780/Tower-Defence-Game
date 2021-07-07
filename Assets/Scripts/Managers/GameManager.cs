@@ -21,6 +21,7 @@ public class GameManager : Singleton<GameManager>
     {
         score += points;
         UIManager.Instance.UpdateScoreText(score);
+        ShopManager.Instance.UpdateCurrency(coins);
         UpdateGameDifficulty();
     }
 
