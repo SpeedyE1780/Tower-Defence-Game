@@ -7,15 +7,7 @@ public class HealthController : MonoBehaviour
     private int health;
     Vector3 initialScale;
 
-    private void Awake()
-    {
-        initialScale = transform.localScale;
-    }
-
-    void Start()
-    {
-        health = maxHealth;
-    }
+    private void Awake() => initialScale = transform.localScale;
 
     public void TakeHit()
     {
@@ -28,6 +20,7 @@ public class HealthController : MonoBehaviour
         if (health <= 0)
         {
             transform.localScale = initialScale;
+            health = maxHealth;
             PoolManager.Instance.AddToPool(poolID, gameObject);
         }
     }
