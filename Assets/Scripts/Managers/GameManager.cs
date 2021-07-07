@@ -15,21 +15,17 @@ public class GameManager : Singleton<GameManager>
         SpawnManager.Instance.SetFormationsDifficulty(difficulty);
     }
 
-    private void OnEnable()
-    {
-        EventManager.OnEnemyKilled += AddPoints;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.OnEnemyKilled -= AddPoints;
-    }
-
+    private void OnEnable() => EventManager.OnEnemyKilled += AddPoints;
+    private void OnDisable() => EventManager.OnEnemyKilled -= AddPoints;
     private void AddPoints(int points, int coins)
     {
         score += points;
         UIManager.Instance.UpdateScoreText(score);
+        UpdateGameDifficulty();
+    }
 
+    private void UpdateGameDifficulty()
+    {
         if (score >= hardThreshold && difficulty == GameDifficulty.Meduim)
         {
             difficulty = GameDifficulty.Hard;
@@ -39,7 +35,6 @@ public class GameManager : Singleton<GameManager>
         {
             difficulty = GameDifficulty.Meduim;
             SpawnManager.Instance.SetFormationsDifficulty(difficulty);
-
         }
     }
 }

@@ -21,6 +21,7 @@ public class TowerPlacementManager : UnitPlacementManager
         tower.enabled = false;
         Transform towerTransform = tower.transform;
         towerTransform.position = defaultTowerPosition.position;
+
         yield return new WaitUntil(() => Input.GetMouseButton(0));
 
         while (true)

@@ -14,7 +14,6 @@ public class SpawnManager : Singleton<SpawnManager>
     private int currentWave;
     private Transform currentFormations;
 
-    private Transform GetRandomFormation => currentFormations.GetChild(Random.Range(0, currentFormations.childCount));
 
     void Start()
     {
@@ -23,15 +22,10 @@ public class SpawnManager : Singleton<SpawnManager>
         StartCoroutine(Spawn());
     }
 
-    private void OnEnable()
-    {
-        EventManager.OnEnemyDisabled += EnemyKilled;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.OnEnemyDisabled -= EnemyKilled;
-    }
+    private void OnEnable() => EventManager.OnEnemyDisabled += EnemyKilled;
+    private void OnDisable() => EventManager.OnEnemyDisabled -= EnemyKilled;
+    private Transform GetRandomFormation() => currentFormations.GetChild(Random.Range(0, currentFormations.childCount));
+    private void EnemyKilled() => activeEnemies -= 1;
 
     public void SetFormationsDifficulty(GameDifficulty difficulty)
     {
@@ -71,22 +65,17 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void SpawnFormation()
     {
-        Transform formation = GetRandomFormation;
+        Transform formation = GetRandomFormation();
 
         foreach (Transform subFormation in formation)
         {
             foreach (Transform point in subFormation)
             {
-                GameObject enemy = PoolManager.Instance.GetPooledObject(enemyID);
+                EnemyController enemy = PoolManager.Instance.GetPooledObject<EnemyController>(enemyID);
                 activeEnemies += 1;
                 enemy.transform.SetPositionAndRotation(point.position, point.rotation);
                 enemy.GetComponent<EnemyController>().SetEnemyController();
             }
         }
-    }
-
-    private void EnemyKilled()
-    {
-        activeEnemies -= 1;
     }
 }
