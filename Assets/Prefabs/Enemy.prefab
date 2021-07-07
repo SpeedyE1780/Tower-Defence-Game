@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 1131257113313240411}
   - component: {fileID: -1180528016800537105}
   - component: {fileID: -3027272186058262500}
+  - component: {fileID: -4466851583145800845}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Player
@@ -591,6 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c793a759623e064ba22b389cfb909cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   agent: {fileID: -3027272186058262500}
   speed: 3
   maxHits: 10
@@ -625,6 +627,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-4466851583145800845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolID: 0
+  maxHealth: 1
 --- !u!1 &2556778763883194927
 GameObject:
   m_ObjectHideFlags: 0

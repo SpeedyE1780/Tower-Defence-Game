@@ -58,18 +58,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe51f6c03581c36468f9129980775826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileID: 1
-  turret: {fileID: 4157467693730916024}
-  shootPoint: {fileID: 6559590307037961522}
-  shootCooldown: 0.15
+  detectionRaduis: 50
   detectionCooldown: 0.25
-  bulletCasing: {fileID: 6470161864054571114}
-  towerRaduis: 40
-  enemyLayers:
+  detectionLayer:
     serializedVersion: 2
     m_Bits: 8
-  rotationSpeed: 0.1
+  projectileID: 1
+  bulletCasing: {fileID: 6470161864054571114}
+  shootPoint: {fileID: 6559590307037961522}
+  shootCooldown: 0.15
   hitChance: 0.4
+  rotationSpeed: 0.1
+  turret: {fileID: 4157467693730916024}
 --- !u!1 &6559590307037961533
 GameObject:
   m_ObjectHideFlags: 0

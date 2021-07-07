@@ -2228,10 +2228,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
-    - target: {fileID: 6559590306770425526, guid: 087a27763c5fdc54cbd2438ea9c2285e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6559590306770425527, guid: 087a27763c5fdc54cbd2438ea9c2285e, type: 3}
       propertyPath: m_RootOrder
       value: 16

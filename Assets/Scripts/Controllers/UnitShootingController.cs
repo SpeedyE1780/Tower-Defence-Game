@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitShootingController : UnitController
@@ -17,7 +15,7 @@ public class UnitShootingController : UnitController
 
     private float currentCooldown;
     private Vector3 targetForward;
-    
+
     protected virtual Transform RotationTransform => transform;
     protected override bool HasIdleUpdate => false;
 
