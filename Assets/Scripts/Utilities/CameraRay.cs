@@ -6,7 +6,15 @@ public static class CameraRay
 
     [RuntimeInitializeOnLoadMethod]
     private static void SetMainCamera() => MainCamera = Camera.main;
-    public static Ray GetCameraRay() => MainCamera.ScreenPointToRay(Input.mousePosition);
+    private static Ray GetCameraRay() => MainCamera.ScreenPointToRay(Input.mousePosition);
+
+    public static bool GetCameraHitUnit(out Transform unit, LayerMask layerMask)
+    {
+        Ray ray = GetCameraRay();
+        bool successfulHit = Physics.Raycast(ray, out RaycastHit hit, MainCamera.farClipPlane, layerMask);
+        unit = hit.transform;
+        return successfulHit;
+    }
 
     public static bool GetCameraHitPoint(out Vector3 hitPoint, LayerMask layerMask)
     {

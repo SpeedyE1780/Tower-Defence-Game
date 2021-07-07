@@ -2,16 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitPlacementManager : MonoBehaviour
+public abstract class UnitPlacementManager : PlacementManager
 {
     [SerializeField] protected float distanceBetweenUnits;
     [SerializeField] protected LayerMask groundLayer;
     [SerializeField] protected LayerMask unitLayers;
     [SerializeField] protected List<GameObject> highlightedArea;
-
-    public static bool CanPlaceUnits { get; private set; }
-
-    private void Start() => CanPlaceUnits = true;
 
     public void StartUnitPlacement(PoolID troopID, int unitPrice)
     {
