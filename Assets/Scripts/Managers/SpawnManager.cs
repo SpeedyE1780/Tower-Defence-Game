@@ -59,7 +59,7 @@ public class SpawnManager : Singleton<SpawnManager>
         GameObject b = PoolManager.Instance.GetPooledObject(bossID);
         b.transform.forward = Vector3.back;
         b.transform.position = GetRandomFormation().GetChild(0).GetChild(0).position;
-        b.GetComponent<EnemyController>().SetEnemyController();
+        //b.GetComponent<EnemyController>().SetEnemyController();
         activeEnemies++;
         yield return new WaitUntil(() => !b.activeSelf);
     }
@@ -75,7 +75,7 @@ public class SpawnManager : Singleton<SpawnManager>
                 EnemyController enemy = PoolManager.Instance.GetPooledObject<EnemyController>(enemyID);
                 activeEnemies += 1;
                 enemy.transform.SetPositionAndRotation(point.position, point.rotation);
-                enemy.GetComponent<EnemyController>().SetEnemyController();
+                //enemy.GetComponent<EnemyController>().SetEnemyController();
             }
         }
     }

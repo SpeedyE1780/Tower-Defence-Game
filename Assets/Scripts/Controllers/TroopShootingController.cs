@@ -80,8 +80,8 @@ public class TroopShootingController : MonoBehaviour
         currentCooldown = shootCooldown;
         bulletCasing.Play();
 
-        if (Random.Range(0, 1f) < hitChance)
-            currentTarget.TakeHit();
+        //if (Random.Range(0, 1f) < hitChance)
+        //    currentTarget.TakeHit();
     }
 
     private void SpawnProjectile()

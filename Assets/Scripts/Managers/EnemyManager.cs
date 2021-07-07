@@ -39,7 +39,7 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         activeEnemies.Add(enemy);
         activeEnemiesArray = activeEnemies.ToArray();
-        enemySpeed.Add(enemy, enemy.GetComponent<EnemyController>().Speed);
+        //enemySpeed.Add(enemy, enemy.GetComponent<EnemyController>().Speed);
         SetEnemies();
         SetNativeArrays();
         SetJobs();

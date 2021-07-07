@@ -5,7 +5,7 @@ public class InfantryController : UnitController
 {
     [SerializeField] private float attackRange;
     [Header("Movement Stats")]
-    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] protected NavMeshAgent agent;
     [SerializeField] private float speed;
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;

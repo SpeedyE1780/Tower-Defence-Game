@@ -92,7 +92,7 @@ public class TroopMovementController : MonoBehaviour
 
     private void AttackTarget()
     {
-        currentTarget.TakeHit();
+        //currentTarget.TakeHit();
         currentCooldown = attackCooldown;
     }
 }
