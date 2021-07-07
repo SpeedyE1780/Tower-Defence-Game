@@ -27,7 +27,6 @@ public class InfantryController : UnitController
 
     protected virtual void OnDisable()
     {
-        Debug.Log("Disabling");
         EventManager.OnWaveEnded -= ResetPosition;
     }
 

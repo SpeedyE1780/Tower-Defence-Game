@@ -10,6 +10,8 @@ public class EnemyController : InfantryController
     [SerializeField] private int coins;
     [SerializeField] private HealthController health;
 
+    protected override bool HasIdleUpdate => true;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void SetDestination() => destination = GameObject.FindGameObjectWithTag(DestinationTag).transform.position;
 
