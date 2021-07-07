@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(HealthController))]
 public abstract class UnitController : MonoBehaviour
 {
     [Header("Detection Stats")]
@@ -8,7 +9,8 @@ public abstract class UnitController : MonoBehaviour
     [SerializeField] private float detectionCooldown;
     [SerializeField] private LayerMask detectionLayer;
 
-    private UnitController currentTarget;
+    protected HealthController currentTarget;
+    protected virtual bool HasIdleUpdate => true;
 
     protected virtual void Start() => StartCoroutine(LookForTarget());
 
@@ -16,7 +18,7 @@ public abstract class UnitController : MonoBehaviour
     {
         if (TargetFinder.IsTargetActive(currentTarget))
             AttackTarget();
-        else
+        else if (HasIdleUpdate)
             Idle();
     }
 
@@ -40,7 +42,7 @@ public abstract class UnitController : MonoBehaviour
         if (enemies.Length == 0)
             return;
 
-        currentTarget = TargetFinder.GetNearestTarget<UnitController>(enemies, transform.position);
+        currentTarget = TargetFinder.GetNearestTarget<HealthController>(enemies, transform.position);
     }
 
     protected abstract void AttackTarget();

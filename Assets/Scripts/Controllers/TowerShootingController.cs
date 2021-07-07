@@ -27,7 +27,6 @@ public class TowerShootingController : MonoBehaviour
         StartCoroutine(LookForTarget());
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (TargetFinder.IsTargetActive(currentTarget))
