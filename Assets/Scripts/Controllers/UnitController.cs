@@ -48,7 +48,7 @@ public abstract class UnitController : MonoBehaviour
         if (enemies.Length == 0)
             return;
 
-        currentTarget = TargetFinder.GetNearestTarget<HealthController>(enemies, transform.position);
+        currentTarget = TargetFinder.GetNearestTarget(enemies, transform.position);
     }
 
     protected virtual void ResetCooldown() => currentCooldown = attackCooldown;

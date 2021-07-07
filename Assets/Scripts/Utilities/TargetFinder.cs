@@ -2,9 +2,9 @@ using UnityEngine;
 
 public static class TargetFinder
 {
-    public static bool IsTargetActive<T>(T target) where T : MonoBehaviour => target != null && target.gameObject.activeInHierarchy;
+    public static bool IsTargetActive(HealthController target) => target != null && target.gameObject.activeInHierarchy;
 
-    public static Transform GetNearestTarget(Collider[] targetsInRange, Vector3 center)
+    public static HealthController GetNearestTarget(Collider[] targetsInRange, Vector3 center)
     {
         float maxDistance = Mathf.Infinity;
         Transform target = targetsInRange[0].transform;
@@ -20,11 +20,6 @@ public static class TargetFinder
             }
         }
 
-        return target;
-    }
-
-    public static T GetNearestTarget<T>(Collider[] targetsInRange, Vector3 center) where T : Component
-    {
-        return GetNearestTarget(targetsInRange, center).GetComponent<T>();
+        return target.GetComponent<HealthController>();
     }
 }
