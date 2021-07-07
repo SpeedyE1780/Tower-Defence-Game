@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2483648066514071804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7818719493569235360}
   - {fileID: 8085759355982769812}
@@ -85,10 +85,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.2
-  m_Height: 1.8
+  m_Radius: 0.5
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &-1180528016800537105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   speed: 3
   id: 0
   points: 1
-  coins: 25
+  coins: 5
   health: {fileID: -4466851583145800845}
 --- !u!114 &-4466851583145800845
 MonoBehaviour:
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolID: 0
-  maxHealth: 1
+  maxHealth: 3
 --- !u!1 &3060684563399881924
 GameObject:
   m_ObjectHideFlags: 0

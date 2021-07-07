@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolID: 0
+  poolID: 2
   maxHealth: 10
 --- !u!114 &-1152847557135020367
 MonoBehaviour:
@@ -124,7 +124,7 @@ MonoBehaviour:
   attackRange: 5
   agent: {fileID: -6167951554154646355}
   speed: 10
-  id: 0
+  id: 2
   points: 10
   coins: 500
   health: {fileID: -4684928551791343520}
