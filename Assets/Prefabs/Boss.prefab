@@ -640,6 +640,7 @@ MonoBehaviour:
   id: 0
   points: 150
   coins: 500
+  health: {fileID: -4684928551791343520}
 --- !u!1 &2556778763883194927
 GameObject:
   m_ObjectHideFlags: 0

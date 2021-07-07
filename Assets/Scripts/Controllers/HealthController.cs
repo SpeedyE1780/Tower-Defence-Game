@@ -4,24 +4,22 @@ public class HealthController : MonoBehaviour
 {
     [SerializeField] private PoolID poolID;
     [SerializeField] private int maxHealth;
-    private int health;
     Vector3 initialScale;
+    public int Health { get; private set; }
 
     private void Awake() => initialScale = transform.localScale;
+    private void OnEnable() => Health = maxHealth;
+    private void OnDisable() => transform.localScale = initialScale;
 
     public void TakeHit()
     {
         if (!gameObject.activeSelf)
             return;
 
-        health = Mathf.Clamp(health - 1, 0, maxHealth);
-        transform.localScale = Vector3.Lerp(Vector3.zero, initialScale, (float)health / maxHealth);
+        Health = Mathf.Clamp(Health - 1, 0, maxHealth);
+        transform.localScale = Vector3.Lerp(Vector3.zero, initialScale, (float)Health / maxHealth);
 
-        if (health <= 0)
-        {
-            transform.localScale = initialScale;
-            health = maxHealth;
+        if (Health <= 0)
             PoolManager.Instance.AddToPool(poolID, gameObject);
-        }
     }
 }

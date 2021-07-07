@@ -604,6 +604,7 @@ MonoBehaviour:
   id: 0
   points: 10
   coins: 25
+  health: {fileID: -4466851583145800845}
 --- !u!195 &-3027272186058262500
 NavMeshAgent:
   m_ObjectHideFlags: 0

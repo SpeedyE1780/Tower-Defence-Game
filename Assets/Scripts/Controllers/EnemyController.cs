@@ -9,6 +9,7 @@ public class EnemyController : InfantryController
     [SerializeField] private PoolID id;
     [SerializeField] private int points;
     [SerializeField] private int coins;
+    [SerializeField] private HealthController health;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void SetDestination() => destination = GameObject.FindGameObjectWithTag(DestinationTag).transform.position;
@@ -19,7 +20,13 @@ public class EnemyController : InfantryController
         agent.SetDestination(destination);
     }
 
-    private void OnDisable() => EventManager.RaiseEnemyDisabled();
+    private void OnDisable()
+    {
+        EventManager.RaiseEnemyDisabled();
+
+        if (health.Health <= 0)
+            EventManager.RaiseEnemyKilled(points, coins);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
