@@ -504,8 +504,9 @@ GameObject:
   - component: {fileID: 9213323299179049020}
   - component: {fileID: 4618477994666530619}
   - component: {fileID: 1131257113313240411}
-  - component: {fileID: -1180528016800537105}
   - component: {fileID: -6167951554154646355}
+  - component: {fileID: -4684928551791343520}
+  - component: {fileID: -1152847557135020367}
   m_Layer: 3
   m_Name: Boss
   m_TagString: Player
@@ -579,31 +580,6 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &-1180528016800537105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2483648066514071804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c793a759623e064ba22b389cfb909cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 2
-  agent: {fileID: -6167951554154646355}
-  speed: 5
-  maxHits: 100
-  points: 5
-  coins: 75
-  enemyRaduis: 50
-  troopsLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  detectionCooldown: 0.5
-  attackCooldown: 0.1
-  useAnim: 1
 --- !u!195 &-6167951554154646355
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -626,6 +602,44 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-4684928551791343520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolID: 0
+  maxHealth: 10
+--- !u!114 &-1152847557135020367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c793a759623e064ba22b389cfb909cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRaduis: 50
+  detectionCooldown: 0.2
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  attackCooldown: 0.1
+  attackRange: 5
+  agent: {fileID: -6167951554154646355}
+  speed: 10
+  id: 0
+  points: 150
+  coins: 500
 --- !u!1 &2556778763883194927
 GameObject:
   m_ObjectHideFlags: 0

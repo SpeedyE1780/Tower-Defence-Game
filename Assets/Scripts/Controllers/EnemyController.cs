@@ -5,6 +5,7 @@ public class EnemyController : InfantryController
     private static Vector3 destination;
     private const string DestinationTag = "Respawn";
 
+    [Header("Enemy Stats")]
     [SerializeField] private PoolID id;
     [SerializeField] private int points;
     [SerializeField] private int coins;

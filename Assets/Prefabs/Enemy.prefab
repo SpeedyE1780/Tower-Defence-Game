@@ -592,19 +592,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c793a759623e064ba22b389cfb909cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  agent: {fileID: -3027272186058262500}
-  speed: 3
-  maxHits: 10
-  points: 10
-  coins: 25
-  enemyRaduis: 50
-  troopsLayers:
+  detectionRaduis: 25
+  detectionCooldown: 0.2
+  detectionLayer:
     serializedVersion: 2
     m_Bits: 256
-  detectionCooldown: 0.2
   attackCooldown: 1
-  useAnim: 1
+  attackRange: 3
+  agent: {fileID: -3027272186058262500}
+  speed: 3
+  id: 0
+  points: 10
+  coins: 25
 --- !u!195 &-3027272186058262500
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -10,7 +10,11 @@ public class InfantryController : UnitController
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
 
-    private void Awake() => agent.speed = speed;
+    private void Awake()
+    {
+        agent.speed = speed;
+        attackRange *= attackRange;
+    }
 
     protected override void AttackTarget()
     {
