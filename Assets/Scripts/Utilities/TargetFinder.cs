@@ -22,4 +22,9 @@ public static class TargetFinder
 
         return target;
     }
+
+    public static T GetNearestTarget<T>(Collider[] targetsInRange, Vector3 center) where T : Component
+    {
+        return GetNearestTarget(targetsInRange, center).GetComponent<T>();
+    }
 }
