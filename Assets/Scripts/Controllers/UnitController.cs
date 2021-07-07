@@ -8,6 +8,10 @@ public abstract class UnitController : MonoBehaviour
     [SerializeField] protected float detectionRaduis;
     [SerializeField] protected float detectionCooldown;
     [SerializeField] protected LayerMask detectionLayer;
+    [Header("Attack Stats")]
+    [SerializeField] protected float attackCooldown;
+
+    protected float currentCooldown;
 
     protected HealthController currentTarget;
     protected virtual bool HasIdleUpdate => true;
@@ -20,6 +24,8 @@ public abstract class UnitController : MonoBehaviour
             AttackTarget();
         else if (HasIdleUpdate)
             Idle();
+
+        currentCooldown -= Time.deltaTime;
     }
 
     protected virtual IEnumerator LookForTarget()
@@ -45,6 +51,7 @@ public abstract class UnitController : MonoBehaviour
         currentTarget = TargetFinder.GetNearestTarget<HealthController>(enemies, transform.position);
     }
 
+    protected virtual void ResetCooldown() => currentCooldown = attackCooldown;
     protected abstract void AttackTarget();
     protected abstract void Idle();
 }

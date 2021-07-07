@@ -2,33 +2,21 @@ using UnityEngine;
 
 public class RangedController : UnitController
 {
+    [SerializeField] private Transform shootPoint;
+    [Range(0, 1)]
+    [SerializeField] private float hitChance;
     [Header("Visual Elements")]
     [SerializeField] private PoolID projectileID;
     [SerializeField] private ParticleSystem bulletCasing;
-    [Header("Shooting Stats")]
-    [SerializeField] private Transform shootPoint;
-    [SerializeField] private float shootCooldown;
-    [Range(0, 1)]
-    [SerializeField] private float hitChance;
     [Range(0, 1)]
     [SerializeField] private float rotationSpeed;
 
-    private float currentCooldown;
     private Vector3 targetForward;
 
     protected virtual Transform RotationTransform => transform;
     protected override bool HasIdleUpdate => false;
 
-    protected void Start()
-    {
-        targetForward = new Vector3();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        currentCooldown -= Time.deltaTime;
-    }
+    protected void Start() => targetForward = new Vector3();
 
     protected override void AttackTarget()
     {
@@ -43,8 +31,8 @@ public class RangedController : UnitController
         if (currentCooldown > 0)
             return;
 
+        ResetCooldown();
         SpawnProjectile();
-        currentCooldown = shootCooldown;
         bulletCasing.Play();
 
         if (Random.Range(0, 1f) < hitChance)
