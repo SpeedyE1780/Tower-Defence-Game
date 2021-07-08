@@ -1,25 +1,56 @@
+using System.Collections;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField] private PoolID poolID;
-    [SerializeField] private int maxHealth;
-    Vector3 initialScale;
-    public int Health { get; private set; }
+    private static int DieParameter;
 
-    private void Awake() => initialScale = transform.localScale;
+    [SerializeField] private int maxHealth;
+    [SerializeField] private Animator anim;
+    [Header("Components To Disable")]
+    [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
+    [SerializeField] private Collider collider;
+    [SerializeField] private UnitController controller;
+
+    private int Health { get; set; }
+    public bool IsDead => Health == 0;
+
+    [RuntimeInitializeOnLoadMethod]
+    private static void SetDieParameter()
+    {
+        DieParameter = Animator.StringToHash("Die");
+    }
+
     private void OnEnable() => Health = maxHealth;
-    private void OnDisable() => transform.localScale = initialScale;
 
     public void TakeHit()
     {
-        if (!gameObject.activeSelf)
+        if (!gameObject.activeSelf || Health == 0)
             return;
 
         Health = Mathf.Clamp(Health - 1, 0, maxHealth);
-        transform.localScale = Vector3.Lerp(Vector3.zero, initialScale, (float)Health / maxHealth);
 
-        if (Health <= 0)
-            PoolManager.Instance.AddToPool(poolID, gameObject);
+        if (IsDead)
+            StartCoroutine(KillPlayer());
+    }
+
+    IEnumerator KillPlayer()
+    {
+        ToggleComponentsState(false);
+        anim.SetTrigger(DieParameter);
+        yield return new WaitForSeconds(3);
+        ToggleComponentsState(true);
+        controller.PoolUnit();
+    }
+
+
+
+    private void ToggleComponentsState(bool state)
+    {
+        if (agent != null)
+            agent.enabled = state;
+
+        collider.enabled = state;
+        controller.enabled = state;
     }
 }

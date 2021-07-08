@@ -6,7 +6,6 @@ public class EnemyController : InfantryController
     private const string DestinationTag = "Respawn";
 
     [Header("Enemy Stats")]
-    [SerializeField] private PoolID id;
     [SerializeField] private int coins;
     [SerializeField] private HealthController health;
 
@@ -21,18 +20,17 @@ public class EnemyController : InfantryController
         agent.SetDestination(destination);
     }
 
-    private void OnDisable()
+    public override void PoolUnit()
     {
+        base.PoolUnit();
         EventManager.RaiseEnemyDisabled();
-
-        if (health.Health <= 0)
-            EventManager.RaiseEnemyKilled(coins);
+        EventManager.RaiseEnemyKilled(coins);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(DestinationTag))
-            PoolManager.Instance.AddToPool(id, gameObject);
+            PoolUnit();
     }
 
     protected override void Idle()

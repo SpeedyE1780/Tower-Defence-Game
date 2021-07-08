@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class TargetFinder
 {
-    public static bool IsTargetActive(HealthController target) => target != null && target.gameObject.activeInHierarchy;
+    public static bool IsTargetActive(HealthController target) => target != null && !target.IsDead && target.gameObject.activeInHierarchy;
 
     public static HealthController GetNearestTarget(Collider[] targetsInRange, Vector3 center)
     {

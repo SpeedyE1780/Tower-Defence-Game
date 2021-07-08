@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class UnitController : MonoBehaviour
 {
     [SerializeField] protected Animator anim;
+    [SerializeField] protected PoolID poolID;
 
     [Header("Detection Stats")]
     [SerializeField] protected float detectionRaduis;
@@ -53,6 +54,7 @@ public abstract class UnitController : MonoBehaviour
         currentTarget = TargetFinder.GetNearestTarget(enemies, transform.position);
     }
 
+    public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);
     protected virtual void ResetCooldown() => currentCooldown = attackCooldown;
     protected abstract void AttackTarget();
     protected abstract void Idle();

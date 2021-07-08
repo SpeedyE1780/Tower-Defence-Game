@@ -58,6 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe51f6c03581c36468f9129980775826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  poolID: 3
   detectionRaduis: 50
   detectionCooldown: 0.25
   detectionLayer:
