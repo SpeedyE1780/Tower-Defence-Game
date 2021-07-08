@@ -5,7 +5,6 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private int meduimThreshold;
     [SerializeField] private int hardThreshold;
-    [SerializeField] List<GameObject> initialUnits;
     private int kills;
     private GameDifficulty difficulty;
 
@@ -16,7 +15,6 @@ public class GameManager : Singleton<GameManager>
         difficulty = GameDifficulty.Easy;
         UIManager.Instance.ShowGameUI();
         SpawnManager.Instance.StartSpawning(difficulty);
-        initialUnits.ForEach(gameObject => gameObject.SetActive(true));
     }
 
     public void QuitGame() => Application.Quit();
