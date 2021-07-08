@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -7493919820558565216}
   - component: {fileID: 4618477994666530619}
   - component: {fileID: 1131257113313240411}
-  - component: {fileID: 1733156039076164459}
+  - component: {fileID: 1420220290397589858}
   - component: {fileID: -8985976669911824261}
   m_Layer: 8
   m_Name: InfantryTroop
@@ -90,7 +90,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1733156039076164459
+--- !u!114 &1420220290397589858
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2483648066514071804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d4fc0ecc50f7543a095eca444e8361, type: 3}
+  m_Script: {fileID: 11500000, guid: c0efac494013d624c97e20ef8c070c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRaduis: 25

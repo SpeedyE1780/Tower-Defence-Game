@@ -21,9 +21,8 @@ public class EnemyController : InfantryController
         agent.SetDestination(destination);
     }
 
-    protected override void OnDisable()
+    private void OnDisable()
     {
-        base.OnDisable();
         EventManager.RaiseEnemyDisabled();
 
         if (health.Health <= 0)
