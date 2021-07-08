@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class AllyInfantry : InfantryController
@@ -9,19 +8,15 @@ public class AllyInfantry : InfantryController
     {
         base.OnEnable();
         EventManager.OnWaveEnded += ResetPosition;
-        StartCoroutine(GetInitialPosition());
+        initialPosition = transform.position;
     }
 
-    private void OnDisable()
-    {
-        EventManager.OnWaveEnded -= ResetPosition;
-    }
-
+    private void OnDisable() => EventManager.OnWaveEnded -= ResetPosition;
     private void ResetPosition() => agent.SetDestination(initialPosition);
 
-    IEnumerator GetInitialPosition()
+    protected override void Idle()
     {
-        yield return new WaitForFixedUpdate();
-        initialPosition = transform.position;
+        if (agent.destination != initialPosition)
+            ResetPosition();
     }
 }

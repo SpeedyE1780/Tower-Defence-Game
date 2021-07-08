@@ -9,7 +9,7 @@ public abstract class InfantryController : UnitController
     [SerializeField] private float speed;
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
-    protected override bool HasIdleUpdate => false;
+    protected override bool HasIdleUpdate => true;
 
     private void Awake()
     {
