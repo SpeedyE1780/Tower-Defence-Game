@@ -1,19 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private int meduimThreshold;
     [SerializeField] private int hardThreshold;
-
-    private int kills = 0;
+    [SerializeField] List<GameObject> initialUnits;
+    private int kills;
     private GameDifficulty difficulty;
 
-    private void Start()
+    public void StartGame()
     {
+        kills = 0;
         UIManager.Instance.UpdateKillText(kills);
         difficulty = GameDifficulty.Easy;
-        SpawnManager.Instance.SetFormationsDifficulty(difficulty);
+        UIManager.Instance.ShowGameUI();
+        SpawnManager.Instance.StartSpawning(difficulty);
+        initialUnits.ForEach(gameObject => gameObject.SetActive(true));
     }
+
+    public void QuitGame() => Application.Quit();
 
     private void OnEnable() => EventManager.OnEnemyKilled += AddPoints;
     private void OnDisable() => EventManager.OnEnemyKilled -= AddPoints;

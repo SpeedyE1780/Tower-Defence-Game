@@ -23,8 +23,6 @@ public class PoolManager : Singleton<PoolManager>
             pooledObjects.Add(id, new Queue<GameObject>());
             foreach (Transform pooled in child)
                 pooledObjects[id].Enqueue(pooled.gameObject);
-
-            Debug.Log($"{id} initialized with {pooledObjects[id].Count} objects");
         }
     }
 

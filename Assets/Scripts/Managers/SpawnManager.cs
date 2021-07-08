@@ -15,10 +15,11 @@ public class SpawnManager : Singleton<SpawnManager>
     private Transform currentFormations;
 
 
-    void Start()
+    public void StartSpawning(GameDifficulty difficulty)
     {
         activeEnemies = 0;
         currentWave = 0;
+        SetFormationsDifficulty(difficulty);
         StartCoroutine(Spawn());
     }
 
