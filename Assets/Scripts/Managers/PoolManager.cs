@@ -28,12 +28,13 @@ public class PoolManager : Singleton<PoolManager>
         }
     }
 
-    public GameObject GetPooledObject(PoolID id)
+    public GameObject GetPooledObject(PoolID id, Vector3 position = default, Quaternion rotation = default)
     {
         if (pooledObjects.ContainsKey(id))
         {
             GameObject poolItem = pooledObjects[id].Dequeue();
             poolItem.transform.SetParent(null);
+            poolItem.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
             poolItem.SetActive(true);
 
             if (pooledObjects[id].Count <= 0)
@@ -43,14 +44,14 @@ public class PoolManager : Singleton<PoolManager>
         }
         else
         {
-            GameObject factoryObject = FactoryManager.Instance.GetItem(id);
+            GameObject factoryObject = FactoryManager.Instance.GetItem(id, position, rotation);
             return factoryObject;
         }
     }
 
-    public T GetPooledObject<T>(PoolID id) where T : Component
+    public T GetPooledObject<T>(PoolID id, Vector3 position = default, Quaternion rotation = default) where T : Component
     {
-        return GetPooledObject(id).GetComponent<T>();
+        return GetPooledObject(id, position, rotation).GetComponent<T>();
     }
 
     public void AddToPool(PoolID id, GameObject poolObject)

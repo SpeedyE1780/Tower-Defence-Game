@@ -4,13 +4,13 @@ public class FactoryManager : Singleton<FactoryManager>
 {
     public FactoryCatalog Catalog;
 
-    public GameObject GetItem(PoolID id)
+    public GameObject GetItem(PoolID id, Vector3 position, Quaternion rotation)
     {
         if (Catalog.ContainsKey(id))
         {
             FactoryCategory category = Catalog[id];
             GameObject item = category.GetRandomIten;
-            return Instantiate(item);
+            return Instantiate(item, position, rotation);
         }
         else
         {

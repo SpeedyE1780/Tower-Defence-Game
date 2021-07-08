@@ -29,8 +29,7 @@ public class TroopPlacementManager : UnitPlacementManager
             if (Physics.CheckSphere(hitPoint, distanceBetweenUnits, unitLayers, QueryTriggerInteraction.Ignore))
                 continue;
 
-            GameObject troop = PoolManager.Instance.GetPooledObject(troopID);
-            troop.transform.SetPositionAndRotation(hitPoint, Quaternion.identity);
+            GameObject troop = PoolManager.Instance.GetPooledObject(troopID, hitPoint);
             ShopManager.Instance.BuyUnit(unitPrice);
             canPlaceUnit = ShopManager.Instance.CanBuyUnit(unitPrice);
 

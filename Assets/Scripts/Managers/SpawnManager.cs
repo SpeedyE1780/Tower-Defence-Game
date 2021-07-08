@@ -57,9 +57,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator SpawnBoss()
     {
-        GameObject b = PoolManager.Instance.GetPooledObject(bossID);
-        b.transform.forward = Vector3.back;
-        b.transform.position = transform.position;
+        GameObject b = PoolManager.Instance.GetPooledObject(bossID, transform.position);
         activeEnemies++;
         yield return new WaitUntil(() => !b.activeSelf);
     }
@@ -72,9 +70,8 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             foreach (Transform point in subFormation)
             {
-                EnemyController enemy = PoolManager.Instance.GetPooledObject<EnemyController>(enemyID);
+                PoolManager.Instance.GetPooledObject<EnemyController>(enemyID, point.position, point.rotation);
                 activeEnemies += 1;
-                enemy.transform.SetPositionAndRotation(point.position, point.rotation);
             }
         }
     }
