@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0efac494013d624c97e20ef8c070c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 1897792448530396427}
   detectionRaduis: 25
   detectionCooldown: 0.1
   detectionLayer:
@@ -277,6 +278,11 @@ PrefabInstance:
 --- !u!4 &1897792448537947603 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
+  m_PrefabInstance: {fileID: 1897792448537806135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1897792448530396427 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9531452, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
   m_PrefabInstance: {fileID: 1897792448537806135}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7282417810121433720
