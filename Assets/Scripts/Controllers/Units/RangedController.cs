@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class RangedController : UnitController
 {
+    private static int ShootParameter;
+
     [SerializeField] private Transform shootPoint;
     [Range(0, 1)]
     [SerializeField] private float hitChance;
@@ -18,6 +20,12 @@ public class RangedController : UnitController
 
     protected void Start() => targetForward = new Vector3();
 
+    [RuntimeInitializeOnLoadMethod]
+    private static void SetShootParameter()
+    {
+        ShootParameter = Animator.StringToHash("Shoot");
+    }
+
     protected override void AttackTarget()
     {
         Rotate();
@@ -32,11 +40,19 @@ public class RangedController : UnitController
             return;
 
         ResetCooldown();
+        PlayShootAnimation();
         SpawnProjectile();
         bulletCasing.Play();
 
+
         if (Random.Range(0, 1f) < hitChance)
             currentTarget.TakeHit();
+    }
+
+    protected virtual void PlayShootAnimation()
+    {
+        if (anim != null)
+            anim.SetTrigger(ShootParameter);
     }
 
     protected virtual void Rotate()

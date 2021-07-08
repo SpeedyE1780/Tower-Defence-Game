@@ -4,6 +4,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public abstract class UnitController : MonoBehaviour
 {
+    [SerializeField] protected Animator anim;
+
     [Header("Detection Stats")]
     [SerializeField] protected float detectionRaduis;
     [SerializeField] protected float detectionCooldown;
