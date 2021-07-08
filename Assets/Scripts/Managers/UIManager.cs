@@ -7,6 +7,7 @@ public class UIManager : Singleton<UIManager>
     [Header("Game Menues")]
     [SerializeField] private GameObject MenuUI;
     [SerializeField] private GameObject GameUI;
+    [SerializeField] private GameObject PauseUI;
 
     [Header("Game UI")]
     [SerializeField] private Text coinText;
@@ -15,11 +16,27 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject waveCompleted;
     [SerializeField] private AnimationClip waveTextAnimation;
 
+    private void Start()
+    {
+        ShowMenuUI();
+    }
+
+    public void ShowMenuUI()
+    {
+        GameUI.SetActive(false);
+        PauseUI.SetActive(false);
+        MenuUI.SetActive(true);
+    }
+
     public void ShowGameUI()
     {
         MenuUI.SetActive(false);
+        PauseUI.SetActive(false);
         GameUI.SetActive(true);
     }
+
+    public void TogglePauseUI(bool state) => PauseUI.SetActive(state);
+
 
     public void UpdateKillText(int score) => killsText.text = $"Kills: {score}";
     public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
