@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 25
   anim: {fileID: 8678364571456513936}
   agent: {fileID: -6167951554154646355}
   collider: {fileID: 1131257113313240411}

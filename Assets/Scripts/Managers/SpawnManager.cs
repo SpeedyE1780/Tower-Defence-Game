@@ -57,7 +57,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator SpawnBoss()
     {
-        GameObject b = PoolManager.Instance.GetPooledObject(bossID, transform.position);
+        GameObject b = PoolManager.Instance.GetPooledObject(bossID, transform.position, transform.rotation);
         activeEnemies++;
         yield return new WaitUntil(() => !b.activeSelf);
     }
