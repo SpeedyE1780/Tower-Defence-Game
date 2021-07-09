@@ -44,13 +44,13 @@ public class SpawnManager : Singleton<SpawnManager>
         while (true)
         {
             currentWave += 1;
-            StartCoroutine(UIManager.Instance.ShowWaveNumber(currentWave));
+            UIManager.Instance.ShowWaveNumber(currentWave);
             SpawnFormation();
             yield return new WaitUntil(() => activeEnemies == 0);
             if (currentWave % bossWaveFrequency == 0)
                 yield return StartCoroutine(SpawnBoss());
 
-            StartCoroutine(UIManager.Instance.ShowWaveCompleted());
+            UIManager.Instance.ShowWaveCompleted();
             EventManager.RaiseWaveEnded();
             yield return new WaitForSeconds(waveDelay);
         }

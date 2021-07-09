@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    private static Vector3 waveStartScale = new Vector3(0, 0, 0);
+    private static Vector3 waveEndScale = new Vector3(1, 1, 1);
+
     [Header("Game Menues")]
     [SerializeField] private GameObject MenuUI;
     [SerializeField] private GameObject GameUI;
@@ -14,12 +17,9 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Text killsText;
     [SerializeField] private Text waveStarted;
     [SerializeField] private GameObject waveCompleted;
-    [SerializeField] private AnimationClip waveTextAnimation;
+    [SerializeField] private float waveTextScaleDuration;
 
-    private void Start()
-    {
-        ShowMenuUI();
-    }
+    private void Start() => ShowMenuUI();
 
     public void ShowMenuUI()
     {
@@ -41,18 +41,37 @@ public class UIManager : Singleton<UIManager>
     public void UpdateKillText(int score) => killsText.text = $"Kills: {score}";
     public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
 
-    public IEnumerator ShowWaveCompleted()
+    private IEnumerator ShowWaveText(GameObject waveText)
     {
-        waveCompleted.SetActive(true);
-        yield return new WaitForSeconds(waveTextAnimation.length);
-        waveCompleted.SetActive(false);
+        waveText.SetActive(true);
+        Transform waveTransform = waveText.transform;
+        float time = 0;
+
+        while (time < waveTextScaleDuration)
+        {
+            waveTransform.localScale = Vector3.Lerp(waveStartScale, waveEndScale, time / waveTextScaleDuration);
+            yield return null;
+            time += Time.deltaTime;
+        }
+
+        yield return new WaitForSeconds(waveTextScaleDuration * 0.5f);
+
+        time = 0;
+        while (time < waveTextScaleDuration)
+        {
+            waveTransform.localScale = Vector3.Lerp(waveEndScale, waveStartScale, time / waveTextScaleDuration);
+            yield return null;
+            time += Time.deltaTime;
+        }
+
+        waveText.SetActive(false);
     }
 
-    public IEnumerator ShowWaveNumber(int number)
+    public void ShowWaveNumber(int number)
     {
-        waveStarted.gameObject.SetActive(true);
         waveStarted.text = $"Wave {number}";
-        yield return new WaitForSeconds(waveTextAnimation.length);
-        waveStarted.gameObject.SetActive(false);
+        StartCoroutine(ShowWaveText(waveStarted.gameObject));
     }
+
+    public void ShowWaveCompleted() => StartCoroutine(ShowWaveText(waveCompleted));
 }
