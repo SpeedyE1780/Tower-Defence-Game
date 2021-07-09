@@ -48,7 +48,7 @@ public class RangedController : UnitController
 
     protected virtual void PlayShootAnimation()
     {
-        if (anim != null)
+        if (anim != null && anim.gameObject.activeInHierarchy)
             anim.SetTrigger(ShootParameter);
     }
 

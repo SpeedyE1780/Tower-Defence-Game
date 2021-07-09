@@ -29,7 +29,8 @@ public abstract class InfantryController : UnitController
     protected override void Update()
     {
         base.Update();
-        anim.SetFloat(SpeedParameter, agent.velocity.sqrMagnitude);
+        if (anim != null && anim.gameObject.activeInHierarchy)
+            anim.SetFloat(SpeedParameter, agent.velocity.sqrMagnitude);
     }
 
     protected override void AttackTarget()
