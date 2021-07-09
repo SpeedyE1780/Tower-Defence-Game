@@ -82,14 +82,8 @@ public class PoolManager : Singleton<PoolManager>
 
         foreach (PoolID id in factory.Catalog.Keys)
         {
-            foreach (GameObject gameObject in factory.Catalog[id].CategoryItems)
-            {
-                GameObject g = Instantiate(gameObject, Vector3.zero, Quaternion.identity);
-                GameObject poolParent = new GameObject($"{id}");
-                poolParent.transform.SetParent(transform);
-                g.SetActive(false);
-                g.transform.SetParent(transform.GetChild(transform.childCount - 1));
-            }
+            GameObject poolParent = new GameObject($"{id}");
+            poolParent.transform.SetParent(transform);
         }
     }
 }

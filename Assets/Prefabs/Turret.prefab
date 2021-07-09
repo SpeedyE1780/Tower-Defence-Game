@@ -61,7 +61,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   poolID: 3
   maxUnitsDetected: 10
-  detectionRaduis: 50
+  detectionRaduis: 75
   detectionCooldown: 0.25
   detectionLayer:
     serializedVersion: 2
