@@ -71,7 +71,7 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             foreach (Transform point in subFormation)
             {
-                PoolManager.Instance.GetPooledObject<EnemyController>(enemyID, point.position, point.rotation);
+                PoolManager.Instance.GetPooledObject(enemyID, point.position, point.rotation);
                 activeEnemies += 1;
             }
         }
