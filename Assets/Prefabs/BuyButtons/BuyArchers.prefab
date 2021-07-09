@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: unitPrice
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
+      propertyPath: unitSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 668df6f48e59c80439fa587624e5a84d, type: 3}
     - target: {fileID: 6331432194337663217, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_Name
       value: BuyArchers
@@ -105,11 +109,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6331432195825381008, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6331432195825381008, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6331432195825381008, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_Color.r

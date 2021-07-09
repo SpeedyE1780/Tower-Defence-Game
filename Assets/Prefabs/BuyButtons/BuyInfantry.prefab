@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: unitPrice
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
+      propertyPath: unitSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fa697c9f9ee44564fa6d5414bd536b3e, type: 3}
     - target: {fileID: 6331432194337663217, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: m_Name
       value: BuyInfantry
