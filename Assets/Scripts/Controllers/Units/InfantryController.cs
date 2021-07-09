@@ -36,7 +36,7 @@ public abstract class InfantryController : UnitController
     {
         agent.SetDestination(currentTarget.transform.position);
 
-        if (currentCooldown < 0 && TargetIsInRange())
+        if (currentAttackCooldown < 0 && TargetIsInRange())
             DamageTarget();
     }
 

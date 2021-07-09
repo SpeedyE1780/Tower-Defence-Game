@@ -15,14 +15,14 @@ public abstract class UnitController : MonoBehaviour
     [Header("Attack Stats")]
     [SerializeField] protected float attackCooldown;
 
-    protected float currentCooldown;
+    protected float currentAttackCooldown;
     protected HealthController currentTarget;
-    protected Collider[] detectedUnits;
+    private Collider[] detectedUnits;
+    private float currentDetectionCooldown;
 
     protected virtual bool HasIdleUpdate => true;
 
     protected virtual void Awake() => detectedUnits = new Collider[maxUnitsDetected];
-    protected virtual void OnEnable() => StartCoroutine(LookForTarget());
 
     protected virtual void Update()
     {
@@ -31,30 +31,27 @@ public abstract class UnitController : MonoBehaviour
         else if (HasIdleUpdate)
             Idle();
 
-        currentCooldown -= Time.deltaTime;
+        currentAttackCooldown -= Time.deltaTime;
     }
 
-    protected virtual IEnumerator LookForTarget()
+    private void FixedUpdate()
     {
-        while (true)
-        {
-            if (!TargetFinder.IsTargetActive(currentTarget))
-                FindTarget();
+        if (currentDetectionCooldown < 0 && !TargetFinder.IsTargetActive(currentTarget))
+            FindTarget();
 
-            yield return new WaitForSeconds(detectionCooldown);
-            yield return new WaitForFixedUpdate();
-        }
+        currentDetectionCooldown -= Time.fixedDeltaTime;
     }
 
     protected virtual void FindTarget()
     {
+        currentDetectionCooldown = detectionCooldown;
         currentTarget = null;
         Physics.OverlapSphereNonAlloc(transform.position, detectionRaduis, detectedUnits, detectionLayer, QueryTriggerInteraction.Ignore);
         currentTarget = TargetFinder.GetNearestTarget(detectedUnits, transform.position, detectionRaduis * detectionRaduis);
     }
 
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);
-    protected virtual void ResetCooldown() => currentCooldown = attackCooldown;
+    protected virtual void ResetCooldown() => currentAttackCooldown = attackCooldown;
     protected abstract void AttackTarget();
     protected abstract void Idle();
 

@@ -14,11 +14,7 @@ public class EnemyController : InfantryController
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void SetDestination() => destination = GameObject.FindGameObjectWithTag(DestinationTag).transform.position;
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        agent.SetDestination(destination);
-    }
+    private void OnEnable() => agent.SetDestination(destination);
 
     public override void PoolUnit()
     {

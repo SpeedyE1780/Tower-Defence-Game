@@ -33,7 +33,7 @@ public class RangedController : UnitController
 
     protected virtual void Shoot()
     {
-        if (currentCooldown > 0)
+        if (currentAttackCooldown > 0)
             return;
 
         ResetCooldown();
