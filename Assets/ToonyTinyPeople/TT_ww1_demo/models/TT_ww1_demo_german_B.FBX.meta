@@ -5238,11 +5238,11 @@ ModelImporter:
       R Forearm/Bip001 R Hand/R_hand_container/w_flamethrower
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
