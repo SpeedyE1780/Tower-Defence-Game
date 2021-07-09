@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   anim: {fileID: 1897792448530396427}
-  agent: {fileID: 0}
+  agent: {fileID: -7493919820558565216}
   collider: {fileID: 1131257113313240411}
   controller: {fileID: 1420220290397589858}
 --- !u!1 &3060684563399881924
