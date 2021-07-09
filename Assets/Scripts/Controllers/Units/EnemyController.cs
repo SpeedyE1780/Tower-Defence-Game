@@ -20,7 +20,9 @@ public class EnemyController : InfantryController
     {
         base.PoolUnit();
         EventManager.RaiseEnemyDisabled();
-        EventManager.RaiseEnemyKilled(coins);
+
+        if (health.IsDead)
+            EventManager.RaiseEnemyKilled(coins);
     }
 
     private void OnTriggerEnter(Collider other)
