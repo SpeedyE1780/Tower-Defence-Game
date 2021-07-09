@@ -38,7 +38,8 @@ public class UIManager : Singleton<UIManager>
     public void TogglePauseUI(bool state) => PauseUI.SetActive(state);
 
 
-    public void UpdateKillText(int score) => killsText.text = $"Kills: {score}";
+    //public void UpdateKillText(int score) => killsText.text = $"Kills: {score}";
+    public void UpdateKillText(int score) => killsText.text = $"{score}";
     public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
 
     private IEnumerator ShowWaveText(GameObject waveText)
