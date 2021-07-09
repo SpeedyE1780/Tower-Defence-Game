@@ -9,7 +9,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private Animator anim;
     [Header("Components To Disable")]
     [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
-    [SerializeField] private Collider collider;
+    [SerializeField] private new Collider collider;
     [SerializeField] private UnitController controller;
 
     private int Health { get; set; }

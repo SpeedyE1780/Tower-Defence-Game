@@ -60,12 +60,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   poolID: 3
+  maxUnitsDetected: 10
   detectionRaduis: 50
   detectionCooldown: 0.25
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
-  attackCooldown: 0
+  attackCooldown: 0.25
   shootPoint: {fileID: 6559590307037961522}
   hitChance: 0.4
   projectileID: 1

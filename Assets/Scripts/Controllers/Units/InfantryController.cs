@@ -19,8 +19,9 @@ public abstract class InfantryController : UnitController
         SpeedParameter = Animator.StringToHash("Speed");
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         agent.speed = speed;
         attackRange *= attackRange;
     }

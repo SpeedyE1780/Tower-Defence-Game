@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 1897792448530396427}
   poolID: 4
+  maxUnitsDetected: 10
   detectionRaduis: 25
   detectionCooldown: 0.1
   detectionLayer:

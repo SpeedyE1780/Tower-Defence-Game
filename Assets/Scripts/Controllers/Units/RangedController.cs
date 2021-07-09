@@ -21,10 +21,7 @@ public class RangedController : UnitController
     protected void Start() => targetForward = new Vector3();
 
     [RuntimeInitializeOnLoadMethod]
-    private static void SetShootParameter()
-    {
-        ShootParameter = Animator.StringToHash("Shoot");
-    }
+    private static void SetShootParameter() => ShootParameter = Animator.StringToHash("Shoot");
 
     protected override void AttackTarget()
     {
@@ -66,18 +63,5 @@ public class RangedController : UnitController
         GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID);
         projectile.transform.position = shootPoint.position;
         projectile.transform.forward = shootPoint.forward;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Color color = Color.white;
-
-        if (Application.isPlaying)
-        {
-            color = currentTarget == null ? Color.red : Color.green;
-        }
-
-        Gizmos.color = color;
-        Gizmos.DrawWireSphere(transform.position, detectionRaduis);
     }
 }

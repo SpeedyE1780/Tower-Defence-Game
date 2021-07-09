@@ -4,22 +4,26 @@ public static class TargetFinder
 {
     public static bool IsTargetActive(HealthController target) => target != null && !target.IsDead && target.gameObject.activeInHierarchy;
 
-    public static HealthController GetNearestTarget(Collider[] targetsInRange, Vector3 center)
+    public static HealthController GetNearestTarget(Collider[] targetsInRange, Vector3 center, float maxDistance)
     {
-        float maxDistance = Mathf.Infinity;
-        Transform target = targetsInRange[0].transform;
+        Transform target = null;
         Vector3 temp;
 
-        for (int enemy = 1; enemy < targetsInRange.Length; enemy++)
+        for (int enemy = 0; enemy < targetsInRange.Length; enemy++)
         {
-            temp = center - targetsInRange[enemy].transform.position;
+            Collider currentTarget = targetsInRange[enemy];
+
+            if (currentTarget == null || !currentTarget.gameObject.activeSelf)
+                continue;
+
+            temp = center - currentTarget.transform.position;
             if (temp.sqrMagnitude < maxDistance)
             {
-                target = targetsInRange[enemy].transform;
+                target = currentTarget.transform;
                 maxDistance = temp.sqrMagnitude;
             }
         }
 
-        return target.GetComponent<HealthController>();
+        return target == null ? null : target.GetComponent<HealthController>();
     }
 }
