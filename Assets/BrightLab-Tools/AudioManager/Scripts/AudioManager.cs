@@ -62,7 +62,6 @@ namespace AudioManager
                 return;
             }
 
-
             SetDefault();
         }
 
@@ -71,8 +70,9 @@ namespace AudioManager
             UpdateMasterVolume(PlayerPrefs.GetFloat(MusicKeys.MasterVolumeKey, 1));
             UpdateMusicVolume(PlayerPrefs.GetFloat(MusicKeys.MusicVolumeKey, 1));
             UpdateSFXVolume(PlayerPrefs.GetFloat(MusicKeys.SFXVolumeKey, 1));
-            IsMusicMuted = PlayerPrefs.GetInt(MusicKeys.MusicMutedKey, 0) == 1;
-            IsSFXMuted = PlayerPrefs.GetInt(MusicKeys.SFXMutedKey, 0) == 1;
+            ToggleMaster(PlayerPrefs.GetInt(MusicKeys.MasterMutedKey, 0) == 1);
+            ToggleMusic(PlayerPrefs.GetInt(MusicKeys.MusicMutedKey, 0) == 1);
+            ToggleSFX(IsSFXMuted = PlayerPrefs.GetInt(MusicKeys.SFXMutedKey, 0) == 1);
         }
 
         #endregion
@@ -84,18 +84,21 @@ namespace AudioManager
         public void UpdateMasterVolume(float value)
         {
             MasterVolume = value;
+            PlayerPrefs.SetFloat(MusicKeys.MasterVolumeKey, value);
             SetMasterVolume();
         }
 
         public void UpdateMusicVolume(float value)
         {
             MusicVolume = value;
+            PlayerPrefs.SetFloat(MusicKeys.MusicVolumeKey, value);
             SetMusicVolume();
         }
 
         public void UpdateSFXVolume(float value)
         {
             SFXVolume = value;
+            PlayerPrefs.SetFloat(MusicKeys.SFXVolumeKey, value);
             SetSFXVolume();
         }
 
@@ -106,6 +109,7 @@ namespace AudioManager
         public void ToggleMaster(bool value)
         {
             IsMasterMuted = value;
+            PlayerPrefs.SetInt(MusicKeys.MasterMutedKey, value ? 1 : 0);
             ToggleMusic();
             ToggleSFX();
         }
@@ -113,12 +117,14 @@ namespace AudioManager
         public void ToggleMusic(bool value)
         {
             IsMusicMuted = value;
+            PlayerPrefs.SetInt(MusicKeys.MusicMutedKey, value ? 1 : 0);
             ToggleMusic();
         }
 
         public void ToggleSFX(bool value)
         {
             IsSFXMuted = value;
+            PlayerPrefs.SetInt(MusicKeys.SFXMutedKey, value ? 1 : 0);
             ToggleSFX();
         }
 
