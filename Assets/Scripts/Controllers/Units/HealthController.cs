@@ -27,7 +27,10 @@ public class HealthController : MonoBehaviour
         ToggleComponentsState(true);
     }
 
-    public void RaiseHealth() => Health = maxHealth * SpawnManager.Instance.DifficultyModifier;
+    public void SetHealth(int multiplier)
+    {
+        Health = maxHealth * multiplier;
+    }
 
     public void TakeHit()
     {

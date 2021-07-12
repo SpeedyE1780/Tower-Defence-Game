@@ -11,4 +11,8 @@ public static class EventManager
     public delegate void WaveEnded();
     public static event WaveEnded OnWaveEnded;
     public static void RaiseWaveEnded() => OnWaveEnded?.Invoke();
+
+    public delegate void RaiseDifficulty();
+    public static event RaiseDifficulty OnRaiseDifficulty;
+    public static void RaiseEnemyDifficulty() => OnRaiseDifficulty?.Invoke();
 }

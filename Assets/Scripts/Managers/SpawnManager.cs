@@ -15,8 +15,6 @@ public class SpawnManager : Singleton<SpawnManager>
     private int activeEnemies;
     private Transform currentFormations;
 
-    public int DifficultyModifier => Mathf.FloorToInt(currentWave / difficultyModifierFrequency) + 1;
-
     public void StartSpawning(GameDifficulty difficulty)
     {
         activeEnemies = 0;
@@ -46,6 +44,10 @@ public class SpawnManager : Singleton<SpawnManager>
         while (true)
         {
             currentWave += 1;
+
+            if (currentWave % difficultyModifierFrequency == 0)
+                EventManager.RaiseEnemyDifficulty();
+
             UIManager.Instance.ShowWaveNumber(currentWave);
             SpawnFormation();
             yield return new WaitUntil(() => activeEnemies == 0);

@@ -9,16 +9,30 @@ public class EnemyController : InfantryController
     [SerializeField] private int coins;
     [SerializeField] private HealthController health;
 
+    private int multiplier;
+
     protected override bool HasIdleUpdate => true;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void SetDestination() => destination = GameObject.FindGameObjectWithTag(DestinationTag).transform.position;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        EventManager.OnRaiseDifficulty += RaiseStats;
+        multiplier = 1;
+    }
+
+    private void RaiseStats()
+    {
+        multiplier += 1;
+    }
+
     private void OnEnable()
     {
+        agent.speed = speed * multiplier;
+        health.SetHealth(multiplier);
         agent.SetDestination(destination);
-        agent.speed = speed * SpawnManager.Instance.DifficultyModifier;
-        health.RaiseHealth();
     }
 
     public override void PoolUnit()
@@ -40,5 +54,10 @@ public class EnemyController : InfantryController
     {
         if (agent.destination != destination)
             agent.SetDestination(destination);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.OnRaiseDifficulty -= RaiseStats;
     }
 }
