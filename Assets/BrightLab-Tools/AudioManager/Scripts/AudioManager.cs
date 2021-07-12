@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Audio;
-using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace AudioManager
 {
@@ -30,19 +29,6 @@ namespace AudioManager
         [SerializeField] private float maximumVolume;
 
         #region INITIALIZE
-
-        [RuntimeInitializeOnLoadMethod()]
-        private static void SetUpSceneLoadedEvent()
-        {
-            SceneManager.sceneLoaded += (scene, loadMode) => GetAudioControllers();
-        }
-
-        private static void GetAudioControllers()
-        {
-            AudioSourceController[] controllers = FindObjectsOfType<AudioSourceController>(true);
-            foreach (AudioSourceController controller in controllers)
-                controller.Subscribe();
-        }
 
         private void Awake()
         {
