@@ -137,8 +137,8 @@ namespace AudioManager
 
         #region TOGGLE AUDIOSOURCES
 
-        public void ToggleMusic() => OnToggleMusic?.Invoke(IsMasterMuted && IsMusicMuted);
-        public void ToggleSFX() => OnToggleSFX?.Invoke(IsMasterMuted && IsSFXMuted);
+        public void ToggleMusic() => OnToggleMusic?.Invoke(!IsMasterMuted && !IsMusicMuted);
+        public void ToggleSFX() => OnToggleSFX?.Invoke(!IsMasterMuted && !IsSFXMuted);
 
         #endregion
     }
