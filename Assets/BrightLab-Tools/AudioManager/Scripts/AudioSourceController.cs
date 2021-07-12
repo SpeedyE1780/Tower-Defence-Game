@@ -10,7 +10,7 @@ namespace AudioManager
         protected abstract void Subscribe();
         protected abstract void Unsubscribe();
 
-        private void Awake()
+        private void Start()
         {
             Subscribe();
             SetAudioSourceState();
