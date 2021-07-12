@@ -29564,8 +29564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4541ffcd057948245942ee5b282de448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meduimThreshold: 250
-  hardThreshold: 1000
+  meduimThreshold: 1
+  hardThreshold: 10
 --- !u!114 &1166281136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41118,7 +41118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa21ca99e076eb4184779fcffe02155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCoins: 1000
+  startingCoins: 5000
 --- !u!4 &1646722728
 Transform:
   m_ObjectHideFlags: 0
