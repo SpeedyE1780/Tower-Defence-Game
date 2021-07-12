@@ -2,14 +2,19 @@ namespace AudioManager
 {
     public class MusicSourceController : AudioSourceController
     {
-        public override void Subscribe()
+        protected override void SetAudioSourceState()
+        {
+            enabled = !AudioManager.Instance.IsMasterMuted && !AudioManager.Instance.IsMusicMuted;
+        }
+
+        protected override void Subscribe()
         {
             AudioManager.OnToggleMusic += ToggleAudioSource;
         }
 
-        public override void Unsubscribe()
+        protected override void Unsubscribe()
         {
             AudioManager.OnToggleMusic -= ToggleAudioSource;
         }
-    } 
+    }
 }
