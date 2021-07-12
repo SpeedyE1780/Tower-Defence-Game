@@ -8,7 +8,7 @@ public abstract class InfantryController : UnitController
     [SerializeField] private float attackRange;
     [Header("Movement Stats")]
     [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] private float speed;
+    [SerializeField] protected float speed;
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
     protected override bool HasIdleUpdate => true;

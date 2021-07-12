@@ -36455,6 +36455,7 @@ MonoBehaviour:
   hardFormations: {fileID: 2541157200470391895}
   waveDelay: 5
   bossWaveFrequency: 3
+  difficultyModifierFrequency: 5
 --- !u!1 &1442937533
 GameObject:
   m_ObjectHideFlags: 0

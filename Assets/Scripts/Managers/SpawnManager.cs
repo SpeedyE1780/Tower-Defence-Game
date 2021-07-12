@@ -10,10 +10,12 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private Transform hardFormations;
     [SerializeField] private float waveDelay;
     [SerializeField] private int bossWaveFrequency;
-    private int activeEnemies;
+    [SerializeField] private int difficultyModifierFrequency;
     private int currentWave;
+    private int activeEnemies;
     private Transform currentFormations;
 
+    public int DifficultyModifier => Mathf.FloorToInt(currentWave / difficultyModifierFrequency) + 1;
 
     public void StartSpawning(GameDifficulty difficulty)
     {

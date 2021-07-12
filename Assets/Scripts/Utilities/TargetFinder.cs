@@ -24,6 +24,6 @@ public static class TargetFinder
             }
         }
 
-        return target == null ? null : target.GetComponent<HealthController>();
+        return target?.GetComponent<HealthController>();
     }
 }

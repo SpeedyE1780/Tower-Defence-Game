@@ -21,7 +21,13 @@ public class HealthController : MonoBehaviour
         DieParameter = Animator.StringToHash("Die");
     }
 
-    private void OnEnable() => Health = maxHealth;
+    private void OnEnable()
+    {
+        Health = maxHealth;
+        ToggleComponentsState(true);
+    }
+
+    public void RaiseHealth() => Health = maxHealth * SpawnManager.Instance.DifficultyModifier;
 
     public void TakeHit()
     {
@@ -39,11 +45,8 @@ public class HealthController : MonoBehaviour
         ToggleComponentsState(false);
         anim.SetTrigger(DieParameter);
         yield return new WaitForSeconds(3);
-        ToggleComponentsState(true);
         controller.PoolUnit();
     }
-
-
 
     private void ToggleComponentsState(bool state)
     {

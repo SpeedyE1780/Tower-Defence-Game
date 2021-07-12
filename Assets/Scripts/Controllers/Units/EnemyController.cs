@@ -14,7 +14,12 @@ public class EnemyController : InfantryController
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void SetDestination() => destination = GameObject.FindGameObjectWithTag(DestinationTag).transform.position;
 
-    private void OnEnable() => agent.SetDestination(destination);
+    private void OnEnable()
+    {
+        agent.SetDestination(destination);
+        agent.speed = speed * SpawnManager.Instance.DifficultyModifier;
+        health.RaiseHealth();
+    }
 
     public override void PoolUnit()
     {

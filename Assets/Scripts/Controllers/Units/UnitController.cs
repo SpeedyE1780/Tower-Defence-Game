@@ -54,17 +54,4 @@ public abstract class UnitController : MonoBehaviour
     protected virtual void ResetCooldown() => currentAttackCooldown = attackCooldown;
     protected abstract void AttackTarget();
     protected abstract void Idle();
-
-    private void OnDrawGizmos()
-    {
-        Color color = Color.white;
-
-        if (Application.isPlaying)
-        {
-            color = currentTarget == null ? Color.red : Color.green;
-        }
-
-        Gizmos.color = color;
-        Gizmos.DrawWireSphere(transform.position, detectionRaduis);
-    }
 }
