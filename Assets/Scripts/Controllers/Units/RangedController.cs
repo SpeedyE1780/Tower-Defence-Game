@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class RangedController : UnitController
 {
-    private static int ShootParameter;
-
     [SerializeField] private Transform shootPoint;
     [Range(0, 1)]
     [SerializeField] private float hitChance;
@@ -19,9 +17,6 @@ public class RangedController : UnitController
     protected override bool HasIdleUpdate => false;
 
     protected void Start() => targetForward = new Vector3();
-
-    [RuntimeInitializeOnLoadMethod]
-    private static void SetShootParameter() => ShootParameter = Animator.StringToHash("Shoot");
 
     protected override void AttackTarget()
     {
@@ -48,8 +43,8 @@ public class RangedController : UnitController
 
     protected virtual void PlayShootAnimation()
     {
-        if (anim != null && anim.gameObject.activeInHierarchy)
-            anim.SetTrigger(ShootParameter);
+        if (unitAnimation != null && unitAnimation.gameObject.activeInHierarchy)
+            unitAnimation.Play(ShootAnimation);
     }
 
     protected virtual void Rotate()

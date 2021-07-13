@@ -3,8 +3,6 @@ using UnityEngine.AI;
 
 public abstract class InfantryController : UnitController
 {
-    private static int SpeedParameter;
-
     [SerializeField] private float attackRange;
     [Header("Movement Stats")]
     [SerializeField] protected NavMeshAgent agent;
@@ -12,12 +10,6 @@ public abstract class InfantryController : UnitController
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
     protected override bool HasIdleUpdate => true;
-
-    [RuntimeInitializeOnLoadMethod]
-    private static void SetSpeedParameter()
-    {
-        SpeedParameter = Animator.StringToHash("Speed");
-    }
 
     protected override void Awake()
     {
@@ -29,8 +21,11 @@ public abstract class InfantryController : UnitController
     protected override void Update()
     {
         base.Update();
-        if (anim != null && anim.gameObject.activeInHierarchy)
-            anim.SetFloat(SpeedParameter, agent.velocity.sqrMagnitude);
+        if (unitAnimation != null && unitAnimation.gameObject.activeInHierarchy)
+            if (agent.velocity.sqrMagnitude > 0 && unitAnimation.IsPlaying(IdleAnimation))
+                unitAnimation.Play(RunAnimation);
+            else if (agent.velocity.sqrMagnitude == 0 && unitAnimation.IsPlaying(RunAnimation))
+                unitAnimation.Play(IdleAnimation);
     }
 
     protected override void AttackTarget()

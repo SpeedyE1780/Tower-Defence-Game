@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    private static int DieParameter;
+    private const string DeathAnimation = "Death";
 
     [SerializeField] private int maxHealth;
-    [SerializeField] private Animator anim;
+    [SerializeField] private Animation unitAnimation;
     [Header("Components To Disable")]
     [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
     [SerializeField] private new Collider collider;
@@ -14,12 +14,6 @@ public class HealthController : MonoBehaviour
 
     private int Health { get; set; }
     public bool IsDead => Health == 0;
-
-    [RuntimeInitializeOnLoadMethod]
-    private static void SetDieParameter()
-    {
-        DieParameter = Animator.StringToHash("Die");
-    }
 
     private void OnEnable()
     {
@@ -46,7 +40,7 @@ public class HealthController : MonoBehaviour
     IEnumerator KillPlayer()
     {
         ToggleComponentsState(false);
-        anim.SetTrigger(DieParameter);
+        unitAnimation.Play(DeathAnimation);
         yield return new WaitForSeconds(3);
         controller.PoolUnit();
     }

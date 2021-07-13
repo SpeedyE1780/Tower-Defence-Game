@@ -4,7 +4,12 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public abstract class UnitController : MonoBehaviour
 {
-    [SerializeField] protected Animator anim;
+    protected const string IdleAnimation = "Idle";
+    protected const string ShootAnimation = "Shoot";
+    protected const string RunAnimation = "Run";
+    protected const string DeathAnimation = "Death";
+
+    [SerializeField] protected Animation unitAnimation;
     [SerializeField] protected PoolID poolID;
 
     [Header("Detection Stats")]

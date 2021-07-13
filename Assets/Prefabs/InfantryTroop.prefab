@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0efac494013d624c97e20ef8c070c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1897792448530396427}
+  unitAnimation: {fileID: 3508945501812728179}
   poolID: 4
   maxUnitsDetected: 10
   detectionRaduis: 25
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  anim: {fileID: 1897792448530396427}
+  unitAnimation: {fileID: 3508945501812728179}
   agent: {fileID: -7493919820558565216}
   collider: {fileID: 1131257113313240411}
   controller: {fileID: 1420220290397589858}
@@ -206,8 +206,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 403684, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
   m_PrefabInstance: {fileID: 1897792448537806135}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1897792448530396427 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9531452, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
+--- !u!111 &3508945501812728179 stripped
+Animation:
+  m_CorrespondingSourceObject: {fileID: 3090621060983514180, guid: 789396300d039cc4fa674d36eddb10a7, type: 3}
   m_PrefabInstance: {fileID: 1897792448537806135}
   m_PrefabAsset: {fileID: 0}
