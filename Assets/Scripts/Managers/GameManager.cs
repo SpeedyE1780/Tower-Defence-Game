@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager>
     public void StartGame()
     {
         kills = 0;
+        EnemyManager.InitializeMultiplier();
         UIManager.Instance.UpdateKillText(kills);
         UIManager.Instance.ShowGameUI();
         SpawnManager.Instance.StartSpawning();

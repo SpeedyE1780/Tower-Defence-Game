@@ -34,7 +34,7 @@ public class SpawnManager : Singleton<SpawnManager>
             currentWave += 1;
 
             if (currentWave % difficultyModifierFrequency == 0)
-                EventManager.RaiseEnemyDifficulty();
+                EnemyManager.IncrementMultiplier();
 
             UIManager.Instance.ShowWaveNumber(currentWave);
             SpawnFormation();
