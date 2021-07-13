@@ -29564,8 +29564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4541ffcd057948245942ee5b282de448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meduimThreshold: 1
-  hardThreshold: 10
+  meduimThreshold: 500
+  hardThreshold: 1000
 --- !u!114 &1166281136
 MonoBehaviour:
   m_ObjectHideFlags: 0
