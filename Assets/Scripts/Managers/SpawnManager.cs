@@ -5,22 +5,26 @@ public class SpawnManager : Singleton<SpawnManager>
 {
     [SerializeField] private PoolID enemyID;
     [SerializeField] private PoolID bossID;
+    [SerializeField] private int startingEnemyCount;
+    [SerializeField] private int maxEnemyCount;
+    [SerializeField] private float raisePercentage;
     [SerializeField] private float waveDelay;
     [SerializeField] private int bossWaveFrequency;
     [SerializeField] private int difficultyModifierFrequency;
     private int currentWave;
+    private float currentEnemyCount;
     private int activeEnemies;
 
     public void StartSpawning()
     {
         activeEnemies = 0;
+        currentEnemyCount = startingEnemyCount;
         currentWave = 0;
         StartCoroutine(Spawn());
     }
 
     private void OnEnable() => EventManager.OnEnemyDisabled += EnemyKilled;
     private void OnDisable() => EventManager.OnEnemyDisabled -= EnemyKilled;
-    private Transform GetRandomFormation() => transform.GetChild(Random.Range(0, transform.childCount));
     private void EnemyKilled() => activeEnemies -= 1;
 
     private IEnumerator Spawn()
@@ -40,6 +44,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
             UIManager.Instance.ShowWaveCompleted();
             EventManager.RaiseWaveEnded();
+
+            if (currentEnemyCount < maxEnemyCount)
+                currentEnemyCount = Mathf.Clamp(currentEnemyCount * raisePercentage, startingEnemyCount, maxEnemyCount);
+
             yield return new WaitForSeconds(waveDelay);
         }
     }
@@ -53,15 +61,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void SpawnFormation()
     {
-        Transform formation = GetRandomFormation();
-
-        foreach (Transform subFormation in formation)
+        for (int i = 0; i < currentEnemyCount; i++)
         {
-            foreach (Transform point in subFormation)
-            {
-                PoolManager.Instance.GetPooledObject(enemyID, point.position, point.rotation);
-                activeEnemies += 1;
-            }
+            PoolManager.Instance.GetPooledObject(enemyID, transform.position, transform.rotation);
+            activeEnemies += 1;
         }
     }
 }

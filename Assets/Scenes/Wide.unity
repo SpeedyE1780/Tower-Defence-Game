@@ -12477,8 +12477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4541ffcd057948245942ee5b282de448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meduimThreshold: 500
-  hardThreshold: 1000
 --- !u!114 &1166281136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15409,7 +15407,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441376913}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 26.8}
+  m_LocalPosition: {x: 0, y: 0, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -15429,9 +15427,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyID: 0
   bossID: 2
-  easyFormations: {fileID: 0}
-  meduimFormations: {fileID: 0}
-  hardFormations: {fileID: 0}
+  startingEnemyCount: 3
+  maxEnemyCount: 250
+  raisePercentage: 1.4
   waveDelay: 5
   bossWaveFrequency: 3
   difficultyModifierFrequency: 5
