@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 403684}
-  - component: {fileID: 9531452}
+  - component: {fileID: 3090621060983514180}
   m_Layer: 0
   m_Name: TT_ww1_demo_german_A
   m_TagString: Untagged
@@ -33,25 +33,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &9531452
-Animator:
-  serializedVersion: 3
+--- !u!111 &3090621060983514180
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100632}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f1da4a48383bb1b41b40a46c94a9e4fb, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5bfa9ac79994e124882c331c5e40f533, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: b3de6b837db588a4d9167ef73a1a5845, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b3de6b837db588a4d9167ef73a1a5845, type: 2}
+  - {fileID: 7400000, guid: 5553841822ae8564b86567cabc64645a, type: 2}
+  - {fileID: 7400000, guid: ec6e8c9c60607e64cbcde5872c446f63, type: 2}
+  - {fileID: 7400000, guid: 336aad228a074304dacf303c955242c3, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &106854
 GameObject:
   m_ObjectHideFlags: 0
