@@ -5,39 +5,23 @@ public class SpawnManager : Singleton<SpawnManager>
 {
     [SerializeField] private PoolID enemyID;
     [SerializeField] private PoolID bossID;
-    [SerializeField] private Transform easyFormations;
-    [SerializeField] private Transform meduimFormations;
-    [SerializeField] private Transform hardFormations;
     [SerializeField] private float waveDelay;
     [SerializeField] private int bossWaveFrequency;
     [SerializeField] private int difficultyModifierFrequency;
     private int currentWave;
     private int activeEnemies;
-    private Transform currentFormations;
 
-    public void StartSpawning(GameDifficulty difficulty)
+    public void StartSpawning()
     {
         activeEnemies = 0;
         currentWave = 0;
-        SetFormationsDifficulty(difficulty);
         StartCoroutine(Spawn());
     }
 
     private void OnEnable() => EventManager.OnEnemyDisabled += EnemyKilled;
     private void OnDisable() => EventManager.OnEnemyDisabled -= EnemyKilled;
-    private Transform GetRandomFormation() => currentFormations.GetChild(Random.Range(0, currentFormations.childCount));
+    private Transform GetRandomFormation() => transform.GetChild(Random.Range(0, transform.childCount));
     private void EnemyKilled() => activeEnemies -= 1;
-
-    public void SetFormationsDifficulty(GameDifficulty difficulty)
-    {
-        currentFormations = difficulty switch
-        {
-            GameDifficulty.Easy => easyFormations,
-            GameDifficulty.Meduim => meduimFormations,
-            GameDifficulty.Hard => hardFormations,
-            _ => throw new System.Exception("Difficulty Error"),
-        };
-    }
 
     private IEnumerator Spawn()
     {
