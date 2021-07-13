@@ -5,39 +5,27 @@ public class SpawnManager : Singleton<SpawnManager>
 {
     [SerializeField] private PoolID enemyID;
     [SerializeField] private PoolID bossID;
-    [SerializeField] private Transform easyFormations;
-    [SerializeField] private Transform meduimFormations;
-    [SerializeField] private Transform hardFormations;
+    [SerializeField] private int startingEnemyCount;
+    [SerializeField] private int maxEnemyCount;
+    [SerializeField] private float raisePercentage;
     [SerializeField] private float waveDelay;
     [SerializeField] private int bossWaveFrequency;
     [SerializeField] private int difficultyModifierFrequency;
     private int currentWave;
+    private float currentEnemyCount;
     private int activeEnemies;
-    private Transform currentFormations;
 
-    public void StartSpawning(GameDifficulty difficulty)
+    public void StartSpawning()
     {
         activeEnemies = 0;
+        currentEnemyCount = startingEnemyCount;
         currentWave = 0;
-        SetFormationsDifficulty(difficulty);
         StartCoroutine(Spawn());
     }
 
     private void OnEnable() => EventManager.OnEnemyDisabled += EnemyKilled;
     private void OnDisable() => EventManager.OnEnemyDisabled -= EnemyKilled;
-    private Transform GetRandomFormation() => currentFormations.GetChild(Random.Range(0, currentFormations.childCount));
     private void EnemyKilled() => activeEnemies -= 1;
-
-    public void SetFormationsDifficulty(GameDifficulty difficulty)
-    {
-        currentFormations = difficulty switch
-        {
-            GameDifficulty.Easy => easyFormations,
-            GameDifficulty.Meduim => meduimFormations,
-            GameDifficulty.Hard => hardFormations,
-            _ => throw new System.Exception("Difficulty Error"),
-        };
-    }
 
     private IEnumerator Spawn()
     {
@@ -46,7 +34,7 @@ public class SpawnManager : Singleton<SpawnManager>
             currentWave += 1;
 
             if (currentWave % difficultyModifierFrequency == 0)
-                EventManager.RaiseEnemyDifficulty();
+                EnemyManager.IncrementMultiplier();
 
             UIManager.Instance.ShowWaveNumber(currentWave);
             SpawnFormation();
@@ -56,6 +44,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
             UIManager.Instance.ShowWaveCompleted();
             EventManager.RaiseWaveEnded();
+
+            if (currentEnemyCount < maxEnemyCount)
+                currentEnemyCount = Mathf.Clamp(currentEnemyCount * raisePercentage, startingEnemyCount, maxEnemyCount);
+
             yield return new WaitForSeconds(waveDelay);
         }
     }
@@ -69,15 +61,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void SpawnFormation()
     {
-        Transform formation = GetRandomFormation();
-
-        foreach (Transform subFormation in formation)
+        for (int i = 0; i < currentEnemyCount; i++)
         {
-            foreach (Transform point in subFormation)
-            {
-                PoolManager.Instance.GetPooledObject(enemyID, point.position, point.rotation);
-                activeEnemies += 1;
-            }
+            PoolManager.Instance.GetPooledObject(enemyID, transform.position, transform.rotation);
+            activeEnemies += 1;
         }
     }
 }
