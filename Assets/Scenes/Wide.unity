@@ -16980,7 +16980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa21ca99e076eb4184779fcffe02155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCoins: 5000
+  startingCoins: 250
 --- !u!4 &1646722728
 Transform:
   m_ObjectHideFlags: 0
