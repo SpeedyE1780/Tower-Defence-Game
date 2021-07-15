@@ -106,6 +106,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   collider: {fileID: 1566502556216194348}
   controller: {fileID: 7583506564838596067}
+  geometry: {fileID: 8085759355982769812}
 --- !u!1 &3060684563399881924
 GameObject:
   m_ObjectHideFlags: 0

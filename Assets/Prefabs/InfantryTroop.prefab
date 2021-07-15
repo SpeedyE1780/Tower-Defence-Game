@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0efac494013d624c97e20ef8c070c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitAnimation: {fileID: 0}
   poolID: 4
   maxUnitsDetected: 10
   detectionRaduis: 25
@@ -126,10 +125,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  unitAnimation: {fileID: 0}
   agent: {fileID: -7493919820558565216}
   collider: {fileID: 1131257113313240411}
   controller: {fileID: 1420220290397589858}
+  geometry: {fileID: 2971355877389920838}
 --- !u!1 &3060684563399881924
 GameObject:
   m_ObjectHideFlags: 0

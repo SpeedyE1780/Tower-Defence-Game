@@ -8,9 +8,18 @@ public class HealthController : MonoBehaviour
     [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
     [SerializeField] private new Collider collider;
     [SerializeField] private UnitController controller;
+    [SerializeField] private Transform geometry;
+    private Vector3 initialScale;
+    private Vector3 targetScale;
 
     private int Health { get; set; }
     public bool IsDead => Health == 0;
+
+    private void Awake()
+    {
+        initialScale = geometry.localScale;
+        targetScale = Vector3.zero;
+    }
 
     private void OnEnable()
     {
@@ -37,12 +46,22 @@ public class HealthController : MonoBehaviour
     IEnumerator KillPlayer()
     {
         ToggleComponentsState(false);
-        yield return new WaitForSeconds(3);
+        float time = 0;
+
+        while (time < 0.5f)
+        {
+            time += Time.deltaTime;
+            geometry.localScale = Vector3.Lerp(initialScale, targetScale, time / 0.5f);
+            yield return null;
+        }
+
         controller.PoolUnit();
     }
 
     private void ToggleComponentsState(bool state)
     {
+        geometry.localScale = initialScale;
+
         if (agent != null)
             agent.enabled = state;
 
