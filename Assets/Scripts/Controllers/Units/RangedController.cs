@@ -10,7 +10,6 @@ public class RangedController : UnitController
     [SerializeField] private ParticleSystem bulletCasing;
     [Range(0, 1)]
     [SerializeField] private float rotationSpeed;
-
     private Vector3 targetForward;
 
     protected virtual Transform RotationTransform => transform;
@@ -33,7 +32,7 @@ public class RangedController : UnitController
 
         ResetCooldown();
         PlayShootAnimation();
-        SpawnProjectile();
+        PoolManager.Instance.GetPooledObject(projectileID, shootPoint.position, Quaternion.LookRotation(shootPoint.forward)).SetActive(true);
         bulletCasing.Play();
 
 
@@ -51,12 +50,5 @@ public class RangedController : UnitController
     {
         targetForward = currentTarget.transform.position - transform.position;
         RotationTransform.rotation = Quaternion.Slerp(RotationTransform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
-    }
-
-    private void SpawnProjectile()
-    {
-        GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID);
-        projectile.transform.position = shootPoint.position;
-        projectile.transform.forward = shootPoint.forward;
     }
 }

@@ -18,6 +18,7 @@ public class TroopPlacementManager : UnitPlacementManager
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
         bool canPlaceUnit = true;
+        bool isInfantry = troopID == PoolID.Infantry;
 
         do
         {
@@ -30,6 +31,11 @@ public class TroopPlacementManager : UnitPlacementManager
                 continue;
 
             GameObject troop = PoolManager.Instance.GetPooledObject(troopID, hitPoint);
+
+            if (isInfantry)
+                troop.GetComponent<Rigidbody>().MovePosition(hitPoint);
+
+            troop.SetActive(true);
             ShopManager.Instance.BuyUnit(unitPrice);
             canPlaceUnit = ShopManager.Instance.CanBuyUnit(unitPrice);
 

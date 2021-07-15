@@ -18,6 +18,7 @@ public class TowerPlacementManager : UnitPlacementManager
     protected override IEnumerator PlaceUnit(PoolID towerID, int unitPrice)
     {
         TowerController tower = PoolManager.Instance.GetPooledObject<TowerController>(towerID);
+        tower.gameObject.SetActive(true);
         tower.enabled = false;
         Transform towerTransform = tower.transform;
         towerTransform.position = defaultTowerPosition.position;

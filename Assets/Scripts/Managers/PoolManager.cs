@@ -5,6 +5,8 @@ public class PoolManager : Singleton<PoolManager>
 {
     private Dictionary<PoolID, Queue<GameObject>> pooledObjects;
     private Dictionary<PoolID, Transform> poolParents;
+    private Vector3 defaultPosition;
+    private Quaternion defaultRotation;
 
     protected override void Awake()
     {
@@ -12,6 +14,8 @@ public class PoolManager : Singleton<PoolManager>
         pooledObjects = new Dictionary<PoolID, Queue<GameObject>>();
         poolParents = new Dictionary<PoolID, Transform>();
         PopulatePool();
+        defaultPosition = Vector3.zero;
+        defaultRotation = Quaternion.identity;
     }
 
     private void PopulatePool()
@@ -32,8 +36,13 @@ public class PoolManager : Singleton<PoolManager>
         {
             GameObject poolItem = pooledObjects[id].Dequeue();
             poolItem.transform.SetParent(null);
-            poolItem.transform.SetPositionAndRotation(position, rotation == default ? Quaternion.identity : rotation);
-            poolItem.SetActive(true);
+
+            if (position == default)
+                position = defaultPosition;
+            if (rotation == default)
+                rotation = defaultRotation;
+
+            poolItem.transform.SetPositionAndRotation(position, rotation);
 
             if (pooledObjects[id].Count <= 0)
                 pooledObjects.Remove(id);

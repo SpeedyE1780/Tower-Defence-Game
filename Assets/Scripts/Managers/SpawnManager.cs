@@ -54,17 +54,35 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator SpawnBoss()
     {
-        GameObject b = PoolManager.Instance.GetPooledObject(bossID, transform.position, transform.rotation);
+        Rigidbody rb = PoolManager.Instance.GetPooledObject<Rigidbody>(bossID, transform.position, transform.rotation);
+        rb.MovePosition(transform.position);
+        rb.MoveRotation(transform.rotation);
+        rb.gameObject.SetActive(true);
         activeEnemies++;
-        yield return new WaitUntil(() => !b.activeSelf);
+        yield return new WaitUntil(() => !rb.gameObject.activeSelf);
     }
 
     private void SpawnFormation()
     {
+        Transform child;
         for (int i = 0; i < currentEnemyCount; i++)
         {
-            PoolManager.Instance.GetPooledObject(enemyID, transform.position, transform.rotation);
+            child = transform.GetChild(i);
+            Rigidbody rb = PoolManager.Instance.GetPooledObject<Rigidbody>(enemyID, child.position, child.rotation);
+            rb.MovePosition(child.position);
+            rb.MoveRotation(child.rotation);
+            rb.gameObject.SetActive(true);
             activeEnemies += 1;
+        }
+    }
+
+    [ContextMenu("SpawnRandomPoint")]
+    public void SpawnRandomPosition()
+    {
+        for (int i = 0; i < maxEnemyCount; i++)
+        {
+            GameObject gameObject = new GameObject($"Point {i}");
+            gameObject.transform.position = new Vector3(Random.Range(-37.5f, 37.5f), 0, Random.Range(-25f, 25f));
         }
     }
 }
