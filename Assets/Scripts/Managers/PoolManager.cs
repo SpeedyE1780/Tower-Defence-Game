@@ -4,7 +4,6 @@ using UnityEngine;
 public class PoolManager : Singleton<PoolManager>
 {
     private Dictionary<PoolID, Queue<GameObject>> pooledObjects;
-    private Dictionary<PoolID, Transform> poolParents;
     private Vector3 defaultPosition;
     private Quaternion defaultRotation;
 
@@ -12,7 +11,6 @@ public class PoolManager : Singleton<PoolManager>
     {
         base.Awake();
         pooledObjects = new Dictionary<PoolID, Queue<GameObject>>();
-        poolParents = new Dictionary<PoolID, Transform>();
         PopulatePool();
         defaultPosition = Vector3.zero;
         defaultRotation = Quaternion.identity;
@@ -23,7 +21,6 @@ public class PoolManager : Singleton<PoolManager>
         foreach (Transform child in transform)
         {
             System.Enum.TryParse(child.name, out PoolID id);
-            poolParents.Add(id, child);
             pooledObjects.Add(id, new Queue<GameObject>());
             foreach (Transform pooled in child)
                 pooledObjects[id].Enqueue(pooled.gameObject);
@@ -68,20 +65,8 @@ public class PoolManager : Singleton<PoolManager>
         else
             pooledObjects.Add(id, new Queue<GameObject>(new[] { poolObject }));
 
-        if (!poolParents.ContainsKey(id))
-            CreatePoolParent(id);
-
-        poolObject.name = $"Pooled {id}";
         poolObject.SetActive(false);
-        poolObject.transform.SetParent(poolParents[id]);
         poolObject.transform.localPosition = Vector3.zero;
-    }
-
-    void CreatePoolParent(PoolID id)
-    {
-        GameObject poolParent = new GameObject($"{id}");
-        poolParent.transform.SetParent(transform);
-        poolParents.Add(id, poolParent.transform);
     }
 
     [ContextMenu("Populate Pool")]
