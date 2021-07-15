@@ -47712,6 +47712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScale: 1
+  targetFrameRate: 60
 --- !u!1001 &1166550416
 PrefabInstance:
   m_ObjectHideFlags: 0

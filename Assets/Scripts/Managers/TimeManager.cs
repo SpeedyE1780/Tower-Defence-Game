@@ -3,6 +3,12 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour
 {
     [SerializeField] private float timeScale;
+    [SerializeField] private int targetFrameRate;
+
+    private void Awake()
+    {
+        Application.targetFrameRate = targetFrameRate;
+    }
 
     public void PauseGame()
     {
