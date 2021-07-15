@@ -24,16 +24,6 @@ public abstract class InfantryController : UnitController
         rotation = new Quaternion();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-        if (unitAnimation != null && unitAnimation.gameObject.activeInHierarchy)
-            if (agent.velocity.sqrMagnitude > 0 && unitAnimation.IsPlaying(IdleAnimation))
-                unitAnimation.Play(RunAnimation);
-            else if (agent.velocity.sqrMagnitude == 0 && unitAnimation.IsPlaying(RunAnimation))
-                unitAnimation.Play(IdleAnimation);
-    }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

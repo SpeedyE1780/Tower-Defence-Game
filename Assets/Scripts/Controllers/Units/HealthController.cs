@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    private const string DeathAnimation = "Death";
-
     [SerializeField] private int maxHealth;
-    [SerializeField] private Animation unitAnimation;
     [Header("Components To Disable")]
     [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
     [SerializeField] private new Collider collider;
@@ -40,7 +37,6 @@ public class HealthController : MonoBehaviour
     IEnumerator KillPlayer()
     {
         ToggleComponentsState(false);
-        unitAnimation.Play(DeathAnimation);
         yield return new WaitForSeconds(3);
         controller.PoolUnit();
     }

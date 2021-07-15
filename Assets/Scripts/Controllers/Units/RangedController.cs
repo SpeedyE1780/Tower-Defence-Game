@@ -31,19 +31,12 @@ public class RangedController : UnitController
             return;
 
         ResetCooldown();
-        PlayShootAnimation();
         PoolManager.Instance.GetPooledObject(projectileID, shootPoint.position, Quaternion.LookRotation(shootPoint.forward)).SetActive(true);
         bulletCasing.Play();
 
 
         if (Random.Range(0, 1f) < hitChance)
             currentTarget.TakeHit();
-    }
-
-    protected virtual void PlayShootAnimation()
-    {
-        if (unitAnimation != null && unitAnimation.gameObject.activeInHierarchy)
-            unitAnimation.Play(ShootAnimation);
     }
 
     protected virtual void Rotate()

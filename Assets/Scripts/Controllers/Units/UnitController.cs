@@ -9,7 +9,6 @@ public abstract class UnitController : MonoBehaviour
     protected const string RunAnimation = "Run";
     protected const string DeathAnimation = "Death";
 
-    [SerializeField] protected Animation unitAnimation;
     [SerializeField] protected PoolID poolID;
 
     [Header("Detection Stats")]
