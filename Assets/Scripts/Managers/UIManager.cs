@@ -8,9 +8,9 @@ public class UIManager : Singleton<UIManager>
     private static Vector3 waveEndScale = new Vector3(1, 1, 1);
 
     [Header("Game Menues")]
-    [SerializeField] private GameObject MenuUI;
-    [SerializeField] private GameObject GameUI;
-    [SerializeField] private GameObject PauseUI;
+    [SerializeField] private Canvas MenuUI;
+    [SerializeField] private Canvas GameUI;
+    [SerializeField] private Canvas PauseUI;
 
     [Header("Game UI")]
     [SerializeField] private Text coinText;
@@ -23,23 +23,20 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowMenuUI()
     {
-        GameUI.SetActive(false);
-        PauseUI.SetActive(false);
-        MenuUI.SetActive(true);
+        GameUI.enabled = false;
+        PauseUI.enabled = false;
+        MenuUI.enabled = true;
     }
 
     public void ShowGameUI()
     {
-        MenuUI.SetActive(false);
-        PauseUI.SetActive(false);
-        GameUI.SetActive(true);
+        MenuUI.enabled = false;
+        PauseUI.enabled = false;
+        GameUI.enabled = true;
     }
 
-    public void TogglePauseUI(bool state) => PauseUI.SetActive(state);
-
-
-    //public void UpdateKillText(int score) => killsText.text = $"Kills: {score}";
-    public void UpdateKillText(int score) => killsText.text = $"{score}";
+    public void TogglePauseUI(bool state) => PauseUI.enabled = state;
+    public void UpdateKillText(int score) => killsText.text = score.ToString();
     public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
 
     private IEnumerator ShowWaveText(GameObject waveText)
