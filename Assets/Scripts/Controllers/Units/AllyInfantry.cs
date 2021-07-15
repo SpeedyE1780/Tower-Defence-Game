@@ -4,8 +4,9 @@ public class AllyInfantry : InfantryController
 {
     protected Vector3 initialPosition;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         EventManager.OnWaveEnded += ResetPosition;
         initialPosition = transform.position;
     }

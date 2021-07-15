@@ -7,6 +7,7 @@ public abstract class InfantryController : UnitController
     [Header("Movement Stats")]
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected Rigidbody agentBody;
+    [SerializeField] protected Transform geometry;
     [SerializeField] protected float speed;
     private Quaternion rotation;
 
@@ -28,6 +29,7 @@ public abstract class InfantryController : UnitController
     {
         base.SimulatePhysics(deltaTime);
         agentBody.MovePosition(agent.nextPosition);
+        geometry.position = agent.nextPosition;
 
         if (agent.velocity.sqrMagnitude > 0)
             SetLookRotation();

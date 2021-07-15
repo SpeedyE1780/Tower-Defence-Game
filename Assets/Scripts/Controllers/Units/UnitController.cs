@@ -27,6 +27,12 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual void Awake() => detectedUnits = new Collider[maxUnitsDetected];
 
+    protected virtual void OnEnable()
+    {
+        currentAttackCooldown = attackCooldown;
+        currentDetectionCooldown = detectionCooldown;
+    }
+
     protected virtual void Update()
     {
         if (TargetFinder.IsTargetActive(currentTarget))
