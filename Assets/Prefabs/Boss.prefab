@@ -111,6 +111,7 @@ MonoBehaviour:
   attackCooldown: 0.1
   attackRange: 5
   agent: {fileID: -6167951554154646355}
+  agentBody: {fileID: 4618477994666530619}
   speed: 10
   coins: 500
   health: {fileID: -4684928551791343520}

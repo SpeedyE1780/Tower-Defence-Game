@@ -6,7 +6,9 @@ public abstract class InfantryController : UnitController
     [SerializeField] private float attackRange;
     [Header("Movement Stats")]
     [SerializeField] protected NavMeshAgent agent;
+    [SerializeField] protected Rigidbody agentBody;
     [SerializeField] protected float speed;
+    private Quaternion rotation;
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
     protected override bool HasIdleUpdate => true;
@@ -14,8 +16,12 @@ public abstract class InfantryController : UnitController
     protected override void Awake()
     {
         base.Awake();
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
         agent.speed = speed;
         attackRange *= attackRange;
+        rotation = new Quaternion();
     }
 
     protected override void Update()
@@ -26,6 +32,22 @@ public abstract class InfantryController : UnitController
                 unitAnimation.Play(RunAnimation);
             else if (agent.velocity.sqrMagnitude == 0 && unitAnimation.IsPlaying(RunAnimation))
                 unitAnimation.Play(IdleAnimation);
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        agentBody.MovePosition(agent.nextPosition);
+
+        if (agent.velocity.sqrMagnitude > 0)
+            SetLookRotation();
+
+    }
+
+    protected virtual void SetLookRotation()
+    {
+        rotation.SetLookRotation(agent.velocity);
+        agentBody.MoveRotation(rotation);
     }
 
     protected override void AttackTarget()

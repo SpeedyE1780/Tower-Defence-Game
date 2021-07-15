@@ -39,7 +39,7 @@ public abstract class UnitController : MonoBehaviour
         currentAttackCooldown -= Time.deltaTime;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (currentDetectionCooldown < 0 && !TargetFinder.IsTargetActive(currentTarget))
             FindTarget();
