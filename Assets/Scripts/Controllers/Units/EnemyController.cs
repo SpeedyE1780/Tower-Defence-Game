@@ -14,11 +14,6 @@ public class EnemyController : InfantryController
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void SetDestination() => destination = GameObject.FindGameObjectWithTag(DestinationTag).transform.position;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     private void OnEnable()
     {
         agent.speed = speed * EnemyManager.Multiplier;
