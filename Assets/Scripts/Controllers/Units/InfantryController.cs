@@ -24,9 +24,9 @@ public abstract class InfantryController : UnitController
         rotation = new Quaternion();
     }
 
-    protected override void FixedUpdate()
+    protected override void SimulatePhysics(float deltaTime)
     {
-        base.FixedUpdate();
+        base.SimulatePhysics(deltaTime);
         agentBody.MovePosition(agent.nextPosition);
 
         if (agent.velocity.sqrMagnitude > 0)

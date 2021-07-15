@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -35,15 +34,17 @@ public abstract class UnitController : MonoBehaviour
         else if (HasIdleUpdate)
             Idle();
 
-        currentAttackCooldown -= Time.deltaTime;
+        float deltaTime = Time.deltaTime;
+        currentAttackCooldown -= deltaTime;
+        SimulatePhysics(deltaTime);
     }
 
-    protected virtual void FixedUpdate()
+    protected virtual void SimulatePhysics(float deltaTime)
     {
         if (currentDetectionCooldown < 0 && !TargetFinder.IsTargetActive(currentTarget))
             FindTarget();
 
-        currentDetectionCooldown -= Time.fixedDeltaTime;
+        currentDetectionCooldown -= deltaTime;
     }
 
     protected virtual void FindTarget()

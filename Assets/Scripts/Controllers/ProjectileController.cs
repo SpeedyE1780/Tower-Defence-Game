@@ -10,7 +10,7 @@ public class ProjectileController : MonoBehaviour
 
     void Start() => rb = GetComponent<Rigidbody>();
     private void OnEnable() => StartCoroutine(PoolObject());
-    void FixedUpdate() => rb.velocity = transform.forward * speed;
+    void Update() => rb.velocity = transform.forward * speed;
 
     IEnumerator PoolObject()
     {
