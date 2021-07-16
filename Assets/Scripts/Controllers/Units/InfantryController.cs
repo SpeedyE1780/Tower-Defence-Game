@@ -24,6 +24,18 @@ public abstract class InfantryController : UnitController
         rotation = new Quaternion();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        if (unitAnimation.IsPlaying(AttackAnimation))
+            return;
+
+        if (agent.velocity.sqrMagnitude < 0.1f && !unitAnimation.IsPlaying(IdleAnimation))
+            unitAnimation.Play(IdleAnimation);
+        else if (agent.velocity.sqrMagnitude > 0.1f && !unitAnimation.IsPlaying(RunAnimation))
+            unitAnimation.Play(RunAnimation);
+    }
+
     protected override void SimulatePhysics(float deltaTime)
     {
         base.SimulatePhysics(deltaTime);
@@ -53,6 +65,7 @@ public abstract class InfantryController : UnitController
 
     private void DamageTarget()
     {
+        unitAnimation.Play(AttackAnimation);
         currentTarget.TakeHit();
         ResetCooldown();
     }

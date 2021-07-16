@@ -6,12 +6,12 @@ using UnityEngine;
 public abstract class UnitController : MonoBehaviour
 {
     protected const string IdleAnimation = "Idle";
-    protected const string ShootAnimation = "Shoot";
+    protected const string AttackAnimation = "Attack";
     protected const string RunAnimation = "Run";
     protected const string DeathAnimation = "Death";
 
     [SerializeField] protected PoolID poolID;
-
+    [SerializeField] protected Animation unitAnimation;
     [Header("Detection Stats")]
     [SerializeField] private float detectionRaduis;
     [SerializeField] private LayerMask detectionLayer;
@@ -21,12 +21,12 @@ public abstract class UnitController : MonoBehaviour
     protected int commandIndex;
     protected float currentAttackCooldown;
     protected HealthController currentTarget;
-    private float currentDetectionCooldown;
 
     protected virtual bool HasIdleUpdate => true;
 
     protected virtual void OnEnable()
     {
+        unitAnimation.Play(IdleAnimation);
         currentTarget = null;
         currentAttackCooldown = attackCooldown;
         commandIndex = UnitsManager.Instance.AddCommandToList(transform.position, detectionRaduis, transform.forward, detectionLayer);
@@ -62,9 +62,7 @@ public abstract class UnitController : MonoBehaviour
         if (!TargetFinder.IsTargetActive(currentTarget))
             currentTarget = UnitsManager.Instance.GetTarget(commandIndex);
 
-
         UnitsManager.Instance.UpdateCommand(commandIndex, transform.position, transform.forward);
-        currentDetectionCooldown -= deltaTime;
     }
 
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);

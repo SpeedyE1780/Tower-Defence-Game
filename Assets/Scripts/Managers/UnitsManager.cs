@@ -29,6 +29,9 @@ public class UnitsManager : Singleton<UnitsManager>
 
     public void RemoveCommandFromList(int unitIndex)
     {
+        if (!commands.IsCreated)
+            return;
+
         commands.RemoveAt(unitIndex);
         hits.RemoveAt(unitIndex);
         EventManager.RaiseUnitIndex(unitIndex);
