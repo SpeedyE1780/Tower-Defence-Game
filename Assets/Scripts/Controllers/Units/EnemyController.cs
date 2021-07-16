@@ -12,7 +12,14 @@ public class EnemyController : InfantryController
     protected override bool HasIdleUpdate => true;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void SetDestination() => destination = GameObject.FindGameObjectWithTag(DestinationTag).transform.position;
+    private static void SetDestination()
+    {
+        GameObject g = GameObject.FindGameObjectWithTag(DestinationTag);
+        if (g == null)
+            return;
+
+        destination = g.transform.position;
+    }
 
     protected override void OnEnable()
     {
