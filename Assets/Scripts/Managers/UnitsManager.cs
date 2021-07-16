@@ -27,6 +27,13 @@ public class UnitsManager : Singleton<UnitsManager>
         return unitIndex;
     }
 
+    public void RemoveCommandFromList(int unitIndex)
+    {
+        commands.RemoveAt(unitIndex);
+        hits.RemoveAt(unitIndex);
+        EventManager.RaiseUnitIndex(unitIndex);
+    }
+
     private void Update()
     {
         if (currentReferesh < 0)

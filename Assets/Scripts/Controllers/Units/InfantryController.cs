@@ -14,9 +14,8 @@ public abstract class InfantryController : UnitController
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
     protected override bool HasIdleUpdate => true;
 
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
         agent.updatePosition = false;
         agent.updateRotation = false;
         agent.updateUpAxis = false;

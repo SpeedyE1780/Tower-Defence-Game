@@ -14,7 +14,6 @@ public abstract class UnitController : MonoBehaviour
 
     [Header("Detection Stats")]
     [SerializeField] private float detectionRaduis;
-    [SerializeField] private float detectionCooldown;
     [SerializeField] private LayerMask detectionLayer;
     [Header("Attack Stats")]
     [SerializeField] protected float attackCooldown;
@@ -26,16 +25,24 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual bool HasIdleUpdate => true;
 
-    protected virtual void Awake()
-    {
-        commandIndex = UnitsManager.Instance.AddCommandToList(transform.position, detectionRaduis, transform.forward, detectionLayer);
-    }
-
     protected virtual void OnEnable()
     {
         currentTarget = null;
         currentAttackCooldown = attackCooldown;
-        currentDetectionCooldown = detectionCooldown;
+        commandIndex = UnitsManager.Instance.AddCommandToList(transform.position, detectionRaduis, transform.forward, detectionLayer);
+        EventManager.OnResetUnitIndex += UpdateIndex;
+    }
+
+    private void UpdateIndex(int index)
+    {
+        if (commandIndex > index)
+            commandIndex -= 1;
+    }
+
+    protected virtual void OnDisable()
+    {
+        UnitsManager.Instance.RemoveCommandFromList(commandIndex);
+        EventManager.OnResetUnitIndex -= UpdateIndex;
     }
 
     protected virtual void Update()
@@ -52,17 +59,12 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual void SimulatePhysics(float deltaTime)
     {
-        if (currentDetectionCooldown < 0 && !TargetFinder.IsTargetActive(currentTarget))
-            FindTarget();
+        if (!TargetFinder.IsTargetActive(currentTarget))
+            currentTarget = UnitsManager.Instance.GetTarget(commandIndex);
+
 
         UnitsManager.Instance.UpdateCommand(commandIndex, transform.position, transform.forward);
         currentDetectionCooldown -= deltaTime;
-    }
-
-    protected virtual void FindTarget()
-    {
-        currentDetectionCooldown = detectionCooldown;
-        currentTarget = UnitsManager.Instance.GetTarget(commandIndex);
     }
 
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);

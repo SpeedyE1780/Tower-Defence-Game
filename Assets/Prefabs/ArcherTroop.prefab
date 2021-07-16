@@ -79,11 +79,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolID: 5
   detectionRaduis: 10
-  detectionCooldown: 0.3
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
-  attackCooldown: 0.1
+  attackCooldown: 0
   shootPoint: {fileID: 9036266385294470697}
   hitChance: 0.8
   projectileID: 1
