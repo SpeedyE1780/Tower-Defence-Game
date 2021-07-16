@@ -348,7 +348,7 @@ Transform:
   m_GameObject: {fileID: 4395809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 806957888}
   m_RootOrder: 0
@@ -41694,7 +41694,7 @@ Transform:
   m_GameObject: {fileID: 983053109}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 806957888}
   m_RootOrder: 1
@@ -61260,8 +61260,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyID: 0
   bossID: 2
-  startingEnemyCount: 1
-  maxEnemyCount: 1
+  startingEnemyCount: 50
+  maxEnemyCount: 250
   raisePercentage: 1.4
   waveDelay: 5
   bossWaveFrequency: 3
@@ -90728,8 +90728,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8302114416235852362}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -120, y: -15, z: -111.5}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: -140, y: -15, z: -111.5}
+  m_LocalScale: {x: 20, y: 1, z: 30}
   m_Children: []
   m_Father: {fileID: 1439243372}
   m_RootOrder: 7
@@ -90750,8 +90750,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2940409053885262364}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 120, y: -15, z: -111.5}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 140, y: -15, z: -111.5}
+  m_LocalScale: {x: 20, y: 1, z: 30}
   m_Children: []
   m_Father: {fileID: 1439243372}
   m_RootOrder: 6

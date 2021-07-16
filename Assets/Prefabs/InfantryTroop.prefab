@@ -107,7 +107,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   attackCooldown: 0.25
-  attackRange: 3
+  attackRange: 6
   agent: {fileID: -7493919820558565216}
   agentBody: {fileID: 4618477994666530619}
   geometry: {fileID: 8085759355982769812}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 100
   agent: {fileID: -7493919820558565216}
   collider: {fileID: 1131257113313240411}
   controller: {fileID: 1420220290397589858}
