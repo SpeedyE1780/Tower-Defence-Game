@@ -1,3 +1,5 @@
+using Unity.Collections;
+using Unity.Jobs;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -20,12 +22,17 @@ public abstract class UnitController : MonoBehaviour
 
     protected float currentAttackCooldown;
     protected HealthController currentTarget;
-    private Collider[] detectedUnits;
+    protected NativeArray<SpherecastCommand> commands;
+    protected NativeArray<RaycastHit> hits;
     private float currentDetectionCooldown;
 
     protected virtual bool HasIdleUpdate => true;
 
-    protected virtual void Awake() => detectedUnits = new Collider[maxUnitsDetected];
+    protected virtual void Awake()
+    {
+        commands = new NativeArray<SpherecastCommand>(1, Allocator.Persistent);
+        hits = new NativeArray<RaycastHit>(1, Allocator.Persistent);
+    }
 
     protected virtual void OnEnable()
     {
@@ -58,8 +65,16 @@ public abstract class UnitController : MonoBehaviour
     {
         currentDetectionCooldown = detectionCooldown;
         currentTarget = null;
-        Physics.OverlapSphereNonAlloc(transform.position, detectionRaduis, detectedUnits, detectionLayer, QueryTriggerInteraction.Ignore);
-        currentTarget = TargetFinder.GetNearestTarget(detectedUnits, transform.position, detectionRaduis * detectionRaduis);
+        commands[0] = new SpherecastCommand(transform.position + transform.forward * (detectionRaduis * -1.1f), detectionRaduis, transform.forward, 20, detectionLayer);
+        SpherecastCommand.ScheduleBatch(commands, hits, 1).Complete();
+        if (hits[0].transform != null)
+            currentTarget = hits[0].transform.GetComponent<HealthController>();
+    }
+
+    protected virtual void OnDestroy()
+    {
+        hits.Dispose();
+        commands.Dispose();
     }
 
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);

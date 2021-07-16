@@ -59836,8 +59836,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyID: 0
   bossID: 2
-  startingEnemyCount: 50
-  maxEnemyCount: 250
+  startingEnemyCount: 750
+  maxEnemyCount: 750
   raisePercentage: 1.4
   waveDelay: 5
   bossWaveFrequency: 3
