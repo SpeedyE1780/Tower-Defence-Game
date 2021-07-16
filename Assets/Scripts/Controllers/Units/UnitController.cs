@@ -29,6 +29,7 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        currentTarget = null;
         currentAttackCooldown = attackCooldown;
         currentDetectionCooldown = detectionCooldown;
     }
