@@ -13,25 +13,22 @@ public abstract class UnitController : MonoBehaviour
     [SerializeField] protected PoolID poolID;
 
     [Header("Detection Stats")]
-    [SerializeField] private int maxUnitsDetected;
     [SerializeField] private float detectionRaduis;
     [SerializeField] private float detectionCooldown;
     [SerializeField] private LayerMask detectionLayer;
     [Header("Attack Stats")]
     [SerializeField] protected float attackCooldown;
 
+    protected int commandIndex;
     protected float currentAttackCooldown;
     protected HealthController currentTarget;
-    protected NativeArray<SpherecastCommand> commands;
-    protected NativeArray<RaycastHit> hits;
     private float currentDetectionCooldown;
 
     protected virtual bool HasIdleUpdate => true;
 
     protected virtual void Awake()
     {
-        commands = new NativeArray<SpherecastCommand>(1, Allocator.Persistent);
-        hits = new NativeArray<RaycastHit>(1, Allocator.Persistent);
+        commandIndex = UnitsManager.Instance.AddCommandToList(transform.position, detectionRaduis, transform.forward, detectionLayer);
     }
 
     protected virtual void OnEnable()
@@ -58,23 +55,13 @@ public abstract class UnitController : MonoBehaviour
         if (currentDetectionCooldown < 0 && !TargetFinder.IsTargetActive(currentTarget))
             FindTarget();
 
+        UnitsManager.Instance.UpdateCommand(commandIndex, transform.position, transform.forward);
         currentDetectionCooldown -= deltaTime;
     }
 
     protected virtual void FindTarget()
     {
-        currentDetectionCooldown = detectionCooldown;
-        currentTarget = null;
-        commands[0] = new SpherecastCommand(transform.position + transform.forward * (detectionRaduis * -1.1f), detectionRaduis, transform.forward, 20, detectionLayer);
-        SpherecastCommand.ScheduleBatch(commands, hits, 1).Complete();
-        if (hits[0].transform != null)
-            currentTarget = hits[0].transform.GetComponent<HealthController>();
-    }
-
-    protected virtual void OnDestroy()
-    {
-        hits.Dispose();
-        commands.Dispose();
+        currentTarget = UnitsManager.Instance.GetTarget(commandIndex);
     }
 
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);
