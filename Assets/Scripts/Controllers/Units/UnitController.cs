@@ -61,6 +61,7 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual void FindTarget()
     {
+        currentDetectionCooldown = detectionCooldown;
         currentTarget = UnitsManager.Instance.GetTarget(commandIndex);
     }
 

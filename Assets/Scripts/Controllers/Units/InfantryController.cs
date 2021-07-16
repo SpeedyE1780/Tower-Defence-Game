@@ -37,7 +37,7 @@ public abstract class InfantryController : UnitController
 
     protected virtual void SetLookRotation()
     {
-        if (agent.velocity.sqrMagnitude == 0)
+        if (agent.velocity.sqrMagnitude < 0.1f)
             return;
 
         rotation.SetLookRotation(agent.velocity);

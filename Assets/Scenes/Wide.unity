@@ -29685,8 +29685,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1fd20111ebf0874ea3aba18d5097935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialCapacity: 500
+  initialCapacity: 750
+  batchSize: 50
   maxCastDistance: 30
+  refreshRate: 0.25
 --- !u!1001 &714766821
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -101,13 +101,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolID: 0
-  maxUnitsDetected: 10
   detectionRaduis: 25
   detectionCooldown: 0.2
   detectionLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackCooldown: 1
+  attackCooldown: 0.25
   attackRange: 3
   agent: {fileID: -3027272186058262500}
   agentBody: {fileID: 4618477994666530619}

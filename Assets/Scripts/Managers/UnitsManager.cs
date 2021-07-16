@@ -5,9 +5,12 @@ using UnityEngine;
 public class UnitsManager : Singleton<UnitsManager>
 {
     [SerializeField] private int initialCapacity;
+    [SerializeField] private int batchSize;
     [SerializeField] private float maxCastDistance;
+    [SerializeField] private float refreshRate;
     private NativeList<SpherecastCommand> commands;
     private NativeList<RaycastHit> hits;
+    private float currentReferesh;
 
     protected override void Awake()
     {
@@ -26,7 +29,13 @@ public class UnitsManager : Singleton<UnitsManager>
 
     private void Update()
     {
-        SpherecastCommand.ScheduleBatch(commands, hits, 25).Complete();
+        if (currentReferesh < 0)
+        {
+            SpherecastCommand.ScheduleBatch(commands, hits, batchSize).Complete();
+            currentReferesh = refreshRate;
+        }
+
+        currentReferesh -= Time.deltaTime;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
