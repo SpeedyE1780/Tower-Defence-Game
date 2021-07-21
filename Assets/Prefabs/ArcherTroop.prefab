@@ -83,7 +83,7 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
-  attackCooldown: 0
+  attackCooldown: 0.3
   shootPoint: {fileID: 9036266385294470697}
   hitChance: 0.8
   projectileID: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 5
   agent: {fileID: 0}
   collider: {fileID: 1566502556216194348}
   controller: {fileID: 7583506564838596067}
