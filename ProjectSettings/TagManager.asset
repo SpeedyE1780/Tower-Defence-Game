@@ -18,8 +18,8 @@ TagManager:
   - TowerGround
   - Projectile
   - Respawn
-  - 
-  - 
+  - UnitsDetection
+  - EnemyDetection
   - 
   - 
   - 

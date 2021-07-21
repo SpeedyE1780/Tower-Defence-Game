@@ -44,7 +44,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 75
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6559590306770425524
 MonoBehaviour:
@@ -58,14 +58,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe51f6c03581c36468f9129980775826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
   poolID: 3
-  maxUnitsDetected: 10
+  unitAnimation: {fileID: 0}
   detectionRaduis: 75
-  detectionCooldown: 0.25
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
+  detectionTrigger: {fileID: 5766118632848513488}
   attackCooldown: 0.25
   shootPoint: {fileID: 6559590307037961522}
   hitChance: 0.4

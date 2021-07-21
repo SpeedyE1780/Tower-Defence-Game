@@ -11,9 +11,8 @@ public class AllyInfantry : InfantryController
         initialPosition = transform.position;
     }
 
-    protected override void OnDisable()
+    private void OnDisable()
     {
-        base.OnDisable();
         EventManager.OnWaveEnded -= ResetPosition;
     }
     private void ResetPosition() => agent.SetDestination(initialPosition);

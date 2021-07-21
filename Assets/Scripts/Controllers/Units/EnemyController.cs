@@ -38,8 +38,9 @@ public class EnemyController : InfantryController
             EventManager.RaiseEnemyKilled(coins);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
+        base.OnTriggerEnter(other);
         if (other.CompareTag(DestinationTag))
             PoolUnit();
     }
