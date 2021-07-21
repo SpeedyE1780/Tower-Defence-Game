@@ -37,9 +37,9 @@ public abstract class InfantryController : UnitController
             unitAnimation.Play(RunAnimation);
     }
 
-    protected override void SimulatePhysics(float deltaTime)
+    protected override void SimulatePhysics()
     {
-        base.SimulatePhysics(deltaTime);
+        base.SimulatePhysics();
         agentBody.MovePosition(agent.nextPosition);
         geometry.position = agent.nextPosition;
 

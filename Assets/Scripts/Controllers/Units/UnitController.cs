@@ -52,12 +52,11 @@ public abstract class UnitController : MonoBehaviour
         else if (HasIdleUpdate)
             Idle();
 
-        float deltaTime = Time.deltaTime;
-        currentAttackCooldown -= deltaTime;
-        SimulatePhysics(deltaTime);
+        currentAttackCooldown -= Time.deltaTime;
+        SimulatePhysics();
     }
 
-    protected virtual void SimulatePhysics(float deltaTime)
+    protected virtual void SimulatePhysics()
     {
         if (!TargetFinder.IsTargetActive(currentTarget))
             currentTarget = UnitsManager.Instance.GetTarget(commandIndex);
