@@ -9,6 +9,7 @@ public abstract class InfantryController : UnitController
     [SerializeField] protected Rigidbody agentBody;
     [SerializeField] protected Transform geometry;
     [SerializeField] protected float speed;
+    [SerializeField] protected bool instantKill;
     private Quaternion rotation;
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
@@ -66,7 +67,7 @@ public abstract class InfantryController : UnitController
     private void DamageTarget()
     {
         unitAnimation.Play(AttackAnimation);
-        currentTarget.TakeHit();
+        currentTarget.TakeHit(instantKill);
         ResetCooldown();
     }
 

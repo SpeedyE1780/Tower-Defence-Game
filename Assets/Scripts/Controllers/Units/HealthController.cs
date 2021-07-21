@@ -13,7 +13,7 @@ public class HealthController : MonoBehaviour
     private Vector3 targetScale;
 
     private int Health { get; set; }
-    public bool IsDead => Health == 0;
+    public bool IsDead => Health <= 0;
 
     private void Awake()
     {
@@ -32,12 +32,12 @@ public class HealthController : MonoBehaviour
         Health = maxHealth * multiplier;
     }
 
-    public void TakeHit()
+    public void TakeHit(bool instantKill = false)
     {
         if (!gameObject.activeSelf || Health == 0)
             return;
 
-        Health = Mathf.Clamp(Health - 1, 0, maxHealth);
+        Health = instantKill ? 0 : Mathf.Clamp(Health - 1, 0, maxHealth);
 
         if (IsDead)
             StartCoroutine(KillPlayer());

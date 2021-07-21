@@ -106,12 +106,13 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackCooldown: 0.1
-  attackRange: 5
+  attackCooldown: 0.25
+  attackRange: 6
   agent: {fileID: -6167951554154646355}
   agentBody: {fileID: 4618477994666530619}
   geometry: {fileID: 8085759355982769812}
   speed: 10
+  instantKill: 1
   coins: 500
   health: {fileID: -4684928551791343520}
 --- !u!114 &-4684928551791343520
@@ -126,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 25
+  maxHealth: 250
   agent: {fileID: -6167951554154646355}
   collider: {fileID: 1131257113313240411}
   controller: {fileID: -1152847557135020367}

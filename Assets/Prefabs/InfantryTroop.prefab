@@ -107,11 +107,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   attackCooldown: 0.25
-  attackRange: 6
+  attackRange: 5
   agent: {fileID: -7493919820558565216}
   agentBody: {fileID: 4618477994666530619}
   geometry: {fileID: 8085759355982769812}
   speed: 6
+  instantKill: 0
 --- !u!114 &-8985976669911824261
 MonoBehaviour:
   m_ObjectHideFlags: 0
