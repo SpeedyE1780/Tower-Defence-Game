@@ -85,7 +85,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   detectionTrigger: {fileID: 9141081069082329037}
-  attackCooldown: 0.3
+  attackCooldown: 0.15
   shootPoint: {fileID: 9036266385294470697}
   hitChance: 0.8
   projectileID: 1

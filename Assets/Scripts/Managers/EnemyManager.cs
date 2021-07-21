@@ -1,6 +1,7 @@
 public static class EnemyManager
 {
-    public static int Multiplier { get; private set; }
+    private const float MultiplierRaise = 0.15f;
+    public static float Multiplier { get; private set; }
     public static void InitializeMultiplier() => Multiplier = 1;
-    public static void IncrementMultiplier() => Multiplier += 1;
+    public static void IncrementMultiplier() => Multiplier += MultiplierRaise;
 }

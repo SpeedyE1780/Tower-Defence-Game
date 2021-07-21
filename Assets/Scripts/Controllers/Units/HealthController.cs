@@ -27,9 +27,9 @@ public class HealthController : MonoBehaviour
         ToggleComponentsState(true);
     }
 
-    public void SetHealth(int multiplier)
+    public void SetHealth(float multiplier)
     {
-        Health = maxHealth * multiplier;
+        Health = Mathf.RoundToInt(maxHealth * multiplier);
     }
 
     public void TakeHit(bool instantKill = false)

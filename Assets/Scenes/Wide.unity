@@ -61217,8 +61217,8 @@ MonoBehaviour:
   maxEnemyCount: 250
   raisePercentage: 1.4
   waveDelay: 5
-  bossWaveFrequency: 1
-  difficultyModifierFrequency: 2
+  bossWaveFrequency: 3
+  difficultyModifierFrequency: 3
 --- !u!1001 &1441645424
 PrefabInstance:
   m_ObjectHideFlags: 0
