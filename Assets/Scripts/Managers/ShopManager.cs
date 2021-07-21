@@ -3,6 +3,7 @@ using UnityEngine;
 public class ShopManager : Singleton<ShopManager>
 {
     [SerializeField] private int startingCoins;
+    [SerializeField] private int maxCoins;
 
     private int currentCoins;
 
@@ -12,7 +13,7 @@ public class ShopManager : Singleton<ShopManager>
 
     public void UpdateCurrency(int amount)
     {
-        currentCoins += amount;
+        currentCoins = Mathf.Clamp(currentCoins + amount, 0, maxCoins);
         UIManager.Instance.UpdateCurrencyText(currentCoins);
     }
 }
