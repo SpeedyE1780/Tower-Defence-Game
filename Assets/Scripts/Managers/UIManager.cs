@@ -15,9 +15,11 @@ public class UIManager : Singleton<UIManager>
     [Header("Game UI")]
     [SerializeField] private Text coinText;
     [SerializeField] private Text killsText;
+    [SerializeField] private Text waveDelay;
     [SerializeField] private Text waveStarted;
     [SerializeField] private GameObject waveCompleted;
     [SerializeField] private float waveTextScaleDuration;
+    [SerializeField] private Canvas unitPlacement;
 
     private void Start() => ShowMenuUI();
 
@@ -38,6 +40,12 @@ public class UIManager : Singleton<UIManager>
     public void TogglePauseUI(bool state) => PauseUI.enabled = state;
     public void UpdateKillText(int score) => killsText.text = score.ToString();
     public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
+    public void ToggleUnitPlacementCanvas(bool toggle)
+    {
+        unitPlacement.enabled = toggle;
+        waveDelay.gameObject.SetActive(toggle);
+    }
+    public void SetWaveDelay(int delay) => waveDelay.text = delay.ToString();
 
     private IEnumerator ShowWaveText(GameObject waveText)
     {
