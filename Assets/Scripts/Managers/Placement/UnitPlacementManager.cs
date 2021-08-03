@@ -22,13 +22,13 @@ public abstract class UnitPlacementManager : PlacementManager
     {
         SetHighlightedAreaState(true);
         StartCoroutine(PlaceUnit(troopID, unitPrice));
-        CanPlaceUnits = false;
+        IsPlacingUnits = true;
     }
 
     protected void StopUnitPlacement()
     {
         SetHighlightedAreaState(false);
-        CanPlaceUnits = true;
+        IsPlacingUnits = false;
     }
 
     protected abstract IEnumerator PlaceUnit(PoolID troopID, int unitPrice);

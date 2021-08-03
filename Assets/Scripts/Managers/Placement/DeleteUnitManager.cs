@@ -19,11 +19,12 @@ public class DeleteUnitManager : PlacementManager
 
     public void StartDeleteUnit()
     {
-        if (!CanPlaceUnits)
+        if (IsPlacingUnits)
             return;
+
         StartCoroutine(DeleteUnit());
         SetHighlightedAreaState(true);
-        CanPlaceUnits = false;
+        IsPlacingUnits = true;
     }
 
     private IEnumerator DeleteUnit()
@@ -44,7 +45,7 @@ public class DeleteUnitManager : PlacementManager
     public void StopDeleteUnit()
     {
         SetHighlightedAreaState(false);
-        CanPlaceUnits = true;
+        IsPlacingUnits = false;
     }
 
     private void SetHighlightedAreaState(bool state)

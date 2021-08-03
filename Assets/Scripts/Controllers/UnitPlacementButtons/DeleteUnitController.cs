@@ -4,7 +4,7 @@ public class DeleteUnitController : MonoBehaviour
 {
     public void StartDeleteUnit()
     {
-        if (!PlacementManager.CanPlaceUnits)
+        if (PlacementManager.IsPlacingUnits)
             return;
 
         DeleteUnitManager.Instance.StartDeleteUnit();

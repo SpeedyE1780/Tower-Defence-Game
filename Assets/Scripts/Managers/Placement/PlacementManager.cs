@@ -2,8 +2,8 @@ using UnityEngine;
 
 public abstract class PlacementManager : MonoBehaviour
 {
-    public static bool CanPlaceUnits { get; protected set; }
+    public static bool IsPlacingUnits { get; protected set; }
 
     [RuntimeInitializeOnLoadMethod]
-    private static void SetCanPlaceUnits() => CanPlaceUnits = true;
+    private static void SetIsPlacingUnits() => IsPlacingUnits = false;
 }
