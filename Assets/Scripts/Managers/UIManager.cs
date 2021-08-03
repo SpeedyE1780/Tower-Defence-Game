@@ -16,6 +16,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Text coinText;
     [SerializeField] private Text killsText;
     [SerializeField] private Text waveDelay;
+    [SerializeField] private Text placeUnits;
     [SerializeField] private Text waveStarted;
     [SerializeField] private GameObject waveCompleted;
     [SerializeField] private float waveTextScaleDuration;
@@ -80,4 +81,5 @@ public class UIManager : Singleton<UIManager>
     }
 
     public void ShowWaveCompleted() => StartCoroutine(ShowWaveText(waveCompleted));
+    public Coroutine ShowPlaceUnits() => StartCoroutine(ShowWaveText(placeUnits.gameObject));
 }

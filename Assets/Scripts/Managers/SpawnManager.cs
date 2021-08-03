@@ -54,6 +54,8 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator WaveDelay()
     {
+        yield return UIManager.Instance.ShowPlaceUnits();
+
         UIManager.Instance.ToggleUnitPlacementCanvas(true);
         float time = waveDelay;
 
