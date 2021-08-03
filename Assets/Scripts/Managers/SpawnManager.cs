@@ -62,7 +62,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
         while (time > 0)
         {
-            UIManager.Instance.SetWaveDelay((int)time);
+            UIManager.Instance.SetWaveDelay((int)time + 1);
             yield return null;
             time -= Time.deltaTime;
         }
