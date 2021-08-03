@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1eebdfdf8cca746b64fd19b852611a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 75
+  maxHealth: 25
   agent: {fileID: -3027272186058262500}
   collider: {fileID: 1131257113313240411}
   controller: {fileID: -1180528016800537105}
