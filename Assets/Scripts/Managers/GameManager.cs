@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
         simulatePhysics = true;
         kills = 0;
         currentTimer = 0;
+        UnitPlacementManager.ResetUnitCount();
         EnemyManager.InitializeMultiplier();
         UIManager.Instance.UpdateKillText(kills);
         UIManager.Instance.ShowGameUI();

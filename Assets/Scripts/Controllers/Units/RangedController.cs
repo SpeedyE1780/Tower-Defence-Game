@@ -17,6 +17,17 @@ public class RangedController : UnitController
 
     protected void Start() => targetForward = new Vector3();
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        UnitPlacementManager.RaiseUnitCount();
+    }
+
+    private void OnDisable()
+    {
+        UnitPlacementManager.LowerUnitCount();
+    }
+
     protected override void AttackTarget()
     {
         Rotate();

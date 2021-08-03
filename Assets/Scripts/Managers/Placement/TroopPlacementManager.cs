@@ -37,7 +37,10 @@ public class TroopPlacementManager : UnitPlacementManager
 
             troop.SetActive(true);
             ShopManager.Instance.BuyUnit(unitPrice);
-            canPlaceUnit = ShopManager.Instance.CanBuyUnit(unitPrice);
+            canPlaceUnit = CanAddUnits && ShopManager.Instance.CanBuyUnit(unitPrice);
+
+            if (!CanAddUnits)
+                Debug.Log("Maximum units placed");
 
         } while (Input.GetMouseButton(0) && canPlaceUnit);
 
