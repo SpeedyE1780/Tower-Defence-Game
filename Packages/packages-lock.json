@@ -65,10 +65,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.mathematics": {
-      "version": "file:C:/Program Files/Unity/2021.1.5f1/Editor/Data/Resources/PackageManager/Editor/com.unity.mathematics-1.2.1.tgz",
+      "version": "1.2.1",
       "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
     },
     "com.unity.recorder": {
       "version": "2.5.5",
