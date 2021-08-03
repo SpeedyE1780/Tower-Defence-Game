@@ -31,7 +31,7 @@ public class DeleteUnitManager : PlacementManager
     {
         yield return new WaitUntil(() => Input.GetMouseButton(0));
 
-        while (Input.GetMouseButton(0))
+        while (CanPlaceUnits && Input.GetMouseButton(0))
         {
             if (CameraRay.GetCameraHitUnit(out Transform unit, unitsLayer))
                 Destroy(unit.gameObject);

@@ -15,7 +15,13 @@ public class TroopPlacementManager : UnitPlacementManager
 
     protected override IEnumerator PlaceUnit(PoolID troopID, int unitPrice)
     {
-        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || !CanPlaceUnits);
+
+        if (!CanPlaceUnits)
+        {
+            StopUnitPlacement();
+            yield break;
+        }
 
         bool canPlaceUnit = true;
         bool isInfantry = troopID == PoolID.Infantry;
@@ -42,7 +48,7 @@ public class TroopPlacementManager : UnitPlacementManager
             if (!CanAddUnits)
                 Debug.Log("Maximum units placed");
 
-        } while (Input.GetMouseButton(0) && canPlaceUnit);
+        } while (CanPlaceUnits && Input.GetMouseButton(0) && canPlaceUnit);
 
         StopUnitPlacement();
     }

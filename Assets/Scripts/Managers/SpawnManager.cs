@@ -57,6 +57,7 @@ public class SpawnManager : Singleton<SpawnManager>
         yield return UIManager.Instance.ShowPlaceUnits();
 
         UIManager.Instance.ToggleUnitPlacementCanvas(true);
+        PlacementManager.SetCanPlaceUnits(true);
         float time = waveDelay;
 
         while (time > 0)
@@ -67,6 +68,7 @@ public class SpawnManager : Singleton<SpawnManager>
         }
 
         UIManager.Instance.ToggleUnitPlacementCanvas(false);
+        PlacementManager.SetCanPlaceUnits(false);
     }
 
     private IEnumerator SpawnBoss()
