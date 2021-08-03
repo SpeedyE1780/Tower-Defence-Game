@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using Slider = UnityEngine.UI.Slider;
 
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
+    [SerializeField] private Slider healthBar;
     [Header("Components To Disable")]
     [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
     [SerializeField] private new Collider collider;
@@ -11,6 +13,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private Transform geometry;
     private Vector3 initialScale;
     private Vector3 targetScale;
+    private int currentMaxHealth;
 
     private int Health { get; set; }
     public bool IsDead => Health <= 0;
@@ -19,17 +22,24 @@ public class HealthController : MonoBehaviour
     {
         initialScale = geometry.localScale;
         targetScale = Vector3.zero;
+        currentMaxHealth = maxHealth;
     }
 
     private void OnEnable()
     {
-        Health = maxHealth;
         ToggleComponentsState(true);
+        UpdateHealth(currentMaxHealth);
     }
 
-    public void SetHealth(float multiplier)
+    public void UpdateMaxHealth(float multiplier)
     {
-        Health = Mathf.RoundToInt(maxHealth * multiplier);
+        currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
+    }
+
+    private void UpdateHealth(int health)
+    {
+        Health = health;
+        healthBar.value = Mathf.Clamp01((float)health / currentMaxHealth);
     }
 
     public void TakeHit(bool instantKill = false)
@@ -37,7 +47,7 @@ public class HealthController : MonoBehaviour
         if (!gameObject.activeSelf || Health == 0)
             return;
 
-        Health = instantKill ? 0 : Mathf.Clamp(Health - 1, 0, maxHealth);
+        UpdateHealth(instantKill ? 0 : Mathf.Clamp(Health - 1, 0, currentMaxHealth));
 
         if (IsDead)
             StartCoroutine(KillPlayer());

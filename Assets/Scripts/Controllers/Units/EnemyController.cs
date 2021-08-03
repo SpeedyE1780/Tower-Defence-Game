@@ -25,7 +25,7 @@ public class EnemyController : InfantryController
     {
         base.OnEnable();
         agent.speed = speed * EnemyManager.Multiplier;
-        health.SetHealth(EnemyManager.Multiplier);
+        health.UpdateMaxHealth(EnemyManager.Multiplier);
         agent.SetDestination(destination);
     }
 
