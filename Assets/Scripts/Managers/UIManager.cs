@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Canvas MenuUI;
     [SerializeField] private Canvas GameUI;
     [SerializeField] private Canvas PauseUI;
+    [SerializeField] private Canvas EndGameUI;
 
     [Header("Game UI")]
     [SerializeField] private Text coinText;
@@ -26,16 +27,25 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowMenuUI()
     {
-        GameUI.enabled = false;
-        PauseUI.enabled = false;
-        MenuUI.enabled = true;
+        ToggleGameUI(MenuUI);
     }
 
     public void ShowGameUI()
     {
-        MenuUI.enabled = false;
-        PauseUI.enabled = false;
-        GameUI.enabled = true;
+        ToggleGameUI(GameUI);
+    }
+
+    public void ShowEndGameUI()
+    {
+        ToggleGameUI(EndGameUI);
+    }
+
+    private void ToggleGameUI(Canvas current)
+    {
+        MenuUI.enabled = current == MenuUI;
+        GameUI.enabled = current == GameUI;
+        PauseUI.enabled = current == PauseUI;
+        EndGameUI.enabled = current == EndGameUI;
     }
 
     public void TogglePauseUI(bool state) => PauseUI.enabled = state;

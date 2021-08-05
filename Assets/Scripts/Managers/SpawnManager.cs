@@ -45,6 +45,7 @@ public class SpawnManager : Singleton<SpawnManager>
             {
                 if (UnitPlacementManager.UnitCount == 0)
                 {
+                    UIManager.Instance.ShowEndGameUI();
                     EventManager.RaiseGameEnded();
                     yield break;
                 }

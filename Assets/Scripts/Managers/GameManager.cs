@@ -12,11 +12,17 @@ public class GameManager : Singleton<GameManager>
         simulatePhysics = true;
         kills = 0;
         currentTimer = 0;
+        ShopManager.Instance.SetCurrency();
         UnitPlacementManager.ResetUnitCount();
         EnemyManager.InitializeMultiplier();
         UIManager.Instance.UpdateKillText(kills);
         UIManager.Instance.ShowGameUI();
         SpawnManager.Instance.StartSpawning();
+    }
+
+    public void RestartGame()
+    {
+        //StartGame();
     }
 
     public void QuitGame() => Application.Quit();
