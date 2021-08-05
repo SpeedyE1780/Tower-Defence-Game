@@ -11,12 +11,14 @@ public class EnemyController : InfantryController
         base.OnEnable();
         agent.speed = speed * EnemyManager.Multiplier;
         health.UpdateMaxHealth(EnemyManager.Multiplier);
+        EventManager.OnGameRestarted += PoolUnit;
         EventManager.OnGameEnded += StopEnemies;
     }
 
     private void OnDisable()
     {
         EventManager.OnGameEnded -= StopEnemies;
+        EventManager.OnGameRestarted -= PoolUnit;
     }
 
     private void StopEnemies()

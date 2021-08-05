@@ -22,7 +22,8 @@ public class GameManager : Singleton<GameManager>
 
     public void RestartGame()
     {
-        //StartGame();
+        EventManager.RaiseGameRestarted();
+        StartGame();
     }
 
     public void QuitGame() => Application.Quit();
