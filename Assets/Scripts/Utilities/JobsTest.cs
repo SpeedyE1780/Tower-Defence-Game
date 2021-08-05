@@ -26,7 +26,12 @@ public class JobsTest : MonoBehaviour
             for (int i = 0; i < 10; i++)
             {
                 if (burst)
-                    jobs[i] = new BurstTask().Schedule();
+                {
+                    BurstTask task = new BurstTask();
+                    Debug.Log(task.value);
+                    task.Schedule().Complete();
+                    Debug.Log(task.value);
+                }
                 else
                     jobs[i] = new NormalTask().Schedule();
             }
@@ -41,9 +46,10 @@ public class JobsTest : MonoBehaviour
 [BurstCompile]
 public struct BurstTask : IJob
 {
+    public float value;
     public void Execute()
     {
-        float value = 0;
+        value = 0;
         for (int i = 0; i < math.pow(10, 6); i++)
             value = math.exp10(math.sqrt(value));
     }

@@ -20,7 +20,8 @@ public abstract class UnitController : MonoBehaviour
     [SerializeField] protected float attackCooldown;
 
     protected float currentAttackCooldown;
-    [SerializeField] protected HealthController currentTarget;
+    protected HealthController currentTarget;
+    private int instanceID;
 
     protected virtual bool HasIdleUpdate => true;
 
@@ -29,12 +30,20 @@ public abstract class UnitController : MonoBehaviour
         unitAnimation.Play(IdleAnimation);
         currentTarget = null;
         currentAttackCooldown = attackCooldown;
-        UnitsManager.AddUnit(isEnemy, transform);
+        instanceID = GetInstanceID();
+
+        UnitInfo unitInfo = new UnitInfo()
+        {
+            InstanceID = instanceID,
+            Position = transform.position,
+        };
+
+        UnitsManager.AddUnit(isEnemy, unitInfo, transform);
     }
 
     protected virtual void OnDisable()
     {
-        UnitsManager.RemoveUnit(isEnemy, transform);
+        UnitsManager.RemoveUnit(isEnemy, instanceID);
     }
 
     protected virtual void Update()
@@ -48,7 +57,7 @@ public abstract class UnitController : MonoBehaviour
         }
         else
         {
-            Transform target = UnitsManager.GetTarget(!isEnemy);
+            Transform target = UnitsManager.GetTarget(isEnemy, instanceID);
             if (target != null)
                 currentTarget = target.GetComponent<HealthController>();
             else
@@ -59,6 +68,11 @@ public abstract class UnitController : MonoBehaviour
         }
 
         currentAttackCooldown -= Time.deltaTime;
+    }
+
+    private void LateUpdate()
+    {
+        UnitsManager.UpdatePosition(isEnemy, instanceID, transform.position);
     }
 
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);

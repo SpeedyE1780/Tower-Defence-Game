@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class UnitPlacementManager : PlacementManager
 {
-    protected const int MaximumUnits = 150;
+    public const int MaximumUnits = 150;
 
     [SerializeField] protected float distanceBetweenUnits;
     [SerializeField] protected LayerMask groundLayer;

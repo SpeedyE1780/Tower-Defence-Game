@@ -15,6 +15,8 @@ public class SpawnManager : Singleton<SpawnManager>
     private float currentEnemyCount;
     private int activeEnemies;
 
+    public int MaxEnemyCount => maxEnemyCount;
+
     public void StartSpawning()
     {
         activeEnemies = 0;
@@ -29,6 +31,8 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator Spawn()
     {
+        UnitController.waitForWaveStart = true;
+
         while (true)
         {
             currentWave += 1;
@@ -37,7 +41,6 @@ public class SpawnManager : Singleton<SpawnManager>
                 EnemyManager.IncrementMultiplier();
 
             SpawnFormation();
-            UnitController.waitForWaveStart = true;
             yield return StartCoroutine(WaveDelay());
             UnitController.waitForWaveStart = false;
 
@@ -56,6 +59,7 @@ public class SpawnManager : Singleton<SpawnManager>
             if (currentWave % bossWaveFrequency == 0)
                 yield return StartCoroutine(SpawnBoss());
 
+            UnitController.waitForWaveStart = true;
             EventManager.RaiseWaveEnded();
 
             if (currentEnemyCount < maxEnemyCount)
