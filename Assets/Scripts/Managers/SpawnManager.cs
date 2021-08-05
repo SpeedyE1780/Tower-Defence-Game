@@ -40,7 +40,19 @@ public class SpawnManager : Singleton<SpawnManager>
 
             UIManager.Instance.ShowWaveNumber(currentWave);
             SpawnFormation();
-            yield return new WaitUntil(() => activeEnemies == 0);
+
+            while (activeEnemies > 0)
+            {
+                if (UnitPlacementManager.UnitCount == 0)
+                {
+                    Debug.Log("Game ended");
+                    Time.timeScale = 0;
+                    yield break;
+                }
+
+                yield return null;
+            }
+
             if (currentWave % bossWaveFrequency == 0)
                 yield return StartCoroutine(SpawnBoss());
 
