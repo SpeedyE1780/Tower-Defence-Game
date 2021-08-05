@@ -1,73 +1,22 @@
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class UnitsManager : Singleton<UnitsManager>
+public static class UnitsManager
 {
-    [SerializeField] private int initialCapacity;
-    [SerializeField] private int batchSize;
-    [SerializeField] private float maxCastDistance;
-    [SerializeField] private float refreshRate;
-    private NativeList<SpherecastCommand> commands;
-    private NativeList<RaycastHit> hits;
-    private float currentReferesh;
+    private static Dictionary<bool, List<Transform>> activeUnits;
 
-    protected override void Awake()
+    [RuntimeInitializeOnLoadMethod]
+    private static void Initialize()
     {
-        base.Awake();
-        commands = new NativeList<SpherecastCommand>(initialCapacity, Allocator.Persistent);
-        hits = new NativeList<RaycastHit>(initialCapacity, Allocator.Persistent);
-    }
-
-    public int AddCommandToList(Vector3 origin, float raduis, Vector3 direction, LayerMask unitsLayer)
-    {
-        int unitIndex = commands.Length;
-        commands.Add(new SpherecastCommand(origin - direction * maxCastDistance, raduis, direction, maxCastDistance, unitsLayer));
-        hits.Add(new RaycastHit());
-        return unitIndex;
-    }
-
-    public void RemoveCommandFromList(int unitIndex)
-    {
-        if (!commands.IsCreated)
-            return;
-
-        commands.RemoveAt(unitIndex);
-        hits.RemoveAt(unitIndex);
-        EventManager.RaiseUnitIndex(unitIndex);
-    }
-
-    private void Update()
-    {
-        if (currentReferesh < 0)
+        activeUnits = new Dictionary<bool, List<Transform>>()
         {
-            SpherecastCommand.ScheduleBatch(commands, hits, batchSize).Complete();
-            currentReferesh = refreshRate;
-        }
-
-        currentReferesh -= Time.deltaTime;
+            { false, new List<Transform>() },
+            { true, new List<Transform>() }
+        };
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void UpdateCommand(int unitIndex, Vector3 unitPosition, Vector3 direction)
-    {
-        SpherecastCommand c = commands[unitIndex];
-        c.origin = unitPosition - direction * maxCastDistance;
-        c.direction = direction;
-        commands[unitIndex] = c;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public HealthController GetTarget(int unitIndex)
-    {
-        if (hits[unitIndex].transform != null)
-            return hits[unitIndex].transform.GetComponent<HealthController>();
-        return null;
-    }
-
-    private void OnDestroy()
-    {
-        commands.Dispose();
-        hits.Dispose();
-    }
+    public static void AddUnit(bool isEnemy, Transform transform) => activeUnits[isEnemy].Add(transform);
+    public static void RemoveUnit(bool isEnemy, Transform transform) => activeUnits[isEnemy].Remove(transform);
+    public static Transform GetTarget(bool isEnemy) => activeUnits[isEnemy].GetRandomElement();
 }

@@ -37,7 +37,6 @@ public class SpawnManager : Singleton<SpawnManager>
                 EnemyManager.IncrementMultiplier();
 
             SpawnFormation();
-
             UnitController.waitForWaveStart = true;
             yield return StartCoroutine(WaveDelay());
             UnitController.waitForWaveStart = false;

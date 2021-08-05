@@ -11,7 +11,6 @@ public abstract class UnitController : MonoBehaviour
     protected const string RunAnimation = "Run";
     protected const string DeathAnimation = "Death";
 
-    protected static Dictionary<bool, List<Transform>> activeUnits;
     public static bool waitForWaveStart;
 
     [SerializeField] protected PoolID poolID;
@@ -25,25 +24,17 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual bool HasIdleUpdate => true;
 
-    [RuntimeInitializeOnLoadMethod]
-    private static void InitializeUnit()
-    {
-        activeUnits = new Dictionary<bool, List<Transform>>();
-        activeUnits[true] = new List<Transform>();
-        activeUnits[false] = new List<Transform>();
-    }
-
     protected virtual void OnEnable()
     {
         unitAnimation.Play(IdleAnimation);
         currentTarget = null;
         currentAttackCooldown = attackCooldown;
-        activeUnits[isEnemy].Add(transform);
+        UnitsManager.AddUnit(isEnemy, transform);
     }
 
     protected virtual void OnDisable()
     {
-        activeUnits[isEnemy].Remove(transform);
+        UnitsManager.RemoveUnit(isEnemy, transform);
     }
 
     protected virtual void Update()
@@ -57,8 +48,9 @@ public abstract class UnitController : MonoBehaviour
         }
         else
         {
-            if (activeUnits[!isEnemy].Count > 0)
-                currentTarget = activeUnits[!isEnemy].GetRandomElement().GetComponent<HealthController>();
+            Transform target = UnitsManager.GetTarget(!isEnemy);
+            if (target != null)
+                currentTarget = target.GetComponent<HealthController>();
             else
                 currentTarget = null;
 
