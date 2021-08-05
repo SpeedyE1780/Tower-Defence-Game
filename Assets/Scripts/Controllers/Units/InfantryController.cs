@@ -28,6 +28,8 @@ public abstract class InfantryController : UnitController
     protected override void Update()
     {
         base.Update();
+        SimulatePhysics();
+
         if (unitAnimation.IsPlaying(AttackAnimation))
             return;
 
@@ -37,9 +39,8 @@ public abstract class InfantryController : UnitController
             unitAnimation.Play(RunAnimation);
     }
 
-    protected override void SimulatePhysics()
+    protected void SimulatePhysics()
     {
-        base.SimulatePhysics();
         agentBody.MovePosition(agent.nextPosition);
         geometry.position = agent.nextPosition;
 

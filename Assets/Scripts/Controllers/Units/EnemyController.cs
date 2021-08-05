@@ -15,8 +15,9 @@ public class EnemyController : InfantryController
         EventManager.OnGameEnded += StopEnemies;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         EventManager.OnGameEnded -= StopEnemies;
         EventManager.OnGameRestarted -= PoolUnit;
     }

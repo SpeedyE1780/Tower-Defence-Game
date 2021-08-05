@@ -12,8 +12,9 @@ public class AllyInfantry : InfantryController
         UnitPlacementManager.RaiseUnitCount();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         EventManager.OnWaveEnded -= ResetPosition;
         UnitPlacementManager.LowerUnitCount();
     }

@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-[DisallowMultipleComponent]
+[DisallowMultipleComponent, SelectionBase]
 public abstract class UnitController : MonoBehaviour
 {
     protected const string PlayerTag = "Player";
@@ -10,26 +11,38 @@ public abstract class UnitController : MonoBehaviour
     protected const string RunAnimation = "Run";
     protected const string DeathAnimation = "Death";
 
+    protected static Dictionary<bool, List<Transform>> activeUnits;
+
     [SerializeField] protected PoolID poolID;
+    [SerializeField] private bool isEnemy;
     [SerializeField] protected Animation unitAnimation;
-    [Header("Detection Stats")]
-    [SerializeField] private float detectionRaduis;
-    [SerializeField] private LayerMask detectionLayer;
-    [SerializeField] protected SphereCollider detectionTrigger;
     [Header("Attack Stats")]
     [SerializeField] protected float attackCooldown;
 
     protected float currentAttackCooldown;
-    protected HealthController currentTarget;
+    [SerializeField] protected HealthController currentTarget;
 
     protected virtual bool HasIdleUpdate => true;
 
+    [RuntimeInitializeOnLoadMethod]
+    private static void InitializeUnit()
+    {
+        activeUnits = new Dictionary<bool, List<Transform>>();
+        activeUnits[true] = new List<Transform>();
+        activeUnits[false] = new List<Transform>();
+    }
+
     protected virtual void OnEnable()
     {
-        detectionTrigger.radius = detectionRaduis;
         unitAnimation.Play(IdleAnimation);
         currentTarget = null;
         currentAttackCooldown = attackCooldown;
+        activeUnits[isEnemy].Add(transform);
+    }
+
+    protected virtual void OnDisable()
+    {
+        activeUnits[isEnemy].Remove(transform);
     }
 
     protected virtual void Update()
@@ -40,18 +53,15 @@ public abstract class UnitController : MonoBehaviour
         }
         else
         {
-            currentTarget = null;
+            if (activeUnits[!isEnemy].Count > 0)
+                currentTarget = activeUnits[!isEnemy].GetRandomElement().GetComponent<HealthController>();
+            else
+                currentTarget = null;
+
             if (HasIdleUpdate)
                 Idle();
         }
         currentAttackCooldown -= Time.deltaTime;
-        SimulatePhysics();
-    }
-
-    protected virtual void SimulatePhysics()
-    {
-        if (!IsTargetActive() && !detectionTrigger.enabled)
-            detectionTrigger.enabled = true;
     }
 
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);
@@ -60,13 +70,4 @@ public abstract class UnitController : MonoBehaviour
     protected virtual bool IsTargetActive() => currentTarget != null && !currentTarget.IsDead && currentTarget.gameObject.activeInHierarchy;
     protected abstract void AttackTarget();
     protected abstract void Idle();
-
-    protected virtual void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(PlayerTag))
-        {
-            currentTarget = other.GetComponent<HealthController>();
-            detectionTrigger.enabled = false;
-        }
-    }
 }

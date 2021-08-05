@@ -23,8 +23,9 @@ public class RangedController : UnitController
         UnitPlacementManager.RaiseUnitCount();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         UnitPlacementManager.LowerUnitCount();
     }
 

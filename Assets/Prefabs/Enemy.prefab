@@ -33,7 +33,6 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 8085759355982769812}
-  - {fileID: 4818768386173258058}
   - {fileID: 7699237997462776186}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -103,13 +102,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolID: 0
+  isEnemy: 1
   unitAnimation: {fileID: 8280347365027987656}
-  detectionRaduis: 25
-  detectionLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  detectionTrigger: {fileID: 1515788005608579830}
   attackCooldown: 0.25
+  currentTarget: {fileID: 0}
   attackRange: 6
   agent: {fileID: -3027272186058262500}
   agentBody: {fileID: 4618477994666530619}
@@ -250,50 +246,6 @@ Transform:
   m_Father: {fileID: 2971355877389920838}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4246653109524324449
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4818768386173258058}
-  - component: {fileID: 1515788005608579830}
-  m_Layer: 13
-  m_Name: DetectionTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4818768386173258058
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4246653109524324449}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2971355877389920838}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1515788005608579830
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4246653109524324449}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 25
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8250203414348665773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -315,7 +267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1776578113501854423, guid: d070d9802443cce49b9d7fc7e1b44874, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1776578113501854423, guid: d070d9802443cce49b9d7fc7e1b44874, type: 3}
       propertyPath: m_AnchorMax.x
