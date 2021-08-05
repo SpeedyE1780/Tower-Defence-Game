@@ -2,31 +2,26 @@ using UnityEngine;
 
 public class EnemyController : InfantryController
 {
-    private static Vector3 destination;
-    private const string DestinationTag = "Respawn";
-
     [Header("Enemy Stats")]
     [SerializeField] private int coins;
     [SerializeField] private HealthController health;
-
-    protected override bool HasIdleUpdate => true;
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void SetDestination()
-    {
-        GameObject g = GameObject.FindGameObjectWithTag(DestinationTag);
-        if (g == null)
-            return;
-
-        destination = g.transform.position;
-    }
 
     protected override void OnEnable()
     {
         base.OnEnable();
         agent.speed = speed * EnemyManager.Multiplier;
         health.UpdateMaxHealth(EnemyManager.Multiplier);
-        agent.SetDestination(destination);
+        EventManager.OnGameEnded += StopEnemies;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnGameEnded -= StopEnemies;
+    }
+
+    private void StopEnemies()
+    {
+        agent.SetDestination(transform.position);
     }
 
     public override void PoolUnit()
@@ -36,18 +31,5 @@ public class EnemyController : InfantryController
 
         if (health.IsDead)
             EventManager.RaiseEnemyKilled(coins);
-    }
-
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-        if (other.CompareTag(DestinationTag))
-            PoolUnit();
-    }
-
-    protected override void Idle()
-    {
-        if (agent.destination != destination)
-            agent.SetDestination(destination);
     }
 }

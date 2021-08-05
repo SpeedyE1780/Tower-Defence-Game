@@ -13,7 +13,7 @@ public abstract class InfantryController : UnitController
     private Quaternion rotation;
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
-    protected override bool HasIdleUpdate => true;
+    protected override bool HasIdleUpdate => false;
 
     protected virtual void Awake()
     {

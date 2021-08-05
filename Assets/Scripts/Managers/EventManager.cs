@@ -15,4 +15,8 @@ public static class EventManager
     public delegate void ResetUnitIndex(int index);
     public static event ResetUnitIndex OnResetUnitIndex;
     public static void RaiseUnitIndex(int index) => OnResetUnitIndex?.Invoke(index);
+
+    public delegate void GameEnded();
+    public static event GameEnded OnGameEnded;
+    public static void RaiseGameEnded() => OnGameEnded?.Invoke();
 }
