@@ -90,6 +90,6 @@ public class UIManager : Singleton<UIManager>
         StartCoroutine(ShowWaveText(waveStarted.gameObject));
     }
 
-    public void ShowWaveCompleted() => StartCoroutine(ShowWaveText(waveCompleted));
+    public Coroutine ShowWaveCompleted() => StartCoroutine(ShowWaveText(waveCompleted));
     public Coroutine ShowPlaceUnits() => StartCoroutine(ShowWaveText(placeUnits.gameObject));
 }

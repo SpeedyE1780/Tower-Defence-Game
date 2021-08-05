@@ -31,15 +31,16 @@ public class SpawnManager : Singleton<SpawnManager>
     {
         while (true)
         {
-            yield return StartCoroutine(WaveDelay());
-
             currentWave += 1;
 
             if (currentWave % difficultyModifierFrequency == 0)
                 EnemyManager.IncrementMultiplier();
 
-            UIManager.Instance.ShowWaveNumber(currentWave);
             SpawnFormation();
+
+            UnitController.waitForWaveStart = true;
+            yield return StartCoroutine(WaveDelay());
+            UnitController.waitForWaveStart = false;
 
             while (activeEnemies > 0)
             {
@@ -56,16 +57,18 @@ public class SpawnManager : Singleton<SpawnManager>
             if (currentWave % bossWaveFrequency == 0)
                 yield return StartCoroutine(SpawnBoss());
 
-            UIManager.Instance.ShowWaveCompleted();
             EventManager.RaiseWaveEnded();
 
             if (currentEnemyCount < maxEnemyCount)
                 currentEnemyCount = Mathf.Clamp(currentEnemyCount * raisePercentage, startingEnemyCount, maxEnemyCount);
+
+            yield return UIManager.Instance.ShowWaveCompleted();
         }
     }
 
     private IEnumerator WaveDelay()
     {
+        UIManager.Instance.ShowWaveNumber(currentWave);
         yield return UIManager.Instance.ShowPlaceUnits();
 
         UIManager.Instance.ToggleUnitPlacementCanvas(true);

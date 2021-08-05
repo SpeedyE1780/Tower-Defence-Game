@@ -12,6 +12,7 @@ public abstract class UnitController : MonoBehaviour
     protected const string DeathAnimation = "Death";
 
     protected static Dictionary<bool, List<Transform>> activeUnits;
+    public static bool waitForWaveStart;
 
     [SerializeField] protected PoolID poolID;
     [SerializeField] private bool isEnemy;
@@ -47,6 +48,9 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (waitForWaveStart)
+            return;
+
         if (IsTargetActive())
         {
             AttackTarget();
@@ -61,6 +65,7 @@ public abstract class UnitController : MonoBehaviour
             if (HasIdleUpdate)
                 Idle();
         }
+
         currentAttackCooldown -= Time.deltaTime;
     }
 
