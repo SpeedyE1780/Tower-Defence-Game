@@ -2,15 +2,14 @@ using UnityEngine;
 
 public static class CameraRay
 {
-    public static Camera MainCamera { get; private set; }
+    private static Camera currentCamera;
 
-    [RuntimeInitializeOnLoadMethod]
-    private static void SetMainCamera() => MainCamera = Camera.main;
+    public static void SetCurrentCamera(Camera current) => currentCamera = current;
 
     private static bool ShootRaycast(out RaycastHit hit, LayerMask layerMask)
     {
-        Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition); ;
-        return Physics.Raycast(ray, out hit, MainCamera.farClipPlane, layerMask);
+        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition); ;
+        return Physics.Raycast(ray, out hit, currentCamera.farClipPlane, layerMask);
     }
 
     //Get unit hit by raycast
