@@ -84,6 +84,9 @@ public class SpawnManager : Singleton<SpawnManager>
         ToggleUnitPlacement(true);
         yield return WaitForWaveDelay();
         ToggleUnitPlacement(false);
+
+        //Change to default camera
+        CameraManager.Instance.SetDefaultCamera();
     }
 
     private IEnumerator SpawnBoss()
