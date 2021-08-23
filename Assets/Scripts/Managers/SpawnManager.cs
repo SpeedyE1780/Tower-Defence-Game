@@ -32,6 +32,7 @@ public class SpawnManager : Singleton<SpawnManager>
     private IEnumerator Spawn()
     {
         UnitController.waitForWaveStart = true;
+        UIManager.Instance.ToggleUnitPlacementCanvas(false);
 
         while (true)
         {
