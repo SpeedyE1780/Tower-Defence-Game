@@ -30,14 +30,12 @@ public class UnitsManager : Singleton<UnitsManager>
         {
             enemyInfo = enemies,
             unitInfo = troops,
-            currentDistance = math.INFINITY
         };
 
         DetectionJob enemyDetection = new DetectionJob()
         {
             enemyInfo = troops,
             unitInfo = enemies,
-            currentDistance = math.INFINITY
         };
 
         JobHandle troopHandle = troopDetection.Schedule(troops.Length, 50);
@@ -48,14 +46,10 @@ public class UnitsManager : Singleton<UnitsManager>
         JobHandle.CompleteAll(jobHandles);
 
         foreach (UnitInfo unitInfo in enemies)
-        {
             enemyInfo[unitInfo.InstanceID] = unitInfo;
-        }
 
         foreach (UnitInfo unitInfo in troops)
-        {
             troopInfo[unitInfo.InstanceID] = unitInfo;
-        }
 
         jobHandles.Dispose();
         enemies.Dispose();
@@ -137,13 +131,12 @@ public struct DetectionJob : IJobParallelFor
 {
     public NativeArray<UnitInfo> unitInfo;
     [ReadOnly] public NativeArray<UnitInfo> enemyInfo;
-    public float currentDistance;
 
     public void Execute(int index)
     {
         UnitInfo currentUnit = unitInfo[index];
-
         float3 position = currentUnit.Position;
+        float currentDistance = math.INFINITY;
 
         foreach (UnitInfo enemy in enemyInfo)
         {
@@ -151,7 +144,10 @@ public struct DetectionJob : IJobParallelFor
             float temp = math.distance(position, enemyPosition);
 
             if (temp < currentDistance)
+            {
                 currentUnit.TargetID = enemy.InstanceID;
+                currentDistance = temp;
+            }
         }
 
         unitInfo[index] = currentUnit;
