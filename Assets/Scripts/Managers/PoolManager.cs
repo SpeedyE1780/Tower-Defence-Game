@@ -16,6 +16,7 @@ public class PoolManager : Singleton<PoolManager>
         defaultRotation = Quaternion.identity;
     }
 
+    //Populate pool using the gameobject in the hierarchy
     private void PopulatePool()
     {
         foreach (Transform child in transform)
@@ -29,25 +30,22 @@ public class PoolManager : Singleton<PoolManager>
 
     public GameObject GetPooledObject(PoolID id, Vector3 position = default, Quaternion rotation = default)
     {
-        if (pooledObjects.ContainsKey(id))
+        //Get pooled object
+        if (pooledObjects.ContainsKey(id) && pooledObjects[id].Count > 0)
         {
-            GameObject poolItem = pooledObjects[id].Dequeue();
-            poolItem.transform.SetParent(null);
-
+            //Set position rotation
             if (position == default)
                 position = defaultPosition;
             if (rotation == default)
                 rotation = defaultRotation;
 
+            GameObject poolItem = pooledObjects[id].Dequeue();
             poolItem.transform.SetPositionAndRotation(position, rotation);
-
-            if (pooledObjects[id].Count <= 0)
-                pooledObjects.Remove(id);
-
             return poolItem;
         }
         else
         {
+            //Instantiate new object
             GameObject factoryObject = FactoryManager.Instance.GetItem(id, position, rotation);
             return factoryObject;
         }
@@ -60,11 +58,20 @@ public class PoolManager : Singleton<PoolManager>
 
     public void AddToPool(PoolID id, GameObject poolObject)
     {
-        if (pooledObjects.ContainsKey(id) && !pooledObjects[id].Contains(poolObject))
-            pooledObjects[id].Enqueue(poolObject);
+        //Check that a similar object has been pooled
+        if (pooledObjects.ContainsKey(id))
+        {
+            //Prevent pooling the same object twice
+            if (!pooledObjects[id].Contains(poolObject))
+                pooledObjects[id].Enqueue(poolObject);
+        }
         else
+        {
+            //Create a new entry in the dictionary for this id
             pooledObjects.Add(id, new Queue<GameObject>(new[] { poolObject }));
+        }
 
+        //Disable gameobject and center it
         poolObject.SetActive(false);
         poolObject.transform.localPosition = Vector3.zero;
     }

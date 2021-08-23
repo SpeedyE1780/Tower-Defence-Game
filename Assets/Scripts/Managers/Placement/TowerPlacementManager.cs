@@ -15,9 +15,9 @@ public class TowerPlacementManager : UnitPlacementManager
             Destroy(gameObject);
     }
 
-    protected override IEnumerator PlaceUnit(PoolID towerID, int unitPrice)
+    protected override IEnumerator ProcessPlacement()
     {
-        TowerController tower = PoolManager.Instance.GetPooledObject<TowerController>(towerID);
+        TowerController tower = PoolManager.Instance.GetPooledObject<TowerController>(currentUnitID);
         tower.gameObject.SetActive(true);
         tower.enabled = false;
         Transform towerTransform = tower.transform;
@@ -44,7 +44,7 @@ public class TowerPlacementManager : UnitPlacementManager
             }
         }
 
-        ShopManager.Instance.BuyUnit(unitPrice);
-        StopUnitPlacement();
+        ShopManager.Instance.BuyUnit(currentUnitPrice);
+        StopPlacement();
     }
 }

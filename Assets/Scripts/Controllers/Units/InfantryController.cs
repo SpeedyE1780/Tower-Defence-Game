@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public abstract class InfantryController : UnitController
 {
+    private const float IdleMovementThreshold = 0.1f;
+
     [SerializeField] private float attackRange;
     [Header("Movement Stats")]
     [SerializeField] protected NavMeshAgent agent;
@@ -17,12 +19,12 @@ public abstract class InfantryController : UnitController
 
     protected virtual void Awake()
     {
-        agent.updatePosition = false;
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-        agent.speed = speed;
-        attackRange *= attackRange;
         rotation = new Quaternion();
+        DisableAgentAutoUpdate();
+        agent.speed = speed;
+
+        // Square attack range to compare it with the distance squared
+        attackRange *= attackRange;
     }
 
     protected override void Update()
@@ -33,35 +35,40 @@ public abstract class InfantryController : UnitController
         if (unitAnimation.IsPlaying(AttackAnimation))
             return;
 
-        if (agent.velocity.sqrMagnitude < 0.1f && !unitAnimation.IsPlaying(IdleAnimation))
+        SetMovementAnimation();
+    }
+
+    private void SetMovementAnimation()
+    {
+        if (agent.velocity.sqrMagnitude < IdleMovementThreshold && !unitAnimation.IsPlaying(IdleAnimation))
             unitAnimation.Play(IdleAnimation);
-        else if (agent.velocity.sqrMagnitude > 0.1f && !unitAnimation.IsPlaying(RunAnimation))
+        else if (agent.velocity.sqrMagnitude > IdleMovementThreshold && !unitAnimation.IsPlaying(RunAnimation))
             unitAnimation.Play(RunAnimation);
     }
 
     protected void SimulatePhysics()
     {
+        //Update navmesh position and geometry position
         agentBody.MovePosition(agent.nextPosition);
         geometry.position = agent.nextPosition;
 
-        if (agent.velocity.sqrMagnitude > 0)
+        if (agent.velocity.sqrMagnitude > IdleMovementThreshold)
             SetLookRotation();
     }
 
+    //Update navmesh rotation
     protected virtual void SetLookRotation()
     {
-        if (agent.velocity.sqrMagnitude < 0.1f)
-            return;
-
         rotation.SetLookRotation(agent.velocity);
         agentBody.MoveRotation(rotation);
     }
 
     protected override void AttackTarget()
     {
+        //Set destination to current target
         agent.SetDestination(currentTarget.transform.position);
 
-        if (currentAttackCooldown < 0 && TargetIsInRange())
+        if (CanAttack && TargetIsInRange())
             DamageTarget();
     }
 
@@ -69,7 +76,14 @@ public abstract class InfantryController : UnitController
     {
         unitAnimation.Play(AttackAnimation);
         currentTarget.TakeHit(instantKill);
-        ResetCooldown();
+        ResetAttackCooldown();
+    }
+
+    private void DisableAgentAutoUpdate()
+    {
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     protected virtual bool TargetIsInRange() => DistanceToTarget <= attackRange;

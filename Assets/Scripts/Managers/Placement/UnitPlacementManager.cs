@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class UnitPlacementManager : PlacementManager
@@ -9,33 +7,23 @@ public abstract class UnitPlacementManager : PlacementManager
     [SerializeField] protected float distanceBetweenUnits;
     [SerializeField] protected LayerMask groundLayer;
     [SerializeField] protected LayerMask unitLayers;
-    [SerializeField] protected List<GameObject> highlightedArea;
+    protected PoolID currentUnitID;
+    protected int currentUnitPrice;
 
+    //Currently placed units
     public static int UnitCount { get; private set; }
+
+    //Checks if we reached the units limits or not
     public static bool CanAddUnits => UnitCount < MaximumUnits;
 
     public static void ResetUnitCount() => UnitCount = 0;
     public static void RaiseUnitCount() => UnitCount += 1;
     public static void LowerUnitCount() => UnitCount -= 1;
 
-    public void StartUnitPlacement(PoolID troopID, int unitPrice)
+    public void UpdateCurrentUnit(PoolID unitID, int unitPrice)
     {
-        SetHighlightedAreaState(true);
-        StartCoroutine(PlaceUnit(troopID, unitPrice));
-        IsPlacingUnits = true;
-    }
-
-    protected void StopUnitPlacement()
-    {
-        SetHighlightedAreaState(false);
-        IsPlacingUnits = false;
-    }
-
-    protected abstract IEnumerator PlaceUnit(PoolID troopID, int unitPrice);
-
-    private void SetHighlightedAreaState(bool state)
-    {
-        foreach (GameObject area in highlightedArea)
-            area.SetActive(state);
+        currentUnitID = unitID;
+        currentUnitPrice = unitPrice;
+        StartPlacement();
     }
 }

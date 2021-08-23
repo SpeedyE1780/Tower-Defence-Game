@@ -9,16 +9,15 @@ public class AllyInfantry : InfantryController
         base.OnEnable();
         EventManager.OnWaveEnded += ResetPosition;
         initialPosition = transform.position;
-        UnitPlacementManager.RaiseUnitCount();
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         EventManager.OnWaveEnded -= ResetPosition;
-        UnitPlacementManager.LowerUnitCount();
     }
 
+    //Move unit back to its starting position
     private void ResetPosition() => agent.SetDestination(initialPosition);
 
     protected override void Idle()

@@ -24,13 +24,16 @@ public abstract class UnitController : MonoBehaviour
     private int instanceID;
 
     protected virtual bool HasIdleUpdate => true;
+    protected bool CanAttack => currentAttackCooldown < 0;
 
     protected virtual void OnEnable()
     {
+        instanceID = GetInstanceID();
         unitAnimation.Play(IdleAnimation);
+
+        //Reset target and attack cooldown
         currentTarget = null;
         currentAttackCooldown = attackCooldown;
-        instanceID = GetInstanceID();
 
         UnitInfo unitInfo = new UnitInfo()
         {
@@ -39,11 +42,17 @@ public abstract class UnitController : MonoBehaviour
         };
 
         UnitsManager.AddUnit(isEnemy, unitInfo, transform);
+
+        if (!isEnemy)
+            UnitPlacementManager.RaiseUnitCount();
     }
 
     protected virtual void OnDisable()
     {
         UnitsManager.RemoveUnit(isEnemy, instanceID);
+
+        if (!isEnemy)
+            UnitPlacementManager.LowerUnitCount();
     }
 
     protected virtual void Update()
@@ -57,11 +66,7 @@ public abstract class UnitController : MonoBehaviour
         }
         else
         {
-            Transform target = UnitsManager.GetTarget(isEnemy, instanceID);
-            if (target != null)
-                currentTarget = target.GetComponent<HealthController>();
-            else
-                currentTarget = null;
+            FindTarget();
 
             if (HasIdleUpdate)
                 Idle();
@@ -70,13 +75,19 @@ public abstract class UnitController : MonoBehaviour
         currentAttackCooldown -= Time.deltaTime;
     }
 
-    private void LateUpdate()
+    private void FindTarget()
     {
-        UnitsManager.UpdatePosition(isEnemy, instanceID, transform.position);
+        Transform target = UnitsManager.GetTarget(isEnemy, instanceID);
+
+        if (target != null)
+            currentTarget = target.GetComponent<HealthController>();
+        else
+            currentTarget = null;
     }
 
+    private void LateUpdate() => UnitsManager.UpdateUnitPosition(isEnemy, instanceID, transform.position);
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);
-    protected virtual void ResetCooldown() => currentAttackCooldown = attackCooldown;
+    protected virtual void ResetAttackCooldown() => currentAttackCooldown = attackCooldown;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected virtual bool IsTargetActive() => currentTarget != null && !currentTarget.IsDead && currentTarget.gameObject.activeInHierarchy;
     protected abstract void AttackTarget();

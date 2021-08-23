@@ -3,8 +3,7 @@ using UnityEngine;
 public class RangedController : UnitController
 {
     [SerializeField] private Transform shootPoint;
-    [Range(0, 1)]
-    [SerializeField] private float hitChance;
+    [SerializeField, Range(0, 1)] private float hitChance;
     [Header("Visual Elements")]
     [SerializeField] private PoolID projectileID;
     [SerializeField] private ParticleSystem bulletCasing;
@@ -12,26 +11,15 @@ public class RangedController : UnitController
     [SerializeField] private float rotationSpeed;
     private Vector3 targetForward;
 
+    //Transform that will rotate and follow the current target
     protected virtual Transform RotationTransform => transform;
     protected override bool HasIdleUpdate => false;
 
     protected void Start() => targetForward = new Vector3();
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        UnitPlacementManager.RaiseUnitCount();
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        UnitPlacementManager.LowerUnitCount();
-    }
-
     protected override void AttackTarget()
     {
-        Rotate();
+        RotateTowardTarget();
         Shoot();
     }
 
@@ -39,19 +27,28 @@ public class RangedController : UnitController
 
     protected virtual void Shoot()
     {
-        if (currentAttackCooldown > 0)
+        if (!CanAttack)
             return;
 
-        ResetCooldown();
-        PoolManager.Instance.GetPooledObject(projectileID, shootPoint.position, Quaternion.LookRotation(shootPoint.forward)).SetActive(true);
+        ResetAttackCooldown();
+        SpawnProjectile();
+
+        //Play shoot animation
         bulletCasing.Play();
 
-
+        //Randomly hit the target
         if (Random.Range(0, 1f) < hitChance)
             currentTarget.TakeHit();
     }
 
-    protected virtual void Rotate()
+    private void SpawnProjectile()
+    {
+        Quaternion projectileRotation = Quaternion.LookRotation(shootPoint.forward);
+        GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID, shootPoint.position, projectileRotation);
+        projectile.SetActive(true);
+    }
+
+    protected virtual void RotateTowardTarget()
     {
         targetForward = currentTarget.transform.position - transform.position;
         RotationTransform.rotation = Quaternion.Slerp(RotationTransform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);

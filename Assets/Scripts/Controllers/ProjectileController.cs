@@ -23,6 +23,7 @@ public class ProjectileController : MonoBehaviour
             currentLifetime += Time.deltaTime;
             yield return null;
         }
+
         if (gameObject.activeSelf)
             PoolManager.Instance.AddToPool(id, gameObject);
     }

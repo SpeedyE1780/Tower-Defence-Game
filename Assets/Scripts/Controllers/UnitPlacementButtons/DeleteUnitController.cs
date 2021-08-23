@@ -7,6 +7,6 @@ public class DeleteUnitController : MonoBehaviour
         if (PlacementManager.IsPlacingUnits)
             return;
 
-        DeleteUnitManager.Instance.StartDeleteUnit();
+        DeleteUnitManager.Instance.StartPlacement();
     }
 }

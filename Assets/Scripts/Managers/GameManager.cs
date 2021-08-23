@@ -1,22 +1,29 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private float physicsTimeStep;
     private bool simulatePhysics;
-    private float currentTimer;
+    private float physicsTimer;
     private int kills;
 
     public void StartGame()
     {
-        simulatePhysics = true;
+        ResetPhysics();
         kills = 0;
-        currentTimer = 0;
+
+        //Initialize Currency
         ShopManager.Instance.SetCurrency();
+
+        //Reset unit count and reset enemy multiplier
         UnitPlacementManager.ResetUnitCount();
         EnemyManager.InitializeMultiplier();
+
+        //Reset Game UI
         UIManager.Instance.UpdateKillText(kills);
         UIManager.Instance.ShowGameUI();
+
         SpawnManager.Instance.StartSpawning();
     }
 
@@ -27,9 +34,10 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void QuitGame() => Application.Quit();
-
     private void OnEnable() => EventManager.OnEnemyKilled += AddPoints;
     private void OnDisable() => EventManager.OnEnemyKilled -= AddPoints;
+
+    //Increment kill count and add coins
     private void AddPoints(int coins)
     {
         kills += 1;
@@ -37,17 +45,26 @@ public class GameManager : Singleton<GameManager>
         ShopManager.Instance.UpdateCurrency(coins);
     }
 
-    private void Update()
+    private void ResetPhysics()
     {
-        if (simulatePhysics)
-        {
-            currentTimer += Time.deltaTime;
+        simulatePhysics = true;
+        physicsTimer = 0;
+        StartCoroutine(UpdatePhysics());
+    }
 
-            if (currentTimer > physicsTimeStep)
+    private IEnumerator UpdatePhysics()
+    {
+        while (simulatePhysics)
+        {
+            physicsTimer += Time.deltaTime;
+
+            if (physicsTimer > physicsTimeStep)
             {
-                Physics.Simulate(currentTimer);
-                currentTimer = 0;
+                Physics.Simulate(physicsTimer);
+                physicsTimer = 0;
             }
+
+            yield return null;
         }
     }
 }

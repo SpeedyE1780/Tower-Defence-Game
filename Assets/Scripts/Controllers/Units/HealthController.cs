@@ -28,26 +28,25 @@ public class HealthController : MonoBehaviour
     private void OnEnable()
     {
         ToggleComponentsState(true);
+
+        //Set health to max health
         UpdateHealth(currentMaxHealth);
     }
 
-    public void UpdateMaxHealth(float multiplier)
-    {
-        currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
-    }
+    public void RaiseMaxHealth(float multiplier) => currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
 
     private void UpdateHealth(int health)
     {
-        Health = health;
+        Health = Mathf.Clamp(health, 0, currentMaxHealth);
         healthBar.value = Mathf.Clamp01((float)health / currentMaxHealth);
     }
 
     public void TakeHit(bool instantKill = false)
     {
-        if (!gameObject.activeSelf || Health == 0)
+        if (!gameObject.activeSelf)
             return;
 
-        UpdateHealth(instantKill ? 0 : Mathf.Clamp(Health - 1, 0, currentMaxHealth));
+        UpdateHealth(instantKill ? 0 : Health - 1);
 
         if (IsDead)
             StartCoroutine(KillPlayer());
@@ -56,18 +55,24 @@ public class HealthController : MonoBehaviour
     IEnumerator KillPlayer()
     {
         ToggleComponentsState(false);
-        float time = 0;
-
-        while (time < 0.5f)
-        {
-            time += Time.deltaTime;
-            geometry.localScale = Vector3.Lerp(initialScale, targetScale, time / 0.5f);
-            yield return null;
-        }
-
+        yield return StartCoroutine(PlayDeadAnimation());
         controller.PoolUnit();
     }
 
+    IEnumerator PlayDeadAnimation()
+    {
+        float time = 0;
+        float duration = 0.5f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            geometry.localScale = Vector3.Lerp(initialScale, targetScale, time / duration);
+            yield return null;
+        }
+    }
+
+    //Toggle movement and unit logic
     private void ToggleComponentsState(bool state)
     {
         geometry.localScale = initialScale;

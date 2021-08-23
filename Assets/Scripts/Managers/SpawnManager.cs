@@ -19,6 +19,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     public void StartSpawning()
     {
+        //Reset spawning variables
         activeEnemies = 0;
         currentEnemyCount = startingEnemyCount;
         currentWave = 0;
@@ -38,6 +39,7 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             currentWave += 1;
 
+            //Check if we should raise the enemy health
             if (currentWave % difficultyModifierFrequency == 0)
                 EnemyManager.IncrementMultiplier();
 
@@ -45,8 +47,10 @@ public class SpawnManager : Singleton<SpawnManager>
             yield return StartCoroutine(WaveDelay());
             UnitController.waitForWaveStart = false;
 
+            //Wait for all enemies to die
             while (activeEnemies > 0)
             {
+                //Player lost all his units
                 if (UnitPlacementManager.UnitCount == 0)
                 {
                     UIManager.Instance.ShowEndGameUI();
@@ -57,12 +61,14 @@ public class SpawnManager : Singleton<SpawnManager>
                 yield return null;
             }
 
+            //Check if we should spawn a boss or no
             if (currentWave % bossWaveFrequency == 0)
                 yield return StartCoroutine(SpawnBoss());
 
             UnitController.waitForWaveStart = true;
             EventManager.RaiseWaveEnded();
 
+            //Raise enemy count until we reach the max count
             if (currentEnemyCount < maxEnemyCount)
                 currentEnemyCount = Mathf.Clamp(currentEnemyCount * raisePercentage, startingEnemyCount, maxEnemyCount);
 
@@ -72,30 +78,17 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator WaveDelay()
     {
+        //Wait unitl pop up text disappears
         UIManager.Instance.ShowWaveNumber(currentWave);
         yield return UIManager.Instance.ShowPlaceUnits();
-
-        UIManager.Instance.ToggleUnitPlacementCanvas(true);
-        PlacementManager.SetCanPlaceUnits(true);
-        float time = waveDelay;
-
-        while (time > 0)
-        {
-            UIManager.Instance.SetWaveDelay((int)time + 1);
-            yield return null;
-            time -= Time.deltaTime;
-        }
-
-        UIManager.Instance.ToggleUnitPlacementCanvas(false);
-        PlacementManager.SetCanPlaceUnits(false);
+        ToggleUnitPlacement(true);
+        yield return WaitForWaveDelay();
+        ToggleUnitPlacement(false);
     }
 
     private IEnumerator SpawnBoss()
     {
-        Rigidbody rb = PoolManager.Instance.GetPooledObject<Rigidbody>(bossID, transform.position, transform.rotation);
-        rb.MovePosition(transform.position);
-        rb.MoveRotation(transform.rotation);
-        rb.gameObject.SetActive(true);
+        Rigidbody rb = SpawnEnemy(bossID, transform.position, transform.rotation);
         activeEnemies++;
         yield return new WaitUntil(() => !rb.gameObject.activeSelf);
     }
@@ -105,12 +98,39 @@ public class SpawnManager : Singleton<SpawnManager>
         Transform child;
         for (int i = 0; i < currentEnemyCount; i++)
         {
+            //Get position and rotation from children
             child = transform.GetChild(i);
-            Rigidbody rb = PoolManager.Instance.GetPooledObject<Rigidbody>(enemyID, child.position, child.rotation);
-            rb.MovePosition(child.position);
-            rb.MoveRotation(child.rotation);
-            rb.gameObject.SetActive(true);
+            SpawnEnemy(enemyID, child.position, child.rotation);
             activeEnemies += 1;
+        }
+    }
+
+    //Get enemy from pool and update its rigidbody position and rotation
+    private Rigidbody SpawnEnemy(PoolID id, Vector3 position, Quaternion rotation)
+    {
+        Rigidbody rb = PoolManager.Instance.GetPooledObject<Rigidbody>(id, position, rotation);
+        rb.MovePosition(position);
+        rb.MoveRotation(rotation);
+        rb.gameObject.SetActive(true);
+        return rb;
+    }
+
+    private void ToggleUnitPlacement(bool toggle)
+    {
+        UIManager.Instance.ToggleUnitPlacementCanvas(toggle);
+        PlacementManager.SetCanPlaceUnits(toggle);
+    }
+
+    private IEnumerator WaitForWaveDelay()
+    {
+        float time = waveDelay;
+
+        //Wait for wave delay to end
+        while (time > 0)
+        {
+            UIManager.Instance.SetWaveDelay((int)time + 1);
+            yield return null;
+            time -= Time.deltaTime;
         }
     }
 

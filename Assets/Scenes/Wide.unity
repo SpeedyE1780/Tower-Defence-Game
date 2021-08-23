@@ -46449,13 +46449,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3baff13fa69c8dc4bac63a55cedfd540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitsLayer:
-    serializedVersion: 2
-    m_Bits: 384
   highlightedAreas:
   - {fileID: 1423892450}
   - {fileID: 196364447}
   - {fileID: 983053109}
+  unitsLayer:
+    serializedVersion: 2
+    m_Bits: 384
 --- !u!1 &1117387293
 GameObject:
   m_ObjectHideFlags: 0
@@ -82428,6 +82428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9e91886b491d04ebe7eee3c05564ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedAreas:
+  - {fileID: 4395809}
   distanceBetweenUnits: 1
   groundLayer:
     serializedVersion: 2
@@ -82435,8 +82437,6 @@ MonoBehaviour:
   unitLayers:
     serializedVersion: 2
     m_Bits: 384
-  highlightedArea:
-  - {fileID: 4395809}
 --- !u!114 &1953519220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82449,6 +82449,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5cae54bd5dfc444a30568562317ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedAreas:
+  - {fileID: 571729252}
+  - {fileID: 1031679349}
   distanceBetweenUnits: 2.5
   groundLayer:
     serializedVersion: 2
@@ -82456,9 +82459,6 @@ MonoBehaviour:
   unitLayers:
     serializedVersion: 2
     m_Bits: 128
-  highlightedArea:
-  - {fileID: 571729252}
-  - {fileID: 1031679349}
   defaultTowerPosition: {fileID: 2104358862}
 --- !u!1001 &1953674413
 PrefabInstance:

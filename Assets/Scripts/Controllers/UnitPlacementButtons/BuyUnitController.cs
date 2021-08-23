@@ -11,12 +11,14 @@ public abstract class BuyUnitController : MonoBehaviour
 
     protected virtual void Awake()
     {
+        //Set button sprite and text
         unitIcon.sprite = unitSprite;
         priceText.text = unitPrice.ToString();
     }
 
     public void BuyUnit()
     {
+        //Check if we  can buy a unit and place it
         if (!ShopManager.Instance.CanBuyUnit(unitPrice) || PlacementManager.IsPlacingUnits || !UnitPlacementManager.CanAddUnits)
             return;
 

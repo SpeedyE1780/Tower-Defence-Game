@@ -8,7 +8,7 @@ public class ShopManager : Singleton<ShopManager>
 
     public bool CanBuyUnit(int price) => currentCoins >= price;
     public void BuyUnit(int price) => UpdateCurrency(-price);
-    public void SetCurrency() => UpdateCurrency(startingCoins - currentCoins);
+    public void SetCurrency() => UpdateCurrency(startingCoins - currentCoins); //Set amount to starting coins
     public void UpdateCurrency(int amount)
     {
         currentCoins = Mathf.Clamp(currentCoins + amount, 0, maxCoins);

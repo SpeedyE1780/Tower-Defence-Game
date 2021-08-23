@@ -25,21 +25,11 @@ public class UIManager : Singleton<UIManager>
 
     private void Start() => ShowMenuUI();
 
-    public void ShowMenuUI()
-    {
-        ToggleGameUI(MenuUI);
-    }
+    public void ShowMenuUI() => ToggleGameUI(MenuUI);
+    public void ShowGameUI() => ToggleGameUI(GameUI);
+    public void ShowEndGameUI() => ToggleGameUI(EndGameUI);
 
-    public void ShowGameUI()
-    {
-        ToggleGameUI(GameUI);
-    }
-
-    public void ShowEndGameUI()
-    {
-        ToggleGameUI(EndGameUI);
-    }
-
+    //Enable the selected canvas and disable the other
     private void ToggleGameUI(Canvas current)
     {
         MenuUI.enabled = current == MenuUI;
@@ -51,45 +41,47 @@ public class UIManager : Singleton<UIManager>
     public void TogglePauseUI(bool state) => PauseUI.enabled = state;
     public void UpdateKillText(int score) => killsText.text = score.ToString();
     public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
+    public void SetWaveDelay(int delay) => waveDelay.text = delay.ToString();
+
     public void ToggleUnitPlacementCanvas(bool toggle)
     {
         unitPlacement.enabled = toggle;
         waveDelay.gameObject.SetActive(toggle);
     }
-    public void SetWaveDelay(int delay) => waveDelay.text = delay.ToString();
 
-    private IEnumerator ShowWaveText(GameObject waveText)
+    private IEnumerator ShowAnimatedText(GameObject waveText)
     {
         waveText.SetActive(true);
-        Transform waveTransform = waveText.transform;
+
+        //Play scale up animation
+        yield return StartCoroutine(PlayTextScaleAnimation(waveText.transform, waveStartScale, waveEndScale));
+
+        yield return new WaitForSeconds(waveTextScaleDuration * 0.5f);
+
+        //Play scale down animation
+        yield return StartCoroutine(PlayTextScaleAnimation(waveText.transform, waveEndScale, waveStartScale));
+
+        waveText.SetActive(false);
+    }
+
+    private IEnumerator PlayTextScaleAnimation(Transform waveTransform, Vector3 startScale, Vector3 endScale)
+    {
         float time = 0;
 
         while (time < waveTextScaleDuration)
         {
-            waveTransform.localScale = Vector3.Lerp(waveStartScale, waveEndScale, time / waveTextScaleDuration);
+            waveTransform.localScale = Vector3.Lerp(startScale, endScale, time / waveTextScaleDuration);
             yield return null;
             time += Time.deltaTime;
         }
-
-        yield return new WaitForSeconds(waveTextScaleDuration * 0.5f);
-
-        time = 0;
-        while (time < waveTextScaleDuration)
-        {
-            waveTransform.localScale = Vector3.Lerp(waveEndScale, waveStartScale, time / waveTextScaleDuration);
-            yield return null;
-            time += Time.deltaTime;
-        }
-
-        waveText.SetActive(false);
     }
 
     public void ShowWaveNumber(int number)
     {
         waveStarted.text = $"Wave {number}";
-        StartCoroutine(ShowWaveText(waveStarted.gameObject));
+        StartCoroutine(ShowAnimatedText(waveStarted.gameObject));
     }
 
-    public Coroutine ShowWaveCompleted() => StartCoroutine(ShowWaveText(waveCompleted));
-    public Coroutine ShowPlaceUnits() => StartCoroutine(ShowWaveText(placeUnits.gameObject));
+    public Coroutine ShowWaveCompleted() => StartCoroutine(ShowAnimatedText(waveCompleted));
+    public Coroutine ShowPlaceUnits() => StartCoroutine(ShowAnimatedText(placeUnits.gameObject));
 }
