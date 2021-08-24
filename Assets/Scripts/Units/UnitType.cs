@@ -6,6 +6,7 @@ public class UnitType : ScriptableObject
     [SerializeField] private int typeID;
     [SerializeField] private int typeNumber;
 
+    public int ID => typeID;
     public int Type => typeNumber;
 
     private void OnValidate()
