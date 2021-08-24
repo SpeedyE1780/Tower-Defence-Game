@@ -31,6 +31,8 @@ public class HealthController : MonoBehaviour
 
         //Set health to max health
         UpdateHealth(currentMaxHealth);
+
+        healthBar.gameObject.SetActive(false);
     }
 
     public void RaiseMaxHealth(float multiplier) => currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
@@ -45,6 +47,9 @@ public class HealthController : MonoBehaviour
     {
         if (!gameObject.activeSelf)
             return;
+
+        if (!healthBar.gameObject.activeSelf)
+            healthBar.gameObject.SetActive(true);
 
         UpdateHealth(instantKill ? 0 : Health - 1);
 
