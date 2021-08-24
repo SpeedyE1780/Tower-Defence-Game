@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PoolManager : Singleton<PoolManager>
 {
+    [SerializeField] private SerializableDictionaryBase<GameObject, PoolID> poolParents;
     private Dictionary<PoolID, Queue<GameObject>> pooledObjects;
     private Vector3 defaultPosition;
     private Quaternion defaultRotation;
@@ -11,22 +12,22 @@ public class PoolManager : Singleton<PoolManager>
     {
         base.Awake();
         pooledObjects = new Dictionary<PoolID, Queue<GameObject>>();
-        //PopulatePool();
+        PopulatePool();
         defaultPosition = Vector3.zero;
         defaultRotation = Quaternion.identity;
     }
 
-    ////Populate pool using the gameobject in the hierarchy
-    //private void PopulatePool()
-    //{
-    //    foreach (Transform child in transform)
-    //    {
-    //        PoolID id = ScriptableObject.CreateInstance<PoolID>();
-    //        pooledObjects.Add(id, new Queue<GameObject>());
-    //        foreach (Transform pooled in child)
-    //            pooledObjects[id].Enqueue(pooled.gameObject);
-    //    }
-    //}
+    //Populate pool using the gameobject in the hierarchy
+    private void PopulatePool()
+    {
+        foreach (Transform child in transform)
+        {
+            PoolID id = poolParents[child.gameObject];
+            pooledObjects.Add(id, new Queue<GameObject>());
+            foreach (Transform pooled in child)
+                pooledObjects[id].Enqueue(pooled.gameObject);
+        }
+    }
 
     public GameObject GetPooledObject(PoolID id, Vector3 position = default, Quaternion rotation = default)
     {
