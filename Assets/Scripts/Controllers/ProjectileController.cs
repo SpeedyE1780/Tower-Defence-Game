@@ -12,19 +12,19 @@ public class ProjectileController : MonoBehaviour
     float currentLifetime;
 
     void Start() => rb = GetComponent<Rigidbody>();
-    private void OnEnable() => StartCoroutine(PoolObject());
-    void Update() => rb.velocity = transform.forward * speed;
+    private void OnEnable() => currentLifetime = lifeTime;
 
-    IEnumerator PoolObject()
+    void Update()
     {
-        currentLifetime = 0;
-        while (currentLifetime < lifeTime)
-        {
-            currentLifetime += Time.deltaTime;
-            yield return null;
-        }
+        rb.velocity = transform.forward * speed;
+        CheckLifetime();
+    }
 
-        if (gameObject.activeSelf)
+    private void CheckLifetime()
+    {
+        currentLifetime -= Time.deltaTime;
+
+        if (currentLifetime <= 0)
             PoolManager.Instance.AddToPool(id, gameObject);
     }
 
