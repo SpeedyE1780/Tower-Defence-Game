@@ -21,7 +21,7 @@ public class PoolManager : Singleton<PoolManager>
     {
         foreach (Transform child in transform)
         {
-            System.Enum.TryParse(child.name, out PoolID id);
+            PoolID id = ScriptableObject.CreateInstance<PoolID>();
             pooledObjects.Add(id, new Queue<GameObject>());
             foreach (Transform pooled in child)
                 pooledObjects[id].Enqueue(pooled.gameObject);
@@ -87,14 +87,4 @@ public class PoolManager : Singleton<PoolManager>
             poolParent.transform.SetParent(transform);
         }
     }
-}
-
-public enum PoolID
-{
-    Enemy,
-    Projectile,
-    EnemyBoss,
-    Tower,
-    Infantry,
-    Archer
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class TroopPlacementManager : UnitPlacementManager
 {
     public static TroopPlacementManager Instance { get; private set; }
+    [SerializeField] PoolID infantryID;
 
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class TroopPlacementManager : UnitPlacementManager
         }
 
         bool canPlaceUnit = true;
-        bool isInfantry = currentUnitID == PoolID.Infantry;
+        bool isInfantry = currentUnitID == infantryID;
 
         do
         {
