@@ -8,6 +8,6 @@ public class LookAtTarget : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.forward = (transform.position - lookAtTarget.position);
+        transform.forward = transform.position - lookAtTarget.position;
     }
 }
