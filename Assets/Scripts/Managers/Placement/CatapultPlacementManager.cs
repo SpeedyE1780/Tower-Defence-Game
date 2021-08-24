@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class TowerPlacementManager : UnitPlacementManager
+public class CatapultPlacementManager : UnitPlacementManager
 {
-    public static TowerPlacementManager Instance { get; private set; }
+    public static CatapultPlacementManager Instance { get; private set; }
 
-    [SerializeField] private Transform defaultTowerPosition;
+    [SerializeField] private Transform defaultCatapultPosition;
 
     private void Awake()
     {
@@ -17,11 +17,11 @@ public class TowerPlacementManager : UnitPlacementManager
 
     protected override IEnumerator ProcessPlacement()
     {
-        TowerController tower = PoolManager.Instance.GetPooledObject<TowerController>(currentUnitID);
-        tower.gameObject.SetActive(true);
-        tower.enabled = false;
-        Transform towerTransform = tower.transform;
-        towerTransform.position = defaultTowerPosition.position;
+        CatapultController catapult = PoolManager.Instance.GetPooledObject<CatapultController>(currentUnitID);
+        catapult.gameObject.SetActive(true);
+        catapult.enabled = false;
+        Transform towerTransform = catapult.transform;
+        towerTransform.position = defaultCatapultPosition.position;
 
         yield return new WaitUntil(() => Input.GetMouseButton(0));
 
@@ -39,7 +39,7 @@ public class TowerPlacementManager : UnitPlacementManager
                 if (Physics.OverlapSphere(towerTransform.position, distanceBetweenUnits, unitLayers).Length > 1)
                     continue;
 
-                tower.enabled = true;
+                catapult.enabled = true;
                 break;
             }
         }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
-  m_Name: Tower
+  m_Name: Catapult
   m_EditorClassIdentifier: 
   CategoryItems:
   - {fileID: 6559590306770425526, guid: 087a27763c5fdc54cbd2438ea9c2285e, type: 3}
