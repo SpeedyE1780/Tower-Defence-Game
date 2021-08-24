@@ -78,6 +78,7 @@ MonoBehaviour:
   id: {fileID: 11400000, guid: ae3ddb579c2eaf6418633ae566f68d78, type: 2}
   lifeTime: 0.25
   speed: 50
+  waitForLifeTime: 1
 --- !u!1 &4765385985416764425
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,6 @@ using UnityEngine;
 public class RangedController : UnitController
 {
     [SerializeField] private Transform shootPoint;
-    [SerializeField, Range(0, 1)] private float hitChance;
     [Header("Visual Elements")]
     [SerializeField] private PoolID projectileID;
     [SerializeField] private ParticleSystem bulletCasing;
@@ -31,21 +30,24 @@ public class RangedController : UnitController
             return;
 
         ResetAttackCooldown();
-        SpawnProjectile();
+        SetProjectile();
 
         //Play shoot animation
         bulletCasing.Play();
-
-        //Randomly hit the target
-        if (Random.Range(0, 1f) < hitChance)
-            currentTarget.TakeHit();
     }
 
-    private void SpawnProjectile()
+    protected virtual void SetProjectile()
+    {
+        ProjectileController projectile = SpawnProjectile().GetComponent<ProjectileController>();
+        projectile.Target = currentTarget;
+    }
+
+    protected GameObject SpawnProjectile()
     {
         Quaternion projectileRotation = Quaternion.LookRotation(shootPoint.forward);
         GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID, shootPoint.position, projectileRotation);
         projectile.SetActive(true);
+        return projectile;
     }
 
     protected virtual void RotateTowardTarget()

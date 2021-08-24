@@ -4,17 +4,27 @@ public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private PoolID id;
     [SerializeField] private float lifeTime;
-    [SerializeField] private float speed;
-    Rigidbody rb;
+    [SerializeField] private bool waitForLifeTime;
+    [SerializeField] protected float speed;
+    protected Rigidbody rb;
     float currentLifetime;
+
+    public HealthController Target { get; set; }
 
     void Start() => rb = GetComponent<Rigidbody>();
     private void OnEnable() => currentLifetime = lifeTime;
 
     void Update()
     {
+        Move();
+
+        if (waitForLifeTime)
+            CheckLifetime();
+    }
+
+    protected virtual void Move()
+    {
         rb.velocity = transform.forward * speed;
-        CheckLifetime();
     }
 
     private void CheckLifetime()
@@ -22,6 +32,14 @@ public class ProjectileController : MonoBehaviour
         currentLifetime -= Time.deltaTime;
 
         if (currentLifetime <= 0)
-            PoolManager.Instance.AddToPool(id, gameObject);
+        {
+            AddToPool();
+            Target.TakeHit();
+        }
+    }
+
+    protected void AddToPool()
+    {
+        PoolManager.Instance.AddToPool(id, gameObject);
     }
 }
