@@ -35,7 +35,7 @@ public abstract class UnitController : MonoBehaviour
 
         //Reset target and attack cooldown
         currentTarget = null;
-        currentAttackCooldown = attackCooldown;
+        currentAttackCooldown = 0;
 
         UnitInfo unitInfo = new UnitInfo()
         {

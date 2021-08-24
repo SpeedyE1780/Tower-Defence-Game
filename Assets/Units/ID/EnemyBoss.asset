@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba87e4f583552d42aa2fdd6dc1df65d, type: 3}
   m_Name: EnemyBoss
   m_EditorClassIdentifier: 
-  UnitType: {fileID: 11400000, guid: 740d819ed43c5324c870f666abad79bc, type: 2}
+  UnitType: {fileID: 11400000, guid: 672d98c0eb8ca9d4d89a550986087aab, type: 2}
   targetTypes:
-  - {fileID: 11400000, guid: 7f4183c24242f3741b153acf5ba473ff, type: 2}
   - {fileID: 11400000, guid: 740d819ed43c5324c870f666abad79bc, type: 2}
+  - {fileID: 11400000, guid: 7f4183c24242f3741b153acf5ba473ff, type: 2}
   canAttack: {fileID: 11400000, guid: 740d819ed43c5324c870f666abad79bc, type: 2}

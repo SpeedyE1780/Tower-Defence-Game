@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 355ce7cd63cca4d4081b00bd90ace224, type: 3}
-  m_Name: Ground
+  m_Name: EnemyAirborne
   m_EditorClassIdentifier: 
-  typeID: 0
-  typeNumber: 1
+  typeID: 2
+  typeNumber: 4
