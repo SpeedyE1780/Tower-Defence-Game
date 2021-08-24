@@ -39,6 +39,8 @@ public abstract class UnitController : MonoBehaviour
         {
             InstanceID = instanceID,
             Position = transform.position,
+            UnitTypeID = unitID.TypeID,
+            UnitMask = unitID.GetLayerMask()
         };
 
         UnitsManager.AddUnit(isEnemy, unitInfo, transform);

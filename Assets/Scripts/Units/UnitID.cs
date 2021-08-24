@@ -7,11 +7,9 @@ public class UnitID : PoolID
     [SerializeField] UnitType UnitType;
     [SerializeField] List<UnitType> targetTypes;
 
-    #region
-#if UNITY_EDITOR
-    [SerializeField] UnitType canAttack;
+    public int TypeID => UnitType.Type;
 
-    private int GetLayerMask()
+    public int GetLayerMask()
     {
         int id = 0;
 
@@ -25,6 +23,15 @@ public class UnitID : PoolID
 
         return id;
     }
+
+    public string GetLayerMaskString()
+    {
+        return System.Convert.ToString(GetLayerMask(), 2);
+    }
+
+    #region EDITOR
+#if UNITY_EDITOR
+    [SerializeField] UnitType canAttack;
 
     [ContextMenu("Check")]
     public void Check()
@@ -46,8 +53,13 @@ public class UnitID : PoolID
             return;
 
         int id = GetLayerMask();
+        Debug.Log("String method");
         string binary = System.Convert.ToString(id, 2).PadLeft(2, '0');
         Debug.Log($"Can Attack {canAttack.name}:{binary[binary.Length - 1 - canAttack.ID]}");
+
+        Debug.Log("Binary method");
+        int attackType = canAttack.Type;
+        Debug.Log(attackType & id);
     }
 #endif
     #endregion

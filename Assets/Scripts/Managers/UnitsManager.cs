@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Unity.Burst;
 using Unity.Collections;
-using Unity.Mathematics;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Jobs;
