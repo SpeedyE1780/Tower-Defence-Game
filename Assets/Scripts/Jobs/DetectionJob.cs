@@ -21,6 +21,9 @@ public struct DetectionJob : IJobParallelFor
             if ((currentUnit.UnitMask & enemy.UnitTypeID) == 0)
                 continue;
 
+            if (currentUnit.InstanceID == enemy.InstanceID)
+                continue;
+
             //Calculate distance from unit
             float3 enemyPosition = enemy.Position;
             float temp = math.distance(position, enemyPosition);

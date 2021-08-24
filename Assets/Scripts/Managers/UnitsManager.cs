@@ -8,125 +8,83 @@ using UnitData = Unity.Collections.NativeHashMap<int, UnitInfo>;
 public class UnitsManager : Singleton<UnitsManager>
 {
     private static Dictionary<int, Transform> activeUnits;
-    private static UnitData troopInfo; //Contains all troops info
-    private static UnitData enemyInfo; //Contains all enemy info
+    private static UnitData unitsInfo; //Contains all troops info
 
     private void Start()
     {
         activeUnits = new Dictionary<int, Transform>();
-        troopInfo = new UnitData(UnitPlacementManager.MaximumUnits, Allocator.Persistent);
-        enemyInfo = new UnitData(SpawnManager.Instance.MaxEnemyCount, Allocator.Persistent);
+        unitsInfo = new UnitData(UnitPlacementManager.MaximumUnits, Allocator.Persistent);
     }
 
     private void Update()
     {
         //Create job handle list and get enemies and troops info
-        NativeList<JobHandle> jobHandles = new NativeList<JobHandle>(troopInfo.Count() + enemyInfo.Count(), Allocator.Temp);
-        NativeArray<UnitInfo> enemies = enemyInfo.GetValueArray(Allocator.TempJob);
-        NativeArray<UnitInfo> troops = troopInfo.GetValueArray(Allocator.TempJob);
+        NativeList<JobHandle> jobHandles = new NativeList<JobHandle>(unitsInfo.Count(), Allocator.Temp);
+        NativeArray<UnitInfo> units = unitsInfo.GetValueArray(Allocator.TempJob);
+        NativeArray<UnitInfo> readOnly = unitsInfo.GetValueArray(Allocator.TempJob);
 
         DetectionJob troopDetection = new DetectionJob()
         {
-            enemyInfo = enemies,
-            unitInfo = troops
-        };
-
-        DetectionJob enemyDetection = new DetectionJob()
-        {
-            enemyInfo = troops,
-            unitInfo = enemies
+            enemyInfo = readOnly,
+            unitInfo = units
         };
 
         //Schedule detection jobs
-        JobHandle troopHandle = troopDetection.Schedule(troops.Length, 50);
-        JobHandle enemyHandle = enemyDetection.Schedule(enemies.Length, 100, troopHandle);
+        JobHandle troopHandle = troopDetection.Schedule(units.Length, 75);
 
         //Add jobs to list and complete them all
         jobHandles.Add(troopHandle);
-        jobHandles.Add(enemyHandle);
         JobHandle.CompleteAll(jobHandles);
 
-        //Update enemies info
-        foreach (UnitInfo unitInfo in enemies)
-            enemyInfo[unitInfo.InstanceID] = unitInfo;
-
-        //Update troops info
-        foreach (UnitInfo unitInfo in troops)
-            troopInfo[unitInfo.InstanceID] = unitInfo;
+        //Update units info
+        foreach (UnitInfo unitInfo in units)
+            unitsInfo[unitInfo.InstanceID] = unitInfo;
 
         //Dispose of the native lists
         jobHandles.Dispose();
-        enemies.Dispose();
-        troops.Dispose();
+        units.Dispose();
+        readOnly.Dispose();
     }
 
     //Add unit to active units dictionary and native dictionary
-    public static void AddUnit(bool isEnemy, UnitInfo info, Transform transform)
+    public static void AddUnit(UnitInfo info, Transform transform)
     {
-        if (!enemyInfo.IsCreated || !troopInfo.IsCreated)
+        if (!unitsInfo.IsCreated)
             return;
 
-        if (isEnemy)
-            enemyInfo.Add(info.InstanceID, info);
-        else
-            troopInfo.Add(info.InstanceID, info);
-
+        unitsInfo.Add(info.InstanceID, info);
         activeUnits.Add(info.InstanceID, transform);
     }
 
     //Remove unit from active units and native dictionary
-    public static void RemoveUnit(bool isEnemy, int instanceID)
+    public static void RemoveUnit(int instanceID)
     {
-        if (!enemyInfo.IsCreated || !troopInfo.IsCreated)
+        if (!unitsInfo.IsCreated)
             return;
 
-        if (isEnemy)
-            enemyInfo.Remove(instanceID);
-        else
-            troopInfo.Remove(instanceID);
-
+        unitsInfo.Remove(instanceID);
         activeUnits.Remove(instanceID);
     }
 
     //Update units position in native dictionary
-    public static void UpdateUnitPosition(bool isEnemy, int instanceID, Vector3 position)
+    public static void UpdateUnitPosition(int instanceID, Vector3 position)
     {
-        if (isEnemy)
-        {
-            UnitInfo info = enemyInfo[instanceID];
-            info.Position = position;
-            enemyInfo[instanceID] = info;
-        }
-        else
-        {
-            UnitInfo info = troopInfo[instanceID];
-            info.Position = position;
-            troopInfo[instanceID] = info;
-        }
+        UnitInfo info = unitsInfo[instanceID];
+        info.Position = position;
+        unitsInfo[instanceID] = info;
     }
 
     //Get target from native dictionary info
-    public static Transform GetTarget(bool isEnemy, int instanceID)
+    public static Transform GetTarget(int instanceID)
     {
-        int targetID;
-
-        if (isEnemy)
-        {
-            targetID = enemyInfo[instanceID].TargetID;
-        }
-        else
-        {
-            targetID = troopInfo[instanceID].TargetID;
-        }
-
         //Get transform using target id
+        int targetID = unitsInfo[instanceID].TargetID;
         activeUnits.TryGetValue(targetID, out Transform transform);
         return transform;
     }
 
     private void OnDestroy()
     {
-        enemyInfo.Dispose();
-        troopInfo.Dispose();
+        unitsInfo.Dispose();
     }
 }
