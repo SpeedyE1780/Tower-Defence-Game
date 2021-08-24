@@ -6,6 +6,9 @@ public class UnitID : PoolID
 {
     [SerializeField] UnitType UnitType;
     [SerializeField] List<UnitType> targetTypes;
+
+    #region
+#if UNITY_EDITOR
     [SerializeField] UnitType canAttack;
 
     private int GetLayerMask()
@@ -46,4 +49,6 @@ public class UnitID : PoolID
         string binary = System.Convert.ToString(id, 2).PadLeft(2, '0');
         Debug.Log($"Can Attack {canAttack.name}:{binary[binary.Length - 1 - canAttack.ID]}");
     }
+#endif
+    #endregion
 }

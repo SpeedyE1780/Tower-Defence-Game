@@ -13,7 +13,7 @@ public abstract class UnitController : MonoBehaviour
 
     public static bool waitForWaveStart;
 
-    [SerializeField] protected PoolID poolID;
+    [SerializeField] protected UnitID unitID;
     [SerializeField] private bool isEnemy;
     [SerializeField] protected Animation unitAnimation;
     [Header("Attack Stats")]
@@ -86,7 +86,7 @@ public abstract class UnitController : MonoBehaviour
     }
 
     private void LateUpdate() => UnitsManager.UpdateUnitPosition(isEnemy, instanceID, transform.position);
-    public virtual void PoolUnit() => PoolManager.Instance.AddToPool(poolID, gameObject);
+    public virtual void PoolUnit() => PoolManager.Instance.AddToPool(unitID, gameObject);
     protected virtual void ResetAttackCooldown() => currentAttackCooldown = attackCooldown;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected virtual bool IsTargetActive() => currentTarget != null && !currentTarget.IsDead && currentTarget.gameObject.activeInHierarchy;

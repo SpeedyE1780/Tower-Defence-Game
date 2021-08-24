@@ -62053,8 +62053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235f4feb797dd3446a4bf26c00c90f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyID: {fileID: 11400000, guid: 1bf73e17070c2d641be2aaf167704f64, type: 2}
-  bossID: {fileID: 11400000, guid: e2ecc944e72d5e7429317ee6bf5253b5, type: 2}
+  enemyID: {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+  bossID: {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
   startingEnemyCount: 50
   maxEnemyCount: 250
   raisePercentage: 1.4
@@ -80450,16 +80450,16 @@ MonoBehaviour:
     reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
     isExpanded: 1
     _keyValues:
-    - {fileID: 11400000, guid: ec6157157aa86044f8333daaddaa89a3, type: 2}
-    - {fileID: 11400000, guid: 1bf73e17070c2d641be2aaf167704f64, type: 2}
-    - {fileID: 11400000, guid: e2ecc944e72d5e7429317ee6bf5253b5, type: 2}
-    - {fileID: 11400000, guid: e6e00ce0f4fcf0043bfaa704c9284cd7, type: 2}
+    - {fileID: 11400000, guid: 0a6ad424a9306df40906657875a19197, type: 2}
+    - {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+    - {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
+    - {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
     - {fileID: 11400000, guid: ae3ddb579c2eaf6418633ae566f68d78, type: 2}
     _keys:
-    - {fileID: 11400000, guid: ec6157157aa86044f8333daaddaa89a3, type: 2}
-    - {fileID: 11400000, guid: 1bf73e17070c2d641be2aaf167704f64, type: 2}
-    - {fileID: 11400000, guid: e2ecc944e72d5e7429317ee6bf5253b5, type: 2}
-    - {fileID: 11400000, guid: e6e00ce0f4fcf0043bfaa704c9284cd7, type: 2}
+    - {fileID: 11400000, guid: 0a6ad424a9306df40906657875a19197, type: 2}
+    - {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+    - {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
+    - {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
     - {fileID: 11400000, guid: ae3ddb579c2eaf6418633ae566f68d78, type: 2}
     _values:
     - {fileID: 11400000, guid: cdc3a23437f07a442a5208544074c7d2, type: 2}
@@ -82927,7 +82927,7 @@ MonoBehaviour:
   unitLayers:
     serializedVersion: 2
     m_Bits: 384
-  infantryID: {fileID: 11400000, guid: e6e00ce0f4fcf0043bfaa704c9284cd7, type: 2}
+  infantryID: {fileID: 0}
 --- !u!114 &1953519220
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: unitID
       value: 
-      objectReference: {fileID: 11400000, guid: e6e00ce0f4fcf0043bfaa704c9284cd7, type: 2}
+      objectReference: {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
     - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: unitPrice
       value: 15
