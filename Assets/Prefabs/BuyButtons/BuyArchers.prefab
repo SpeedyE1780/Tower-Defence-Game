@@ -9,8 +9,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: unitID
-      value: 5
-      objectReference: {fileID: 0}
+      value: 
+      objectReference: {fileID: 11400000, guid: ec6157157aa86044f8333daaddaa89a3, type: 2}
     - target: {fileID: 6331432194337663216, guid: 40d5629b993e91a4aa4d517c7b763460, type: 3}
       propertyPath: unitPrice
       value: 25

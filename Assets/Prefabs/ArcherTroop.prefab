@@ -80,13 +80,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62d10e3cc28ff44787828a20b3e82ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolID: 5
+  poolID: {fileID: 11400000, guid: ec6157157aa86044f8333daaddaa89a3, type: 2}
   isEnemy: 0
   unitAnimation: {fileID: 6485973482849070438}
   attackCooldown: 0.15
   shootPoint: {fileID: 9036266385294470697}
   hitChance: 0.8
-  projectileID: 1
+  projectileID: {fileID: 11400000, guid: ae3ddb579c2eaf6418633ae566f68d78, type: 2}
   bulletCasing: {fileID: 6931388891223771041}
   rotationSpeed: 0.2
 --- !u!114 &-2760263632264079363

@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef11afdbd8a2f34448943ffdea9943ac, type: 3}
-  m_Name: References
+  m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
+  m_Name: EnemyBoss
   m_EditorClassIdentifier: 
-  _gameObject: {fileID: 0}
-  _material: {fileID: 0}
-  _audioClip: {fileID: 0}
-  poolID: {fileID: 11400000, guid: 975eab8ee9b511147b291afdd6f6df03, type: 2}
+  CategoryItems:
+  - {fileID: 2483648066514071804, guid: 58aa7cc252b2cc2459c93eaa0956d50c, type: 3}

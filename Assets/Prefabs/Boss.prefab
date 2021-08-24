@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c793a759623e064ba22b389cfb909cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolID: 2
+  poolID: {fileID: 11400000, guid: e2ecc944e72d5e7429317ee6bf5253b5, type: 2}
   isEnemy: 1
   unitAnimation: {fileID: 4063504079313141498}
   attackCooldown: 0.25
