@@ -31,7 +31,13 @@ public class CatapultPlacementManager : UnitPlacementManager
             yield return null;
 
             if (!CameraRay.GetCameraHitPoint(out Vector3 hitPoint, groundLayer))
-                continue;
+            {
+                if (Input.GetMouseButtonUp(0))
+                    break;
+                else
+                    continue;
+            }
+
 
             towerTransform.position = hitPoint;
 
