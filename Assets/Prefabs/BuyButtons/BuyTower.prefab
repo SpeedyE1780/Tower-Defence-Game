@@ -195,8 +195,8 @@ MonoBehaviour:
   unitIcon: {fileID: 4588187628911535708}
   priceText: {fileID: 4588187628830659217}
   unitSprite: {fileID: 21300000, guid: b2076d3ea944c6c4183589499aaccb9c, type: 3}
-  unitPrice: 500
-  unitID: 3
+  unitPrice: 250
+  unitID: {fileID: 11400000, guid: 5fdf5c3eb37f3fc4a8df627743501550, type: 2}
 --- !u!1 &4588187628830659231
 GameObject:
   m_ObjectHideFlags: 0

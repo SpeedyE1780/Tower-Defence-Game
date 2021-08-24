@@ -29,7 +29,9 @@ public abstract class UnitController : MonoBehaviour
     protected virtual void OnEnable()
     {
         instanceID = GetInstanceID();
-        unitAnimation.Play(IdleAnimation);
+
+        if (unitAnimation != null)
+            unitAnimation.Play(IdleAnimation);
 
         //Reset target and attack cooldown
         currentTarget = null;

@@ -65168,7 +65168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1859933181
 Transform:
   m_ObjectHideFlags: 0
@@ -68882,7 +68882,7 @@ MonoBehaviour:
   unitLayers:
     serializedVersion: 2
     m_Bits: 384
-  infantryID: {fileID: 0}
+  infantryID: {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
 --- !u!114 &1953519220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68898,13 +68898,14 @@ MonoBehaviour:
   highlightedAreas:
   - {fileID: 571729252}
   - {fileID: 1031679349}
+  - {fileID: 4395809}
   distanceBetweenUnits: 2.5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 576
   unitLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   defaultTowerPosition: {fileID: 2104358862}
 --- !u!1001 &1953674413
 PrefabInstance:
@@ -76367,7 +76368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4588187628260450365, guid: 02ee7776b5201fa4b87dc0da08bafe3c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4588187628260450366, guid: 02ee7776b5201fa4b87dc0da08bafe3c, type: 3}
       propertyPath: m_Pivot.x
