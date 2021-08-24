@@ -17,8 +17,8 @@ public class DeleteUnitManager : PlacementManager
 
     protected override IEnumerator ProcessPlacement()
     {
-        //Wait for finger drag
-        yield return new WaitUntil(() => Input.GetMouseButton(0));
+        //Wait for finger drag or wave to start
+        yield return waitForDrag;
 
         //Delete any units we hovered over while dragging our finger while waiting for the wave to start
         while (CanPlaceUnits && Input.GetMouseButton(0))

@@ -38802,8 +38802,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightedAreas:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 983053109}
   unitsLayer:
     serializedVersion: 2

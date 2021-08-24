@@ -23,9 +23,10 @@ public class CatapultPlacementManager : UnitPlacementManager
         Transform towerTransform = catapult.transform;
         towerTransform.position = defaultCatapultPosition.position;
 
-        yield return new WaitUntil(() => Input.GetMouseButton(0));
+        //Wait for finger drag
+        yield return waitForDrag;
 
-        while (true)
+        while (CanPlaceUnits)
         {
             yield return null;
 
@@ -40,11 +41,20 @@ public class CatapultPlacementManager : UnitPlacementManager
                     continue;
 
                 catapult.enabled = true;
+                ShopManager.Instance.BuyUnit(currentUnitPrice);
+                catapult = null;
                 break;
             }
         }
 
-        ShopManager.Instance.BuyUnit(currentUnitPrice);
+        if (catapult != null)
+            PoolTower(catapult);
+
         StopPlacement();
+    }
+
+    private void PoolTower(CatapultController catapult)
+    {
+        PoolManager.Instance.AddToPool(currentUnitID, catapult.gameObject);
     }
 }

@@ -10,9 +10,17 @@ public abstract class PlacementManager : MonoBehaviour
     public static bool IsPlacingUnits { get; protected set; }
     public static bool CanPlaceUnits { get; private set; }
 
+    protected WaitUntil waitForDrag;
+
     [RuntimeInitializeOnLoadMethod]
     private static void SetIsPlacingUnits() => IsPlacingUnits = false;
     public static void SetCanPlaceUnits(bool state) => CanPlaceUnits = state;
+
+    private void Start()
+    {
+        //Wait for finger drag or wave to start
+        waitForDrag = new WaitUntil(() => Input.GetMouseButtonDown(0) || !CanPlaceUnits);
+    }
 
     public virtual void StartPlacement()
     {
@@ -23,6 +31,7 @@ public abstract class PlacementManager : MonoBehaviour
         StartCoroutine(ProcessPlacement());
         ToggleHighlightedAreas(true);
         IsPlacingUnits = true;
+        waitForDrag.Reset();
     }
 
     public virtual void StopPlacement()

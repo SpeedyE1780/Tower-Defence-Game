@@ -17,7 +17,7 @@ public class TroopPlacementManager : UnitPlacementManager
     protected override IEnumerator ProcessPlacement()
     {
         //Wait for finger drag or wave to start
-        yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || !CanPlaceUnits);
+        yield return waitForDrag;
 
         //Check that wave didn't start yet
         if (!CanPlaceUnits)
