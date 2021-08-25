@@ -15,6 +15,7 @@ public abstract class UnitController : MonoBehaviour
     [SerializeField] protected UnitID unitID;
     [SerializeField] private bool isEnemy;
     [SerializeField] protected Animation unitAnimation;
+    [SerializeField] protected HealthController unitHealth;
     [Header("Attack Stats")]
     [SerializeField] protected float attackCooldown;
 
@@ -44,7 +45,7 @@ public abstract class UnitController : MonoBehaviour
             UnitMask = unitID.GetLayerMask()
         };
 
-        UnitsManager.Instance.AddUnit(unitInfo, transform);
+        UnitsManager.Instance.AddUnit(unitInfo, unitHealth);
 
         if (!isEnemy)
             UnitPlacementManager.RaiseUnitCount();
@@ -69,23 +70,14 @@ public abstract class UnitController : MonoBehaviour
         }
         else
         {
-            FindTarget();
+            //Get new target
+            currentTarget = UnitsManager.Instance.GetTarget(instanceID);
 
             if (HasIdleUpdate)
                 Idle();
         }
 
         currentAttackCooldown -= Time.deltaTime;
-    }
-
-    private void FindTarget()
-    {
-        Transform target = UnitsManager.Instance.GetTarget(instanceID);
-
-        if (target != null)
-            currentTarget = target.GetComponent<HealthController>();
-        else
-            currentTarget = null;
     }
 
     private void LateUpdate() => UnitsManager.Instance.UpdateUnitPosition(instanceID, transform.position);

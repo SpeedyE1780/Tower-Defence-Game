@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -6,13 +5,14 @@ using UnityEngine.Jobs;
 
 public class UnitsManager : Singleton<UnitsManager>
 {
-    private static Dictionary<int, Transform> activeUnits;
-    [SerializeField] UnitsSet unitsInfo;
+    [SerializeField] ActiveUnitsSet activeUnits;
+    [SerializeField] UnitsInfoSet unitsInfo;
 
     private void Start()
     {
-        activeUnits = new Dictionary<int, Transform>();
-        unitsInfo.InitializeUnitsInfo(UnitPlacementManager.MaximumUnits + SpawnManager.Instance.MaxEnemyCount);
+        int maxUnitCount = UnitPlacementManager.MaximumUnits + SpawnManager.Instance.MaxEnemyCount;
+        activeUnits.Initialize(maxUnitCount);
+        unitsInfo.InitializeUnitsInfo(maxUnitCount);
     }
 
     private void Update()
@@ -28,12 +28,9 @@ public class UnitsManager : Singleton<UnitsManager>
             unitInfo = units
         };
 
-        //Schedule detection jobs
-        JobHandle troopHandle = troopDetection.Schedule(units.Length, 75);
-
-        //Add jobs to list and complete them all
-        jobHandles.Add(troopHandle);
-        JobHandle.CompleteAll(jobHandles);
+        //Schedule and complete detection jobs
+        JobHandle detectionHandle = troopDetection.Schedule(units.Length, 75);
+        detectionHandle.Complete();
 
         //Update units info
         unitsInfo.UpdateUnits(units);
@@ -45,13 +42,13 @@ public class UnitsManager : Singleton<UnitsManager>
     }
 
     //Add unit to active units dictionary and native dictionary
-    public void AddUnit(UnitInfo info, Transform transform)
+    public void AddUnit(UnitInfo info, HealthController controller)
     {
         if (!unitsInfo.IsCreated)
             return;
 
         unitsInfo.Add(info);
-        activeUnits.Add(info.InstanceID, transform);
+        activeUnits.Add(info.InstanceID, controller);
     }
 
     //Remove unit from active units and native dictionary
@@ -71,12 +68,11 @@ public class UnitsManager : Singleton<UnitsManager>
     }
 
     //Get target from native dictionary info
-    public Transform GetTarget(int instanceID)
+    public HealthController GetTarget(int instanceID)
     {
         //Get transform using target id
         int targetID = unitsInfo.GetTargetID(instanceID);
-        activeUnits.TryGetValue(targetID, out Transform transform);
-        return transform;
+        return activeUnits.TryGetValue(targetID);
     }
 
     private void OnDestroy()

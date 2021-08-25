@@ -106,6 +106,7 @@ MonoBehaviour:
   unitID: {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
   isEnemy: 0
   unitAnimation: {fileID: 202939735748425599}
+  unitHealth: {fileID: -8985976669911824261}
   attackCooldown: 0.25
   attackRange: 5
   agent: {fileID: -7493919820558565216}
