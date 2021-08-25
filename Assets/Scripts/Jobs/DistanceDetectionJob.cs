@@ -4,7 +4,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 
 [BurstCompile]
-public struct DetectionJob : IJobParallelFor
+public struct DistanceDetectionJob : IJobParallelFor
 {
     public NativeArray<UnitInfo> unitInfo;
     [ReadOnly] public NativeArray<UnitInfo> othersInfo;

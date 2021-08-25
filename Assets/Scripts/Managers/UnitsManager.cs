@@ -20,7 +20,7 @@ public class UnitsManager : Singleton<UnitsManager>
         NativeArray<UnitInfo> units = unitsInfo.GetJobArray();
         NativeArray<UnitInfo> readOnly = unitsInfo.GetJobArray();
 
-        DetectionJob troopDetection = new DetectionJob()
+        DistanceDetectionJob troopDetection = new DistanceDetectionJob()
         {
             othersInfo = readOnly,
             unitInfo = units
