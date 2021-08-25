@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba87e4f583552d42aa2fdd6dc1df65d, type: 3}
-  m_Name: Enemy
+  m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
+  m_Name: Healer
   m_EditorClassIdentifier: 
-  UnitType: {fileID: 11400000, guid: 672d98c0eb8ca9d4d89a550986087aab, type: 2}
-  targetTypes: []
-  canAttack: {fileID: 11400000, guid: 740d819ed43c5324c870f666abad79bc, type: 2}
+  CategoryItems:
+  - {fileID: 2483648066514071804, guid: 507d2c1a0972c4f42b8d0bfd9eef47d2, type: 3}
