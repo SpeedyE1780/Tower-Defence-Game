@@ -11,7 +11,11 @@ public class HealerController : RangedController
 
         ResetAttackCooldown();
         bulletCasing.Play();
+        Heal();
+    }
 
+    protected virtual void Heal()
+    {
         //Heal target & set to null to find a new target the next frame
         currentTarget.Heal(healAmount);
         currentTarget = null;
