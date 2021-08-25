@@ -45,7 +45,8 @@ public class HealthController : MonoBehaviour
 
     public void TakeHit(int damage, bool instantKill = false)
     {
-        if (!gameObject.activeSelf)
+        //Prevents from starting the kill player coroutine twice in the same frame
+        if (!gameObject.activeSelf || IsDead)
             return;
 
         if (!healthBar.gameObject.activeSelf)
