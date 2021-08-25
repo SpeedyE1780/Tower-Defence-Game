@@ -5,7 +5,6 @@ public class RangedController : UnitController
     [SerializeField] private Transform shootPoint;
     [Header("Visual Elements")]
     [SerializeField] private PoolID projectileID;
-    [SerializeField] protected ParticleSystem bulletCasing;
     [Range(0, 1)]
     [SerializeField] private float rotationSpeed;
     private Vector3 targetForward;
@@ -31,9 +30,6 @@ public class RangedController : UnitController
 
         ResetAttackCooldown();
         SetProjectile();
-
-        //Play shoot animation
-        bulletCasing.Play();
     }
 
     protected virtual void SetProjectile()

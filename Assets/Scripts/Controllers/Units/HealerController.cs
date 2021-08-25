@@ -10,7 +10,6 @@ public class HealerController : RangedController
             return;
 
         ResetAttackCooldown();
-        bulletCasing.Play();
         Heal();
     }
 
