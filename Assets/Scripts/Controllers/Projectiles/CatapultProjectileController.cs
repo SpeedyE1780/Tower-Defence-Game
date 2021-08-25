@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public class CatapultProjectileController : ProjectileController
+public class CatapultProjectileController : AOEProjectile
 {
     [SerializeField] AnimationCurve catapultCurve;
-    [SerializeField] float range;
     Vector3 targetPosition;
     float startY;
     float maxDistance;
@@ -24,8 +23,8 @@ public class CatapultProjectileController : ProjectileController
 
         if (distance < 1)
         {
+            ApplyDamage();
             AddToPool();
-            AOEManager.Instance.ApplyAOEDamage(position, range, damage);
         }
     }
 

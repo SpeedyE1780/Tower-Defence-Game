@@ -34,9 +34,14 @@ public class ProjectileController : MonoBehaviour
 
         if (currentLifetime <= 0)
         {
+            ApplyDamage();
             AddToPool();
-            Target.TakeHit(damage);
         }
+    }
+
+    protected virtual void ApplyDamage()
+    {
+        Target.TakeHit(damage);
     }
 
     protected void AddToPool()
