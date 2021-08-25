@@ -24,7 +24,7 @@ public class CatapultProjectileController : ProjectileController
         if (distance < 1)
         {
             AddToPool();
-            Target.TakeHit();
+            Target.TakeHit(damage);
         }
     }
 

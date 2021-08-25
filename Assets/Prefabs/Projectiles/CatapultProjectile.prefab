@@ -144,6 +144,7 @@ MonoBehaviour:
   lifeTime: 10
   waitForLifeTime: 0
   speed: 25
+  damage: 10
   catapultCurve:
     serializedVersion: 2
     m_Curve:

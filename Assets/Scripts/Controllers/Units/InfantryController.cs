@@ -75,7 +75,7 @@ public abstract class InfantryController : UnitController
     private void DamageTarget()
     {
         unitAnimation.Play(AttackAnimation);
-        currentTarget.TakeHit(instantKill);
+        currentTarget.TakeHit(1, instantKill);
         ResetAttackCooldown();
     }
 

@@ -6,6 +6,7 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] private float lifeTime;
     [SerializeField] private bool waitForLifeTime;
     [SerializeField] protected float speed;
+    [SerializeField] protected int damage;
     protected Rigidbody rb;
     float currentLifetime;
 
@@ -34,7 +35,7 @@ public class ProjectileController : MonoBehaviour
         if (currentLifetime <= 0)
         {
             AddToPool();
-            Target.TakeHit();
+            Target.TakeHit(damage);
         }
     }
 

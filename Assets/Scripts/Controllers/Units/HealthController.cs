@@ -43,7 +43,7 @@ public class HealthController : MonoBehaviour
         healthBar.value = Mathf.Clamp01((float)health / currentMaxHealth);
     }
 
-    public void TakeHit(bool instantKill = false)
+    public void TakeHit(int damage, bool instantKill = false)
     {
         if (!gameObject.activeSelf)
             return;
@@ -51,7 +51,7 @@ public class HealthController : MonoBehaviour
         if (!healthBar.gameObject.activeSelf)
             healthBar.gameObject.SetActive(true);
 
-        UpdateHealth(instantKill ? 0 : Health - 1);
+        UpdateHealth(instantKill ? 0 : Health - damage);
 
         if (IsDead)
             StartCoroutine(KillPlayer());
