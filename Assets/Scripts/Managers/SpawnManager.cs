@@ -63,7 +63,17 @@ public class SpawnManager : Singleton<SpawnManager>
 
             //Check if we should spawn a boss or no
             if (currentWave % bossWaveFrequency == 0)
+            {
                 yield return StartCoroutine(SpawnBoss());
+
+                //Player lost all his units
+                if (UnitPlacementManager.UnitCount == 0)
+                {
+                    UIManager.Instance.ShowEndGameUI();
+                    EventManager.RaiseGameEnded();
+                    yield break;
+                }
+            }
 
             UnitController.waitForWaveStart = true;
             EventManager.RaiseWaveEnded();
@@ -93,7 +103,9 @@ public class SpawnManager : Singleton<SpawnManager>
     {
         Rigidbody rb = SpawnEnemy(bossID, transform.position, transform.rotation);
         activeEnemies++;
-        yield return new WaitUntil(() => !rb.gameObject.activeSelf);
+
+        //Wait for boss or ally units to die
+        yield return new WaitUntil(() => !rb.gameObject.activeSelf || UnitPlacementManager.UnitCount == 0);
     }
 
     private void SpawnFormation()
