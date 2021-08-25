@@ -10,14 +10,19 @@ public class AOEManager : Singleton<AOEManager>
     public void ApplyAOEDamage(Vector3 position, float range, int damage)
     {
         NativeArray<UnitInfo> units = unitsInfo.GetJobArray();
-        NativeList<AOEDamagedUnit> damaged = new NativeList<AOEDamagedUnit>(unitsInfo.Count, Allocator.TempJob);
+        NativeArray<AOEDamagedUnit> damaged = new NativeArray<AOEDamagedUnit>(unitsInfo.Count, Allocator.TempJob);
+
+        for (int i = 0; i < units.Length; i++)
+            damaged[i] = new AOEDamagedUnit() { UnitID = units[i].InstanceID };
+
 
         AOEJob aoe = new AOEJob()
         {
             units = units,
             affectedUnits = damaged,
             aoePosition = position,
-            range = range
+            range = range,
+            damage = damage
         };
 
         JobHandle aoeHandle = aoe.Schedule(unitsInfo.Count, 75);
@@ -25,8 +30,8 @@ public class AOEManager : Singleton<AOEManager>
 
 
         foreach (AOEDamagedUnit unit in damaged)
-            activeUnits[unit.UnitID].TakeHit(unit.Damage);
-
+            if (unit.Damage > 0)
+                activeUnits[unit.UnitID].TakeHit(unit.Damage);
 
         units.Dispose();
         damaged.Dispose();

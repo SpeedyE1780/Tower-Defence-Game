@@ -6,7 +6,7 @@ using Unity.Mathematics;
 [BurstCompile]
 public struct AOEJob : IJobParallelFor
 {
-    public NativeList<AOEDamagedUnit> affectedUnits;
+    public NativeArray<AOEDamagedUnit> affectedUnits;
     [ReadOnly] public NativeArray<UnitInfo> units;
     public float3 aoePosition;
     public float range;
@@ -30,7 +30,7 @@ public struct AOEJob : IJobParallelFor
             Damage = unitDamage
         };
 
-        affectedUnits.Add(unit);
+        affectedUnits[index] = unit;
     }
 }
 

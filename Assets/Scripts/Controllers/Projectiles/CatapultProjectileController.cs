@@ -25,8 +25,7 @@ public class CatapultProjectileController : ProjectileController
         if (distance < 1)
         {
             AddToPool();
-            Target.TakeHit(damage);
-            //AOEManager.Instance.ApplyAOEDamage(position, range, damage);
+            AOEManager.Instance.ApplyAOEDamage(position, range, damage);
         }
     }
 
