@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HealerController : RangedController
 {
-    [SerializeField] private int healAmount;
+    [SerializeField] protected int healAmount;
 
     protected override void Shoot()
     {

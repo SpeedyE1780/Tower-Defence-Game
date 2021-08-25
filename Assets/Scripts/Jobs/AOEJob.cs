@@ -11,6 +11,7 @@ public struct AOEJob : IJobParallelFor
     public float3 aoePosition;
     public float range;
     public int damage;
+    public int heal;
     public int unitMask;
 
     public void Execute(int index)
@@ -25,13 +26,15 @@ public struct AOEJob : IJobParallelFor
         if (distance > range)
             return;
 
-        //Get damage from current job
+        //Get damage/heal from current job
         float multiplier = 1 - distance / range;
         int unitDamage = (int)math.round(multiplier * damage);
+        int unitHeal = (int)math.round(multiplier * heal);
 
-        //Add damage from current job to the damage received from the previous jobs
+        //Add damage/heal from current job to the damage received from the previous jobs
         AOEDamagedUnit unit = affectedUnits[index];
         unit.Damage += unitDamage;
+        unit.Heal += unitHeal;
         affectedUnits[index] = unit;
     }
 }
@@ -40,4 +43,5 @@ public struct AOEDamagedUnit
 {
     public int UnitID;
     public int Damage;
+    public int Heal;
 }

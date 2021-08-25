@@ -26,11 +26,26 @@ public class AOEManager : Singleton<AOEManager>
             unitMask = unitMask
         };
 
-        //Make the current job dependant from the previously scheduled jobs 
-        int count = aoeJobHandles.Length;
-        JobHandle dependency = count == 0 ? default : aoeJobHandles[count - 1];
-        JobHandle aoeHandle = aoe.Schedule(unitsInfo.Count, 75, dependency);
-        aoeJobHandles.Add(aoeHandle);
+        ScheduleAOEJob(aoe);
+    }
+
+    public void ApplyAOEHeal(Vector3 position, float range, int heal, int unitMask)
+    {
+        //Create arrays if they're not created
+        if (!units.IsCreated)
+            InitializeArrays();
+
+        AOEJob aoe = new AOEJob()
+        {
+            units = units,
+            affectedUnits = affectedUnits,
+            aoePosition = position,
+            range = range,
+            heal = heal,
+            unitMask = unitMask
+        };
+
+        ScheduleAOEJob(aoe);
     }
 
     private void LateUpdate()
@@ -39,12 +54,24 @@ public class AOEManager : Singleton<AOEManager>
             ExecuteJobs();
     }
 
+    private void ScheduleAOEJob(AOEJob aoe)
+    {
+        //Make the current job dependant from the previously scheduled jobs 
+        int count = aoeJobHandles.Length;
+        JobHandle dependency = count == 0 ? default : aoeJobHandles[count - 1];
+        JobHandle aoeHandle = aoe.Schedule(unitsInfo.Count, 75, dependency);
+        aoeJobHandles.Add(aoeHandle);
+    }
+
     private void ExecuteJobs()
     {
         JobHandle.CompleteAll(aoeJobHandles);
 
         foreach (AOEDamagedUnit unit in affectedUnits)
         {
+            if (unit.Heal > 0)
+                activeUnits[unit.UnitID].Heal(unit.Heal);
+
             if (unit.Damage > 0)
                 activeUnits[unit.UnitID].TakeHit(unit.Damage);
         }
