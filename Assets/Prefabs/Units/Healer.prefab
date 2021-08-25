@@ -85,7 +85,7 @@ MonoBehaviour:
   isEnemy: 0
   unitAnimation: {fileID: 0}
   unitHealth: {fileID: -2760263632264079363}
-  attackCooldown: 0.05
+  attackCooldown: 3
   shootPoint: {fileID: 9036266385294470697}
   projectileID: {fileID: 0}
   bulletCasing: {fileID: 6931388891223771041}
