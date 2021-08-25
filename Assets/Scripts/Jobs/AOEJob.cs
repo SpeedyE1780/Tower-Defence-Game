@@ -21,15 +21,13 @@ public struct AOEJob : IJobParallelFor
         if (distance > range)
             return;
 
+        //Get damage from current job
         float multiplier = 1 - distance / range;
         int unitDamage = (int)math.round(multiplier * damage);
 
-        AOEDamagedUnit unit = new AOEDamagedUnit()
-        {
-            UnitID = current.InstanceID,
-            Damage = unitDamage
-        };
-
+        //Add damage from current job to the damage received from the previous jobs
+        AOEDamagedUnit unit = affectedUnits[index];
+        unit.Damage += unitDamage;
         affectedUnits[index] = unit;
     }
 }

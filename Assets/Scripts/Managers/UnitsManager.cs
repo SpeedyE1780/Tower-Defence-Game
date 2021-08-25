@@ -17,8 +17,6 @@ public class UnitsManager : Singleton<UnitsManager>
 
     private void Update()
     {
-        //Create job handle list and get units info
-        NativeList<JobHandle> jobHandles = new NativeList<JobHandle>(unitsInfo.Count, Allocator.Temp);
         NativeArray<UnitInfo> units = unitsInfo.GetJobArray();
         NativeArray<UnitInfo> readOnly = unitsInfo.GetJobArray();
 
@@ -36,7 +34,6 @@ public class UnitsManager : Singleton<UnitsManager>
         unitsInfo.UpdateUnits(units);
 
         //Dispose of the native lists
-        jobHandles.Dispose();
         units.Dispose();
         readOnly.Dispose();
     }
