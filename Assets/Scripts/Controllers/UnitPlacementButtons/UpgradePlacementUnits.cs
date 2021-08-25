@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradePlacementUnits : MonoBehaviour
 {
+    [SerializeField] Text price;
     [SerializeField] Transform areaTransform;
     [SerializeField] List<AreaUpgrade> areaUpgrades;
     private int currentUpgrade;
@@ -27,6 +29,8 @@ public class UpgradePlacementUnits : MonoBehaviour
 
         if (currentUpgrade >= areaUpgrades.Count - 1)
             gameObject.SetActive(false);
+        else
+            UpdatePrice();
     }
 
     private void ResetArea()
@@ -36,6 +40,12 @@ public class UpgradePlacementUnits : MonoBehaviour
         //Reset upgrades and set the scale to the starting scale
         currentUpgrade = 0;
         areaTransform.localScale = maxScale * areaUpgrades[currentUpgrade].multiplier;
+        UpdatePrice();
+    }
+
+    private void UpdatePrice()
+    {
+        price.text = areaUpgrades[currentUpgrade + 1].cost.ToString();
     }
 
     private void OnDestroy()
