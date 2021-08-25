@@ -15,4 +15,5 @@ MonoBehaviour:
   UnitType: {fileID: 11400000, guid: 672d98c0eb8ca9d4d89a550986087aab, type: 2}
   targetTypes:
   - {fileID: 11400000, guid: 740d819ed43c5324c870f666abad79bc, type: 2}
+  - {fileID: 11400000, guid: f5cb4dc36cbf5fb4fbbc5dcdd5b13931, type: 2}
   canAttack: {fileID: 11400000, guid: 740d819ed43c5324c870f666abad79bc, type: 2}

@@ -16,4 +16,5 @@ MonoBehaviour:
   targetTypes:
   - {fileID: 11400000, guid: 740d819ed43c5324c870f666abad79bc, type: 2}
   - {fileID: 11400000, guid: 7f4183c24242f3741b153acf5ba473ff, type: 2}
+  - {fileID: 11400000, guid: f5cb4dc36cbf5fb4fbbc5dcdd5b13931, type: 2}
   canAttack: {fileID: 11400000, guid: 740d819ed43c5324c870f666abad79bc, type: 2}
