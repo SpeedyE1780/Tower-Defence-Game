@@ -3,6 +3,7 @@ using UnityEngine;
 public class CatapultProjectileController : ProjectileController
 {
     [SerializeField] AnimationCurve catapultCurve;
+    [SerializeField] float range;
     Vector3 targetPosition;
     float startY;
     float maxDistance;
@@ -25,6 +26,7 @@ public class CatapultProjectileController : ProjectileController
         {
             AddToPool();
             Target.TakeHit(damage);
+            //AOEManager.Instance.ApplyAOEDamage(position, range, damage);
         }
     }
 
