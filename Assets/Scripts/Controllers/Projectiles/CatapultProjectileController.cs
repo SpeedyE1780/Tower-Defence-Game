@@ -19,6 +19,7 @@ public class CatapultProjectileController : AOEProjectile
         position = Vector3.MoveTowards(position, targetPosition, speed * Time.deltaTime);
         distance = (targetPosition - position).sqrMagnitude;
         position.y = startY + catapultCurve.Evaluate(distance / maxDistance);
+        transform.forward = position - transform.position;
         transform.position = position;
 
         if (distance < 1)
