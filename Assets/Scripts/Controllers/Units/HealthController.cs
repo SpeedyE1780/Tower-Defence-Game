@@ -70,6 +70,7 @@ public class HealthController : MonoBehaviour
 
     IEnumerator KillPlayer()
     {
+        healthBar.gameObject.SetActive(false);
         ToggleComponentsState(false);
         yield return StartCoroutine(PlayDeadAnimation());
         controller.PoolUnit();
