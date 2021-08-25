@@ -44,7 +44,7 @@ public abstract class UnitController : MonoBehaviour
             UnitMask = unitID.GetLayerMask()
         };
 
-        UnitsManager.AddUnit(unitInfo, transform);
+        UnitsManager.Instance.AddUnit(unitInfo, transform);
 
         if (!isEnemy)
             UnitPlacementManager.RaiseUnitCount();
@@ -52,7 +52,7 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        UnitsManager.RemoveUnit(instanceID);
+        UnitsManager.Instance.RemoveUnit(instanceID);
 
         if (!isEnemy)
             UnitPlacementManager.LowerUnitCount();
@@ -80,7 +80,7 @@ public abstract class UnitController : MonoBehaviour
 
     private void FindTarget()
     {
-        Transform target = UnitsManager.GetTarget(instanceID);
+        Transform target = UnitsManager.Instance.GetTarget(instanceID);
 
         if (target != null)
             currentTarget = target.GetComponent<HealthController>();
@@ -88,7 +88,7 @@ public abstract class UnitController : MonoBehaviour
             currentTarget = null;
     }
 
-    private void LateUpdate() => UnitsManager.UpdateUnitPosition(instanceID, transform.position);
+    private void LateUpdate() => UnitsManager.Instance.UpdateUnitPosition(instanceID, transform.position);
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(unitID, gameObject);
     protected virtual void ResetAttackCooldown() => currentAttackCooldown = attackCooldown;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

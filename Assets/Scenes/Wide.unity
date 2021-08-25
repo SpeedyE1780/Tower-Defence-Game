@@ -9713,6 +9713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1fd20111ebf0874ea3aba18d5097935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitsInfo: {fileID: 11400000, guid: bc198a6cfb9d6de438da90037f39ae99, type: 2}
 --- !u!1001 &280282090
 PrefabInstance:
   m_ObjectHideFlags: 0
