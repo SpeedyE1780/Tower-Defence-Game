@@ -24,11 +24,6 @@ public class UnitID : PoolID
         return id;
     }
 
-    public string GetLayerMaskString()
-    {
-        return System.Convert.ToString(GetLayerMask(), 2);
-    }
-
     #region EDITOR
 #if UNITY_EDITOR
     [SerializeField] UnitType canAttack;

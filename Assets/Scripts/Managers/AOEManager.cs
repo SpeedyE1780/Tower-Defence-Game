@@ -10,7 +10,7 @@ public class AOEManager : Singleton<AOEManager>
     NativeArray<AOEDamagedUnit> affectedUnits;
     NativeList<JobHandle> aoeJobHandles;
 
-    public void ApplyAOEDamage(Vector3 position, float range, int damage)
+    public void ApplyAOEDamage(Vector3 position, float range, int damage, int unitMask)
     {
         //Create arrays if they're not created
         if (!units.IsCreated)
@@ -22,7 +22,8 @@ public class AOEManager : Singleton<AOEManager>
             affectedUnits = affectedUnits,
             aoePosition = position,
             range = range,
-            damage = damage
+            damage = damage,
+            unitMask = unitMask
         };
 
         //Make the current job dependant from the previously scheduled jobs 

@@ -8,7 +8,7 @@ public class CatapultController : RangedController
     protected override void SetProjectile()
     {
         CatapultProjectileController projectile = SpawnProjectile().GetComponent<CatapultProjectileController>();
-        projectile.Target = currentTarget;
+        projectile.SetTarget(currentTarget, unitID.GetLayerMask());
         projectile.SetTargetPosition(currentTarget.transform.position);
     }
 }

@@ -6,6 +6,6 @@ public class AOEProjectile : ProjectileController
 
     protected override void ApplyDamage()
     {
-        AOEManager.Instance.ApplyAOEDamage(transform.position, range, damage);
+        AOEManager.Instance.ApplyAOEDamage(transform.position, range, damage, unitMask);
     }
 }

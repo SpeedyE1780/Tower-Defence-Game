@@ -6,8 +6,8 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] protected float speed;
     [SerializeField] protected int damage;
     protected float distance;
-
-    public HealthController Target { get; set; }
+    protected HealthController target;
+    protected int unitMask;
 
     void Update()
     {
@@ -18,7 +18,7 @@ public class ProjectileController : MonoBehaviour
 
     protected virtual void Move()
     {
-        Vector3 direction = Target.transform.position - transform.position;
+        Vector3 direction = target.transform.position - transform.position;
         distance = direction.sqrMagnitude;
         transform.position += direction.normalized * speed * Time.deltaTime;
         transform.forward = direction;
@@ -33,15 +33,21 @@ public class ProjectileController : MonoBehaviour
         }
     }
 
+    public void SetTarget(HealthController newTarget, int mask)
+    {
+        target = newTarget;
+        unitMask = mask;
+    }
+
     private void CheckTarget()
     {
-        if (!Target.gameObject.activeSelf)
+        if (!target.gameObject.activeSelf)
             AddToPool();
     }
 
     protected virtual void ApplyDamage()
     {
-        Target.TakeHit(damage);
+        target.TakeHit(damage);
     }
 
     protected void AddToPool()

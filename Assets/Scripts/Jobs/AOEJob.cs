@@ -11,12 +11,16 @@ public struct AOEJob : IJobParallelFor
     public float3 aoePosition;
     public float range;
     public int damage;
+    public int unitMask;
 
     public void Execute(int index)
     {
         //Get distance from blast
         UnitInfo current = units[index];
         float distance = math.distance(aoePosition, current.Position);
+
+        if ((unitMask & current.UnitTypeID) == 0)
+            return;
 
         if (distance > range)
             return;
