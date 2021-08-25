@@ -77,10 +77,10 @@ public class UnitsManager : Singleton<UnitsManager>
     }
 
     //Update units position in native dictionary
-    public void UpdateUnitPosition(int instanceID, Vector3 position, int health, UnitID id)
+    public void UpdateUnitPosition(int instanceID, Vector3 position, float healthPercentage, UnitID id)
     {
-        unitsInfo.UpdateUnitInfo(instanceID, position, health);
-        unitsSet[id].UpdateUnitInfo(instanceID, position, health);
+        unitsInfo.UpdateUnitInfo(instanceID, position, healthPercentage);
+        unitsSet[id].UpdateUnitInfo(instanceID, position, healthPercentage);
     }
 
     //Get target from native dictionary info

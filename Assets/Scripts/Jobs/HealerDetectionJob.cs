@@ -23,9 +23,9 @@ public struct HealerDetectionJob : IJobParallelFor
             if (currentUnit.InstanceID == other.InstanceID)
                 continue;
 
-            int temp = other.Health;
+            float temp = other.HealthPercentage;
 
-            //Update target and current health
+            //Update target and current health percentage
             if (temp < maxHealth)
             {
                 currentUnit.TargetID = other.InstanceID;

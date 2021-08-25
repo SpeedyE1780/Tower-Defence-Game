@@ -15,9 +15,10 @@ public class HealthController : MonoBehaviour
     private Vector3 initialScale;
     private Vector3 targetScale;
     private int currentMaxHealth;
+    private int health;
 
-    public int Health { get; private set; }
-    public bool IsDead => Health <= 0;
+    public float HealthPercentage => (float)health / currentMaxHealth;
+    public bool IsDead => health <= 0;
 
     private void Awake()
     {
@@ -32,16 +33,18 @@ public class HealthController : MonoBehaviour
 
         //Set health to max health
         UpdateHealth(currentMaxHealth);
-
         healthBar.gameObject.SetActive(false);
     }
 
     public void RaiseMaxHealth(float multiplier) => currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
 
-    private void UpdateHealth(int health)
+    private void UpdateHealth(int newHealth)
     {
-        Health = Mathf.Clamp(health, 0, currentMaxHealth);
-        healthBar.value = Mathf.Clamp01((float)health / currentMaxHealth);
+        health = Mathf.Clamp(newHealth, 0, currentMaxHealth);
+
+        //Enable health bar when it's not full
+        healthBar.gameObject.SetActive(health != currentMaxHealth);
+        healthBar.value = Mathf.Clamp01((float)newHealth / currentMaxHealth);
     }
 
     public void TakeHit(int damage, bool instantKill = false)
@@ -50,10 +53,7 @@ public class HealthController : MonoBehaviour
         if (!gameObject.activeSelf || IsDead)
             return;
 
-        if (!healthBar.gameObject.activeSelf)
-            healthBar.gameObject.SetActive(true);
-
-        UpdateHealth(instantKill ? 0 : Health - damage);
+        UpdateHealth(instantKill ? 0 : health - damage);
 
         if (IsDead)
             StartCoroutine(KillPlayer());
@@ -64,7 +64,7 @@ public class HealthController : MonoBehaviour
         if (!gameObject.activeSelf || IsDead)
             return;
 
-        UpdateHealth(Health + healAmount);
+        UpdateHealth(health + healAmount);
         healParticle.Play();
     }
 

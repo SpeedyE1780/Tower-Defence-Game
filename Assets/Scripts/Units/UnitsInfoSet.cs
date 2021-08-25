@@ -46,11 +46,11 @@ public class UnitsInfoSet : ScriptableObject
         Count -= 1;
     }
 
-    public void UpdateUnitInfo(int ID, Vector3 position, int health)
+    public void UpdateUnitInfo(int ID, Vector3 position, float healthPercentage)
     {
         UnitInfo info = unitsInfo[ID];
         info.Position = position;
-        info.Health = health;
+        info.HealthPercentage = healthPercentage;
         unitsInfo[ID] = info;
     }
 

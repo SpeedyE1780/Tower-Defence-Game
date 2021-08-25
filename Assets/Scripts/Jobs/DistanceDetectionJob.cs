@@ -46,7 +46,7 @@ public struct UnitInfo
 {
     public int InstanceID;
     public float3 Position;
-    public int Health;
+    public float HealthPercentage;
     public int TargetID;
     public int UnitTypeID;
     public int UnitMask;
