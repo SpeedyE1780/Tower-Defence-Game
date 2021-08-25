@@ -3,7 +3,7 @@ using UnityEngine;
 using UnitData = Unity.Collections.NativeHashMap<int, UnitInfo>;
 
 [CreateAssetMenu(menuName = "Units/Set")]
-public class UnitsSet : ScriptableObject
+public class UnitsInfoSet : ScriptableObject
 {
     //Contains all units info
     private UnitData unitsInfo;
