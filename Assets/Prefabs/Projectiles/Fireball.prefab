@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 0585ce01f0977844981b4d3b64ca5886, type: 2}
   speed: 20
-  damage: 10
+  damage: 20
   range: 5
 --- !u!1001 &9212027266313892378
 PrefabInstance:

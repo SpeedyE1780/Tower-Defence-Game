@@ -85,7 +85,7 @@ MonoBehaviour:
   isEnemy: 0
   unitAnimation: {fileID: 6485973482849070438}
   unitHealth: {fileID: -2760263632264079363}
-  attackCooldown: 0.15
+  attackCooldown: 1
   shootPoint: {fileID: 9036266385294470697}
   projectileID: {fileID: 11400000, guid: 0585ce01f0977844981b4d3b64ca5886, type: 2}
   rotationSpeed: 0.2
