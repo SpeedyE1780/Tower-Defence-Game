@@ -11,6 +11,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private new Collider collider;
     [SerializeField] private UnitController controller;
     [SerializeField] private Transform geometry;
+    [SerializeField] private ParticleSystem healParticle;
     private Vector3 initialScale;
     private Vector3 targetScale;
     private int currentMaxHealth;
@@ -56,6 +57,15 @@ public class HealthController : MonoBehaviour
 
         if (IsDead)
             StartCoroutine(KillPlayer());
+    }
+
+    public void Heal(int healAmount)
+    {
+        if (!gameObject.activeSelf || IsDead)
+            return;
+
+        UpdateHealth(Health + healAmount);
+        healParticle.Play();
     }
 
     IEnumerator KillPlayer()
