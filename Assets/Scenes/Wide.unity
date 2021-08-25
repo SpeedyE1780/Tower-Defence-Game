@@ -9980,8 +9980,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1fd20111ebf0874ea3aba18d5097935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitsSet:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
+    isExpanded: 1
+    _keyValues:
+    - {fileID: 11400000, guid: 0a6ad424a9306df40906657875a19197, type: 2}
+    - {fileID: 11400000, guid: 5fdf5c3eb37f3fc4a8df627743501550, type: 2}
+    - {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+    - {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
+    - {fileID: 11400000, guid: 467bed6842ba7a34a945a064f3979cb1, type: 2}
+    - {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
+    _keys:
+    - {fileID: 11400000, guid: 0a6ad424a9306df40906657875a19197, type: 2}
+    - {fileID: 11400000, guid: 5fdf5c3eb37f3fc4a8df627743501550, type: 2}
+    - {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+    - {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
+    - {fileID: 11400000, guid: 467bed6842ba7a34a945a064f3979cb1, type: 2}
+    - {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
+    _values:
+    - {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
+    - {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
+    - {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
+    - {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
+    - {fileID: 11400000, guid: a9a257e054732924487073b7beef13e2, type: 2}
+    - {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
   activeUnits: {fileID: 11400000, guid: 8ea6a04d3c55c974dac66d661d1cbb72, type: 2}
   unitsInfo: {fileID: 11400000, guid: bc198a6cfb9d6de438da90037f39ae99, type: 2}
+  distanceSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
+  healerSet: {fileID: 11400000, guid: a9a257e054732924487073b7beef13e2, type: 2}
 --- !u!1001 &280282090
 PrefabInstance:
   m_ObjectHideFlags: 0

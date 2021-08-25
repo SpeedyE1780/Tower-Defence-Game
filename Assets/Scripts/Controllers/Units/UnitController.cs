@@ -45,7 +45,7 @@ public abstract class UnitController : MonoBehaviour
             UnitMask = unitID.GetLayerMask()
         };
 
-        UnitsManager.Instance.AddUnit(unitInfo, unitHealth);
+        UnitsManager.Instance.AddUnit(unitInfo, unitHealth, unitID);
 
         if (!isEnemy)
             UnitPlacementManager.RaiseUnitCount();
@@ -53,7 +53,7 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        UnitsManager.Instance.RemoveUnit(instanceID);
+        UnitsManager.Instance.RemoveUnit(instanceID, unitID);
 
         if (!isEnemy)
             UnitPlacementManager.LowerUnitCount();
@@ -80,7 +80,7 @@ public abstract class UnitController : MonoBehaviour
         currentAttackCooldown -= Time.deltaTime;
     }
 
-    private void LateUpdate() => UnitsManager.Instance.UpdateUnitPosition(instanceID, transform.position, unitHealth.Health);
+    private void LateUpdate() => UnitsManager.Instance.UpdateUnitPosition(instanceID, transform.position, unitHealth.Health, unitID);
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(unitID, gameObject);
     protected virtual void ResetAttackCooldown() => currentAttackCooldown = attackCooldown;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

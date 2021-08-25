@@ -18,5 +18,7 @@ namespace RotaryHeart.Lib.SerializableDictionary
         private AudioClip _audioClip;
         [SerializeField]
         private PoolID poolID;
+        [SerializeField]
+        private UnitID unitID;
     }
 }

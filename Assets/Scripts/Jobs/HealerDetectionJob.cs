@@ -4,10 +4,10 @@ using Unity.Jobs;
 using Unity.Mathematics;
 
 [BurstCompile]
-public class HealerDetectionJob : IJobParallelFor
+public struct HealerDetectionJob : IJobParallelFor
 {
     public NativeArray<UnitInfo> unitInfo;
-    [ReadOnly] public NativeArray<UnitInfo> otherUnits;
+    [ReadOnly] public NativeArray<UnitInfo> othersInfo;
 
     public void Execute(int index)
     {
@@ -15,7 +15,7 @@ public class HealerDetectionJob : IJobParallelFor
         UnitInfo currentUnit = unitInfo[index];
         float maxHealth = math.INFINITY;
 
-        foreach (UnitInfo other in otherUnits)
+        foreach (UnitInfo other in othersInfo)
         {
             if ((currentUnit.UnitMask & other.UnitTypeID) == 0)
                 continue;
