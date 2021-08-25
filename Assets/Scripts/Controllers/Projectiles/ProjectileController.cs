@@ -7,12 +7,10 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] private bool waitForLifeTime;
     [SerializeField] protected float speed;
     [SerializeField] protected int damage;
-    protected Rigidbody rb;
     float currentLifetime;
 
     public HealthController Target { get; set; }
 
-    void Start() => rb = GetComponent<Rigidbody>();
     private void OnEnable() => currentLifetime = lifeTime;
 
     void Update()
@@ -25,7 +23,7 @@ public class ProjectileController : MonoBehaviour
 
     protected virtual void Move()
     {
-        rb.velocity = transform.forward * speed;
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     private void CheckLifetime()
