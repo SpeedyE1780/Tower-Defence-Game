@@ -3,38 +3,40 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private PoolID id;
-    [SerializeField] private float lifeTime;
-    [SerializeField] private bool waitForLifeTime;
     [SerializeField] protected float speed;
     [SerializeField] protected int damage;
-    float currentLifetime;
+    protected float distance;
 
     public HealthController Target { get; set; }
-
-    private void OnEnable() => currentLifetime = lifeTime;
 
     void Update()
     {
         Move();
-
-        if (waitForLifeTime)
-            CheckLifetime();
+        CheckDistance();
+        CheckTarget();
     }
 
     protected virtual void Move()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        Vector3 direction = Target.transform.position - transform.position;
+        distance = direction.sqrMagnitude;
+        transform.position += direction.normalized * speed * Time.deltaTime;
+        transform.forward = direction;
     }
 
-    private void CheckLifetime()
+    private void CheckDistance()
     {
-        currentLifetime -= Time.deltaTime;
-
-        if (currentLifetime <= 0)
+        if (distance <= 1)
         {
             ApplyDamage();
             AddToPool();
         }
+    }
+
+    private void CheckTarget()
+    {
+        if (!Target.gameObject.activeSelf)
+            AddToPool();
     }
 
     protected virtual void ApplyDamage()

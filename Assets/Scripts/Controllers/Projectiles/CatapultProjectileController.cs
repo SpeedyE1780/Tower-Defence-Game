@@ -6,7 +6,6 @@ public class CatapultProjectileController : AOEProjectile
     Vector3 targetPosition;
     float startY;
     float maxDistance;
-    float distance;
 
     private void OnEnable() => startY = transform.position.y;
 
@@ -21,12 +20,6 @@ public class CatapultProjectileController : AOEProjectile
         position.y = startY + catapultCurve.Evaluate(distance / maxDistance);
         transform.forward = position - transform.position;
         transform.position = position;
-
-        if (distance < 1)
-        {
-            ApplyDamage();
-            AddToPool();
-        }
     }
 
     //Set target position and get the max distance
