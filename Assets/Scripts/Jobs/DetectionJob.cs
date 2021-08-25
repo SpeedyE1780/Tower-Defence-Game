@@ -7,7 +7,7 @@ using Unity.Mathematics;
 public struct DetectionJob : IJobParallelFor
 {
     public NativeArray<UnitInfo> unitInfo;
-    [ReadOnly] public NativeArray<UnitInfo> enemyInfo;
+    [ReadOnly] public NativeArray<UnitInfo> othersInfo;
 
     public void Execute(int index)
     {
@@ -16,22 +16,22 @@ public struct DetectionJob : IJobParallelFor
         float3 position = currentUnit.Position;
         float currentDistance = math.INFINITY;
 
-        foreach (UnitInfo enemy in enemyInfo)
+        foreach (UnitInfo other in othersInfo)
         {
-            if ((currentUnit.UnitMask & enemy.UnitTypeID) == 0)
+            if ((currentUnit.UnitMask & other.UnitTypeID) == 0)
                 continue;
 
-            if (currentUnit.InstanceID == enemy.InstanceID)
+            if (currentUnit.InstanceID == other.InstanceID)
                 continue;
 
             //Calculate distance from unit
-            float3 enemyPosition = enemy.Position;
-            float temp = math.distance(position, enemyPosition);
+            float3 otherPosition = other.Position;
+            float temp = math.distance(position, otherPosition);
 
             //Update target and current distance
             if (temp < currentDistance)
             {
-                currentUnit.TargetID = enemy.InstanceID;
+                currentUnit.TargetID = other.InstanceID;
                 currentDistance = temp;
             }
         }
@@ -46,6 +46,7 @@ public struct UnitInfo
 {
     public int InstanceID;
     public float3 Position;
+    public int Health;
     public int TargetID;
     public int UnitTypeID;
     public int UnitMask;

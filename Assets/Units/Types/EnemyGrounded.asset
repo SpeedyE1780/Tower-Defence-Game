@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355ce7cd63cca4d4081b00bd90ace224, type: 3}
   m_Name: EnemyGrounded
   m_EditorClassIdentifier: 
-  typeID: 3
-  typeNumber: 8
+  typeID: 4
+  typeNumber: 16

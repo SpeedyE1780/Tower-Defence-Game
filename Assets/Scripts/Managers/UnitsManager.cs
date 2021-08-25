@@ -22,7 +22,7 @@ public class UnitsManager : Singleton<UnitsManager>
 
         DetectionJob troopDetection = new DetectionJob()
         {
-            enemyInfo = readOnly,
+            othersInfo = readOnly,
             unitInfo = units
         };
 
@@ -59,9 +59,9 @@ public class UnitsManager : Singleton<UnitsManager>
     }
 
     //Update units position in native dictionary
-    public void UpdateUnitPosition(int instanceID, Vector3 position)
+    public void UpdateUnitPosition(int instanceID, Vector3 position, int health)
     {
-        unitsInfo.UpdateUnitPosition(instanceID, position);
+        unitsInfo.UpdateUnitInfo(instanceID, position, health);
     }
 
     //Get target from native dictionary info

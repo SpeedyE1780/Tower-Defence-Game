@@ -16,7 +16,7 @@ public class HealthController : MonoBehaviour
     private Vector3 targetScale;
     private int currentMaxHealth;
 
-    private int Health { get; set; }
+    public int Health { get; private set; }
     public bool IsDead => Health <= 0;
 
     private void Awake()

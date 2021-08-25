@@ -80,7 +80,7 @@ public abstract class UnitController : MonoBehaviour
         currentAttackCooldown -= Time.deltaTime;
     }
 
-    private void LateUpdate() => UnitsManager.Instance.UpdateUnitPosition(instanceID, transform.position);
+    private void LateUpdate() => UnitsManager.Instance.UpdateUnitPosition(instanceID, transform.position, unitHealth.Health);
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(unitID, gameObject);
     protected virtual void ResetAttackCooldown() => currentAttackCooldown = attackCooldown;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
