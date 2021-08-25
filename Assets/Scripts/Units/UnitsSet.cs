@@ -34,6 +34,7 @@ public class UnitsSet : ScriptableObject
             return;
 
         unitsInfo.Add(info.InstanceID, info);
+        Count += 1;
     }
 
     public void Remove(int ID)
@@ -42,6 +43,7 @@ public class UnitsSet : ScriptableObject
             return;
 
         unitsInfo.Remove(ID);
+        Count -= 1;
     }
 
     public void UpdateUnitPosition(int ID, Vector3 position)
