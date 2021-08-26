@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
-  m_Name: Projectile
+  m_Name: Arrow
   m_EditorClassIdentifier: 
-  CategoryItems:
+  SetID: {fileID: 11400000, guid: ae3ddb579c2eaf6418633ae566f68d78, type: 2}
+  SetItems:
   - {fileID: 4235823711630912440, guid: 30c1f05e639ddde458581afa6c1fd22c, type: 3}

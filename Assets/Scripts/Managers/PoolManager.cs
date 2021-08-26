@@ -81,7 +81,7 @@ public class PoolManager : Singleton<PoolManager>
     {
         FactoryManager factory = FindObjectOfType<FactoryManager>();
 
-        foreach (PoolID id in factory.Catalog.Keys)
+        foreach (PoolID id in factory.factorySets.Keys)
         {
             GameObject poolParent = new GameObject($"{id}");
             poolParent.transform.SetParent(transform);

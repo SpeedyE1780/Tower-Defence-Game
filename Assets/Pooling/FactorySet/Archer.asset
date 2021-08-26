@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
-  m_Name: EnemyAirborne
+  m_Name: Archer
   m_EditorClassIdentifier: 
-  CategoryItems:
-  - {fileID: 8292647217066776586, guid: 22cd36c68b6002440af2ab8fdeea1fa4, type: 3}
+  SetID: {fileID: 11400000, guid: 0a6ad424a9306df40906657875a19197, type: 2}
+  SetItems:
+  - {fileID: 2483648066514071804, guid: 5e68d990af0803640bc66a64558e0ebc, type: 3}

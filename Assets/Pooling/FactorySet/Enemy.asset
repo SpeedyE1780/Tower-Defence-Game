@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
-  m_Name: Archer
+  m_Name: Enemy
   m_EditorClassIdentifier: 
-  CategoryItems:
-  - {fileID: 2483648066514071804, guid: 5e68d990af0803640bc66a64558e0ebc, type: 3}
+  SetID: {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+  SetItems:
+  - {fileID: 2483648066514071804, guid: 67bb70406eba14f44970075a41a7408b, type: 3}

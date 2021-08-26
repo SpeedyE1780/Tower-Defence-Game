@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
-  m_Name: Healer
+  m_Name: Catapult
   m_EditorClassIdentifier: 
-  CategoryItems:
-  - {fileID: 2483648066514071804, guid: 507d2c1a0972c4f42b8d0bfd9eef47d2, type: 3}
+  SetID: {fileID: 11400000, guid: 5fdf5c3eb37f3fc4a8df627743501550, type: 2}
+  SetItems:
+  - {fileID: 6559590306770425526, guid: 087a27763c5fdc54cbd2438ea9c2285e, type: 3}

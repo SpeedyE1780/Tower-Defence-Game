@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
-  m_Name: CatapultProjectile
+  m_Name: AirborneEnemy
   m_EditorClassIdentifier: 
-  CategoryItems:
-  - {fileID: 6146792543146786476, guid: 4ea65da0df9556047849c1013937604d, type: 3}
+  SetID: {fileID: 11400000, guid: 0c87c89aa413a5f4f922207b652aa8c4, type: 2}
+  SetItems:
+  - {fileID: 8292647217066776586, guid: 22cd36c68b6002440af2ab8fdeea1fa4, type: 3}

@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
-  m_Name: EnemyBoss
+  m_Name: Healer
   m_EditorClassIdentifier: 
-  CategoryItems:
-  - {fileID: 2483648066514071804, guid: 58aa7cc252b2cc2459c93eaa0956d50c, type: 3}
+  SetID: {fileID: 11400000, guid: 467bed6842ba7a34a945a064f3979cb1, type: 2}
+  SetItems:
+  - {fileID: 2483648066514071804, guid: 507d2c1a0972c4f42b8d0bfd9eef47d2, type: 3}

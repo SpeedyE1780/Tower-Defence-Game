@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7b53d0d213145945ab2dc33831a234d, type: 3}
-  m_Name: Infantry
+  m_Name: Fireball
   m_EditorClassIdentifier: 
-  CategoryItems:
-  - {fileID: 2483648066514071804, guid: d2b1e276ada4c924eafdc30051fae44b, type: 3}
+  SetID: {fileID: 11400000, guid: 0585ce01f0977844981b4d3b64ca5886, type: 2}
+  SetItems:
+  - {fileID: 4235823711630912440, guid: 7bae8ef570f9c9b479b630fe836f14e2, type: 3}
