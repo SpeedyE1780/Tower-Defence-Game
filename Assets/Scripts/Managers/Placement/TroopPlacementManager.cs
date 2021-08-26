@@ -4,7 +4,6 @@ using UnityEngine;
 public class TroopPlacementManager : UnitPlacementManager
 {
     public static TroopPlacementManager Instance { get; private set; }
-    [SerializeField] PoolID infantryID;
 
     private void Awake()
     {
@@ -27,7 +26,6 @@ public class TroopPlacementManager : UnitPlacementManager
         }
 
         bool canPlaceUnit = true;
-        bool isInfantry = currentUnitID == infantryID;
 
         do
         {
@@ -41,7 +39,7 @@ public class TroopPlacementManager : UnitPlacementManager
             if (IsUnitColliding(hitPoint))
                 continue;
 
-            SpawnUnit(hitPoint, isInfantry);
+            SpawnUnit(hitPoint);
 
             ShopManager.Instance.BuyUnit(currentUnitPrice);
 
@@ -53,12 +51,9 @@ public class TroopPlacementManager : UnitPlacementManager
         StopPlacement();
     }
 
-    private void SpawnUnit(Vector3 hitPoint, bool isInfantry)
+    private void SpawnUnit(Vector3 hitPoint)
     {
         GameObject troop = PoolManager.Instance.GetPooledObject(currentUnitID, hitPoint);
         troop.SetActive(true);
-
-        if (isInfantry)
-            troop.GetComponent<Rigidbody>().MovePosition(hitPoint);
     }
 }

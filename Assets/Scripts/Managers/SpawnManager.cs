@@ -102,11 +102,11 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator SpawnBoss()
     {
-        Rigidbody rb = SpawnEnemy(bossesID.GetRandomElement(), transform.position, transform.rotation);
+        GameObject boss = SpawnEnemy(bossesID.GetRandomElement(), transform.position, transform.rotation);
         activeEnemies++;
 
         //Wait for boss or ally units to die
-        yield return new WaitUntil(() => !rb.gameObject.activeSelf || UnitPlacementManager.UnitCount == 0);
+        yield return new WaitUntil(() => !boss.activeSelf || UnitPlacementManager.UnitCount == 0);
     }
 
     private void SpawnFormation()
@@ -122,13 +122,11 @@ public class SpawnManager : Singleton<SpawnManager>
     }
 
     //Get enemy from pool and update its rigidbody position and rotation
-    private Rigidbody SpawnEnemy(PoolID id, Vector3 position, Quaternion rotation)
+    private GameObject SpawnEnemy(PoolID id, Vector3 position, Quaternion rotation)
     {
-        Rigidbody rb = PoolManager.Instance.GetPooledObject<Rigidbody>(id, position, rotation);
-        rb.MovePosition(position);
-        rb.MoveRotation(rotation);
-        rb.gameObject.SetActive(true);
-        return rb;
+        GameObject enemy = PoolManager.Instance.GetPooledObject(id, position, rotation);
+        enemy.gameObject.SetActive(true);
+        return enemy;
     }
 
     private void ToggleUnitPlacement(bool toggle)

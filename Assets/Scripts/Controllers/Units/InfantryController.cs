@@ -10,8 +10,6 @@ public class InfantryController : UnitController
     [SerializeField] protected int damage;
     [Header("Movement Stats")]
     [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] protected Rigidbody agentBody;
-    [SerializeField] protected Transform geometry;
     [SerializeField] protected float speed;
     [SerializeField] protected bool instantKill;
     private Quaternion rotation;
@@ -31,7 +29,7 @@ public class InfantryController : UnitController
     protected override void Update()
     {
         base.Update();
-        SimulatePhysics();
+        UpdatePosition();
 
         if (unitAnimation.IsPlaying(AttackAnimation))
             return;
@@ -47,21 +45,20 @@ public class InfantryController : UnitController
             unitAnimation.Play(RunAnimation);
     }
 
-    protected void SimulatePhysics()
+    protected void UpdatePosition()
     {
         //Update navmesh position and geometry position
-        agentBody.MovePosition(agent.nextPosition);
-        geometry.position = agent.nextPosition;
+        transform.position = agent.nextPosition;
 
         if (agent.velocity.sqrMagnitude > IdleMovementThreshold)
-            SetLookRotation();
+            UpdateRotation();
     }
 
     //Update navmesh rotation
-    protected virtual void SetLookRotation()
+    protected virtual void UpdateRotation()
     {
         rotation.SetLookRotation(agent.velocity);
-        agentBody.MoveRotation(rotation);
+        transform.rotation = rotation;
     }
 
     protected override void AttackTarget()

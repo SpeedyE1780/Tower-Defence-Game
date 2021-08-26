@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2971355877389920838}
   - component: {fileID: -7493919820558565216}
-  - component: {fileID: 4618477994666530619}
-  - component: {fileID: 1131257113313240411}
   - component: {fileID: -758384118210338112}
   - component: {fileID: -8985976669911824261}
   - component: {fileID: 2804751857303374329}
@@ -64,36 +62,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &4618477994666530619
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2483648066514071804}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!136 &1131257113313240411
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2483648066514071804}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &-758384118210338112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +82,7 @@ MonoBehaviour:
   attackRange: 5
   damage: 2
   agent: {fileID: -7493919820558565216}
-  agentBody: {fileID: 4618477994666530619}
+  agentBody: {fileID: 0}
   geometry: {fileID: 8085759355982769812}
   speed: 6
   instantKill: 0
