@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7583506564838596067}
   - component: {fileID: -2760263632264079363}
   - component: {fileID: 5866448380585122628}
+  - component: {fileID: -8332188766890085382}
   m_Layer: 8
   m_Name: Caster
   m_TagString: Player
@@ -82,7 +83,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitID: {fileID: 11400000, guid: f984631986777fb46ae81dfca90f4170, type: 2}
-  isEnemy: 0
   unitAnimation: {fileID: 6485973482849070438}
   unitHealth: {fileID: -2760263632264079363}
   detectionSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
@@ -122,6 +122,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnParticles: {fileID: 269751894876981695}
+--- !u!114 &-8332188766890085382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c0b6500c7845c41b6d89c36452b37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3060684563399881924
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1420220290397589858}
   - component: {fileID: -8985976669911824261}
   - component: {fileID: 2804751857303374329}
+  - component: {fileID: -6112162955837912766}
   m_Layer: 8
   m_Name: Infantry
   m_TagString: Player
@@ -105,7 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitID: {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
-  isEnemy: 0
   unitAnimation: {fileID: 202939735748425599}
   unitHealth: {fileID: -8985976669911824261}
   detectionSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
@@ -148,6 +148,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnParticles: {fileID: 2751428681745878504}
+--- !u!114 &-6112162955837912766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c0b6500c7845c41b6d89c36452b37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3060684563399881924
 GameObject:
   m_ObjectHideFlags: 0

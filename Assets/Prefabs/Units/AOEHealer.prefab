@@ -4820,6 +4820,7 @@ GameObject:
   - component: {fileID: 3351762354553806347}
   - component: {fileID: -2760263632264079363}
   - component: {fileID: 5866448380585122628}
+  - component: {fileID: 9109035282098593371}
   m_Layer: 8
   m_Name: AOEHealer
   m_TagString: Player
@@ -4889,7 +4890,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitID: {fileID: 11400000, guid: 5cc2378c3b539da4d86b91fcaa9e62b5, type: 2}
-  isEnemy: 0
   unitAnimation: {fileID: 0}
   unitHealth: {fileID: -2760263632264079363}
   detectionSet: {fileID: 11400000, guid: a9a257e054732924487073b7beef13e2, type: 2}
@@ -4932,6 +4932,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnParticles: {fileID: 269751894876981695}
+--- !u!114 &9109035282098593371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c0b6500c7845c41b6d89c36452b37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3060684563399881924
 GameObject:
   m_ObjectHideFlags: 0

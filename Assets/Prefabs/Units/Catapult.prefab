@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5766118632848513488}
   - component: {fileID: 6559590306770425524}
   - component: {fileID: 2946725615099158240}
+  - component: {fileID: 2344381866449645735}
   m_Layer: 7
   m_Name: Catapult
   m_TagString: Player
@@ -63,7 +64,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitID: {fileID: 11400000, guid: 5fdf5c3eb37f3fc4a8df627743501550, type: 2}
-  isEnemy: 0
   unitAnimation: {fileID: 0}
   unitHealth: {fileID: 2946725615099158240}
   detectionSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
@@ -91,6 +91,18 @@ MonoBehaviour:
   controller: {fileID: 6559590306770425524}
   geometry: {fileID: 6666138734652045043}
   healParticle: {fileID: 510090608732774377}
+--- !u!114 &2344381866449645735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6559590306770425526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c0b6500c7845c41b6d89c36452b37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6559590307037961533
 GameObject:
   m_ObjectHideFlags: 0

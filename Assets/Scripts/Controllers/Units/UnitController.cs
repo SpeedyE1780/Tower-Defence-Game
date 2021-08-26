@@ -14,7 +14,6 @@ public abstract class UnitController : MonoBehaviour
     public static bool waitForWaveStart;
 
     [SerializeField] protected UnitID unitID;
-    [SerializeField] private bool isEnemy;
     [SerializeField] protected Animation unitAnimation;
     [SerializeField] protected HealthController unitHealth;
     [SerializeField] protected UnitsInfoSet detectionSet;
@@ -49,18 +48,12 @@ public abstract class UnitController : MonoBehaviour
 
         UnitsManager.Instance.AddUnit(unitInfo, unitHealth);
         detectionSet.Add(unitInfo);
-
-        if (!isEnemy)
-            UnitPlacementManager.RaiseUnitCount();
     }
 
     protected virtual void OnDisable()
     {
         UnitsManager.Instance.RemoveUnit(instanceID);
         detectionSet.Remove(instanceID);
-
-        if (!isEnemy)
-            UnitPlacementManager.LowerUnitCount();
     }
 
     protected virtual void Update()
@@ -93,10 +86,13 @@ public abstract class UnitController : MonoBehaviour
         detectionSet.UpdateUnitInfo(instanceID, position, healthPercentage);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(unitID, gameObject);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected virtual void ResetAttackCooldown() => currentAttackCooldown = attackCooldown;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected virtual bool IsTargetActive() => currentTarget != null && !currentTarget.IsDead && currentTarget.gameObject.activeInHierarchy;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected abstract void AttackTarget();
     protected abstract void Idle();
 }
