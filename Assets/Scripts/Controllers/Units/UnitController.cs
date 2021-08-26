@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [DisallowMultipleComponent, SelectionBase]
@@ -16,6 +17,7 @@ public abstract class UnitController : MonoBehaviour
     [SerializeField] private bool isEnemy;
     [SerializeField] protected Animation unitAnimation;
     [SerializeField] protected HealthController unitHealth;
+    [SerializeField] protected UnitsInfoSet detectionSet;
     [Header("Attack Stats")]
     [SerializeField] protected float attackCooldown;
 
@@ -45,7 +47,8 @@ public abstract class UnitController : MonoBehaviour
             UnitMask = unitID.GetLayerMask()
         };
 
-        UnitsManager.Instance.AddUnit(unitInfo, unitHealth, unitID);
+        UnitsManager.Instance.AddUnit(unitInfo, unitHealth);
+        detectionSet.Add(unitInfo);
 
         if (!isEnemy)
             UnitPlacementManager.RaiseUnitCount();
@@ -53,7 +56,8 @@ public abstract class UnitController : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        UnitsManager.Instance.RemoveUnit(instanceID, unitID);
+        UnitsManager.Instance.RemoveUnit(instanceID);
+        detectionSet.Remove(instanceID);
 
         if (!isEnemy)
             UnitPlacementManager.LowerUnitCount();
@@ -80,7 +84,15 @@ public abstract class UnitController : MonoBehaviour
         currentAttackCooldown -= Time.deltaTime;
     }
 
-    private void LateUpdate() => UnitsManager.Instance.UpdateUnitPosition(instanceID, transform.position, unitHealth.HealthPercentage, unitID);
+    private void LateUpdate()
+    {
+        Vector3 position = transform.position;
+        float healthPercentage = unitHealth.HealthPercentage;
+
+        UnitsManager.Instance.UpdateUnitPosition(instanceID, position, healthPercentage);
+        detectionSet.UpdateUnitInfo(instanceID, position, healthPercentage);
+    }
+
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(unitID, gameObject);
     protected virtual void ResetAttackCooldown() => currentAttackCooldown = attackCooldown;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

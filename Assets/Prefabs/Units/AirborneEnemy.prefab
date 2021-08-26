@@ -106,6 +106,7 @@ MonoBehaviour:
   isEnemy: 1
   unitAnimation: {fileID: 0}
   unitHealth: {fileID: 8292647217066776576}
+  detectionSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
   attackCooldown: 0.5
   shootPoint: {fileID: 8292647217198751711}
   projectileID: {fileID: 11400000, guid: 0585ce01f0977844981b4d3b64ca5886, type: 2}

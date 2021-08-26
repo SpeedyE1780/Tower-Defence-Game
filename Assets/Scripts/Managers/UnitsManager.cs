@@ -5,11 +5,10 @@ using UnityEngine.Jobs;
 
 public class UnitsManager : Singleton<UnitsManager>
 {
-    [SerializeField] SerializableDictionaryBase<UnitID, UnitsInfoSet> unitsSet;
     [SerializeField] ActiveUnitsSet activeUnits;
     [SerializeField] UnitsInfoSet unitsInfo;
     [SerializeField] UnitsInfoSet distanceSet;
-    [SerializeField] UnitsInfoSet healerSet;
+    [SerializeField] UnitsInfoSet lowestHealthSet;
 
     private void Start()
     {
@@ -17,13 +16,13 @@ public class UnitsManager : Singleton<UnitsManager>
         activeUnits.Initialize(maxUnitCount);
         unitsInfo.InitializeUnitsInfo(maxUnitCount);
         distanceSet.InitializeUnitsInfo(maxUnitCount);
-        healerSet.InitializeUnitsInfo(maxUnitCount);
+        lowestHealthSet.InitializeUnitsInfo(maxUnitCount);
     }
 
     private void Update()
     {
         NativeArray<UnitInfo> distanceUnits = distanceSet.GetJobArray();
-        NativeArray<UnitInfo> healerUnits = healerSet.GetJobArray();
+        NativeArray<UnitInfo> lowestHealthUnits = lowestHealthSet.GetJobArray();
         NativeArray<UnitInfo> readOnly = unitsInfo.GetJobArray();
 
         DistanceDetectionJob distanceDetection = new DistanceDetectionJob()
@@ -32,55 +31,52 @@ public class UnitsManager : Singleton<UnitsManager>
             othersInfo = readOnly
         };
 
-        HealerDetectionJob healerDetection = new HealerDetectionJob()
+        HealerDetectionJob lowestHealthDetection = new HealerDetectionJob()
         {
-            unitInfo = healerUnits,
+            unitInfo = lowestHealthUnits,
             othersInfo = readOnly
         };
 
         //Schedule and complete detection jobs
         JobHandle detectionHandle = distanceDetection.Schedule(distanceUnits.Length, 75);
-        JobHandle healerHandle = healerDetection.Schedule(healerUnits.Length, 75);
+        JobHandle lowestHealthHandle = lowestHealthDetection.Schedule(lowestHealthUnits.Length, 75);
         detectionHandle.Complete();
-        healerHandle.Complete();
+        lowestHealthHandle.Complete();
 
         //Update units info
         unitsInfo.UpdateUnits(distanceUnits);
-        unitsInfo.UpdateUnits(healerUnits);
+        unitsInfo.UpdateUnits(lowestHealthUnits);
 
         //Dispose of the native lists
         distanceUnits.Dispose();
-        healerUnits.Dispose();
+        lowestHealthUnits.Dispose();
         readOnly.Dispose();
     }
 
     //Add unit to active units dictionary and native dictionary
-    public void AddUnit(UnitInfo info, HealthController controller, UnitID id)
+    public void AddUnit(UnitInfo info, HealthController controller)
     {
         if (!unitsInfo.IsCreated)
             return;
 
         unitsInfo.Add(info);
-        unitsSet[id].Add(info);
         activeUnits.Add(info.InstanceID, controller);
     }
 
     //Remove unit from active units and native dictionary
-    public void RemoveUnit(int instanceID, UnitID id)
+    public void RemoveUnit(int instanceID)
     {
         if (!unitsInfo.IsCreated)
             return;
 
         unitsInfo.Remove(instanceID);
         activeUnits.Remove(instanceID);
-        unitsSet[id].Remove(instanceID);
     }
 
     //Update units position in native dictionary
-    public void UpdateUnitPosition(int instanceID, Vector3 position, float healthPercentage, UnitID id)
+    public void UpdateUnitPosition(int instanceID, Vector3 position, float healthPercentage)
     {
         unitsInfo.UpdateUnitInfo(instanceID, position, healthPercentage);
-        unitsSet[id].UpdateUnitInfo(instanceID, position, healthPercentage);
     }
 
     //Get target from native dictionary info
@@ -95,6 +91,6 @@ public class UnitsManager : Singleton<UnitsManager>
     {
         unitsInfo.Dispose();
         distanceSet.Dispose();
-        healerSet.Dispose();
+        lowestHealthSet.Dispose();
     }
 }

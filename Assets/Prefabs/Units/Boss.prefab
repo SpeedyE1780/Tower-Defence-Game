@@ -108,6 +108,7 @@ MonoBehaviour:
   isEnemy: 1
   unitAnimation: {fileID: 4063504079313141498}
   unitHealth: {fileID: -4684928551791343520}
+  detectionSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
   attackCooldown: 0.25
   attackRange: 6
   agent: {fileID: -6167951554154646355}
