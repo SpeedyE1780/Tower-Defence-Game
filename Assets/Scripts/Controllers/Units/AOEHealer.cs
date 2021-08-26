@@ -13,7 +13,7 @@ public class AOEHealer : HealerController
     protected override void Heal()
     {
         Vector3 position = currentTarget.transform.position;
-        AOEManager.Instance.ApplyAOEHeal(position, range, healAmount, unitID.GetLayerMask());
+        AOEManager.Instance.ApplyAOEHeal(position, range, healAmount, unitMask);
         healingParticle.transform.position = position;
         healingParticle.Play();
     }

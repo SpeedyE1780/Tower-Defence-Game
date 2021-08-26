@@ -31,7 +31,7 @@ public class RangedController : UnitController
     protected virtual void SetProjectile()
     {
         ProjectileController projectile = SpawnProjectile().GetComponent<ProjectileController>();
-        projectile.SetTarget(currentTarget, unitID.GetLayerMask());
+        projectile.SetTarget(currentTarget, unitMask);
     }
 
     protected GameObject SpawnProjectile()

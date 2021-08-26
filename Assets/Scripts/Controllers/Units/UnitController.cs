@@ -1,5 +1,4 @@
 using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [DisallowMultipleComponent, SelectionBase]
@@ -13,7 +12,7 @@ public abstract class UnitController : MonoBehaviour
 
     public static bool waitForWaveStart;
 
-    [SerializeField] protected UnitID unitID;
+    [SerializeField] private UnitID unitID;
     [SerializeField] protected Animation unitAnimation;
     [SerializeField] protected HealthController unitHealth;
     [SerializeField] protected UnitsInfoSet detectionSet;
@@ -22,9 +21,12 @@ public abstract class UnitController : MonoBehaviour
 
     protected float currentAttackCooldown;
     protected HealthController currentTarget;
+    protected int unitMask;
     private int instanceID;
 
     protected bool CanAttack => currentAttackCooldown < 0;
+
+    private void Awake() => unitMask = unitID.GetLayerMask();
 
     protected virtual void OnEnable()
     {

@@ -5,7 +5,9 @@ public class InfantryController : UnitController
 {
     private const float IdleMovementThreshold = 0.1f;
 
+    [Header("Attack Stats")]
     [SerializeField] private float attackRange;
+    [SerializeField] protected int damage;
     [Header("Movement Stats")]
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected Rigidbody agentBody;
@@ -71,10 +73,11 @@ public class InfantryController : UnitController
             DamageTarget();
     }
 
+    //Play attack animation and reset cooldown
     private void DamageTarget()
     {
         unitAnimation.Play(AttackAnimation);
-        currentTarget.TakeHit(1, instantKill);
+        ApplyDamage();
         ResetAttackCooldown();
     }
 
@@ -85,5 +88,6 @@ public class InfantryController : UnitController
         agent.updateUpAxis = false;
     }
 
+    protected virtual void ApplyDamage() => currentTarget.TakeHit(damage, instantKill);
     protected virtual bool TargetIsInRange() => DistanceToTarget <= attackRange;
 }
