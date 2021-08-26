@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class InfantryController : UnitController
+public class InfantryController : UnitController
 {
     private const float IdleMovementThreshold = 0.1f;
 
@@ -15,7 +15,6 @@ public abstract class InfantryController : UnitController
     private Quaternion rotation;
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
-    protected override bool HasIdleUpdate => false;
 
     protected virtual void Awake()
     {
@@ -87,5 +86,4 @@ public abstract class InfantryController : UnitController
     }
 
     protected virtual bool TargetIsInRange() => DistanceToTarget <= attackRange;
-    protected override void Idle() => throw new System.NotImplementedException();
 }

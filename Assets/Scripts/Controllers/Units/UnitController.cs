@@ -24,7 +24,6 @@ public abstract class UnitController : MonoBehaviour
     protected HealthController currentTarget;
     private int instanceID;
 
-    protected virtual bool HasIdleUpdate => true;
     protected bool CanAttack => currentAttackCooldown < 0;
 
     protected virtual void OnEnable()
@@ -61,18 +60,11 @@ public abstract class UnitController : MonoBehaviour
         if (waitForWaveStart)
             return;
 
+        //Attack current target or get a new one
         if (IsTargetActive())
-        {
             AttackTarget();
-        }
         else
-        {
-            //Get new target
             currentTarget = UnitsManager.Instance.GetTarget(instanceID);
-
-            if (HasIdleUpdate)
-                Idle();
-        }
 
         currentAttackCooldown -= Time.deltaTime;
     }
@@ -94,5 +86,4 @@ public abstract class UnitController : MonoBehaviour
     protected virtual bool IsTargetActive() => currentTarget != null && !currentTarget.IsDead && currentTarget.gameObject.activeInHierarchy;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected abstract void AttackTarget();
-    protected abstract void Idle();
 }

@@ -11,8 +11,6 @@ public class RangedController : UnitController
 
     //Transform that will rotate and follow the current target
     protected virtual Transform RotationTransform => transform;
-    protected override bool HasIdleUpdate => false;
-
     protected void Start() => targetForward = new Vector3();
 
     protected override void AttackTarget()
@@ -20,8 +18,6 @@ public class RangedController : UnitController
         RotateTowardTarget();
         Shoot();
     }
-
-    protected override void Idle() => throw new System.Exception();
 
     protected virtual void Shoot()
     {
