@@ -1,16 +1,14 @@
-using System.Collections;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private float physicsTimeStep;
-    private bool simulatePhysics;
-    private float physicsTimer;
     private int kills;
+
+    private void OnEnable() => EventManager.OnEnemyKilled += AddPoints;
+    private void OnDisable() => EventManager.OnEnemyKilled -= AddPoints;
 
     public void StartGame()
     {
-        ResetPhysics();
         kills = 0;
 
         //Initialize Currency
@@ -33,10 +31,6 @@ public class GameManager : Singleton<GameManager>
         StartGame();
     }
 
-    public void QuitGame() => Application.Quit();
-    private void OnEnable() => EventManager.OnEnemyKilled += AddPoints;
-    private void OnDisable() => EventManager.OnEnemyKilled -= AddPoints;
-
     //Increment kill count and add coins
     private void AddPoints(int coins)
     {
@@ -45,26 +39,5 @@ public class GameManager : Singleton<GameManager>
         ShopManager.Instance.UpdateCurrency(coins);
     }
 
-    private void ResetPhysics()
-    {
-        simulatePhysics = true;
-        physicsTimer = 0;
-        StartCoroutine(UpdatePhysics());
-    }
-
-    private IEnumerator UpdatePhysics()
-    {
-        while (simulatePhysics)
-        {
-            physicsTimer += Time.deltaTime;
-
-            if (physicsTimer > physicsTimeStep)
-            {
-                Physics.Simulate(physicsTimer);
-                physicsTimer = 0;
-            }
-
-            yield return null;
-        }
-    }
+    public void QuitGame() => Application.Quit();
 }
