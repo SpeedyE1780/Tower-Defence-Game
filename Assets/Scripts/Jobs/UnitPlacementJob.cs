@@ -9,7 +9,7 @@ public struct UnitPlacementJob : IJobParallelFor
     [ReadOnly] public NativeArray<UnitInfo> unitsInfo;
     public float3 Position;
     public float MinimumDistance;
-    public NativeArray<bool> InvalidPosition;
+    [NativeDisableParallelForRestriction] public NativeArray<bool> InvalidPosition;
 
     public void Execute(int index)
     {
