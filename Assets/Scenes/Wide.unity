@@ -10662,8 +10662,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeUnits: {fileID: 11400000, guid: 8ea6a04d3c55c974dac66d661d1cbb72, type: 2}
   unitsInfo: {fileID: 11400000, guid: bc198a6cfb9d6de438da90037f39ae99, type: 2}
-  distanceSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
-  lowestHealthSet: {fileID: 11400000, guid: a9a257e054732924487073b7beef13e2, type: 2}
+  closestSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
+  mostInjuredSet: {fileID: 11400000, guid: a9a257e054732924487073b7beef13e2, type: 2}
 --- !u!1001 &280282090
 PrefabInstance:
   m_ObjectHideFlags: 0

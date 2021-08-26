@@ -7,49 +7,49 @@ public class UnitsManager : Singleton<UnitsManager>
 {
     [SerializeField] ActiveUnitsSet activeUnits;
     [SerializeField] UnitsInfoSet unitsInfo;
-    [SerializeField] UnitsInfoSet distanceSet;
-    [SerializeField] UnitsInfoSet lowestHealthSet;
+    [SerializeField] UnitsInfoSet closestSet;
+    [SerializeField] UnitsInfoSet mostInjuredSet;
 
     private void Start()
     {
         int maxUnitCount = UnitPlacementManager.MaximumUnits + SpawnManager.Instance.MaxEnemyCount;
         activeUnits.Initialize(maxUnitCount);
         unitsInfo.InitializeUnitsInfo(maxUnitCount);
-        distanceSet.InitializeUnitsInfo(maxUnitCount);
-        lowestHealthSet.InitializeUnitsInfo(maxUnitCount);
+        closestSet.InitializeUnitsInfo(maxUnitCount);
+        mostInjuredSet.InitializeUnitsInfo(maxUnitCount);
     }
 
     private void Update()
     {
-        NativeArray<UnitInfo> distanceUnits = distanceSet.GetJobArray();
-        NativeArray<UnitInfo> lowestHealthUnits = lowestHealthSet.GetJobArray();
+        NativeArray<UnitInfo> closestUnits = closestSet.GetJobArray();
+        NativeArray<UnitInfo> mostInjuredUnits = mostInjuredSet.GetJobArray();
         NativeArray<UnitInfo> readOnly = unitsInfo.GetJobArray();
 
-        FindClosestUnitJob distanceDetection = new FindClosestUnitJob()
+        FindClosestUnitJob closestUnitsJob = new FindClosestUnitJob()
         {
-            unitInfo = distanceUnits,
+            unitInfo = closestUnits,
             othersInfo = readOnly
         };
 
-        FindMostInjuredUnitJob lowestHealthDetection = new FindMostInjuredUnitJob()
+        FindMostInjuredUnitJob mostInjuredUnitJob = new FindMostInjuredUnitJob()
         {
-            unitInfo = lowestHealthUnits,
+            unitInfo = mostInjuredUnits,
             othersInfo = readOnly
         };
 
         //Schedule and complete detection jobs
-        JobHandle detectionHandle = distanceDetection.Schedule(distanceUnits.Length, 75);
-        JobHandle lowestHealthHandle = lowestHealthDetection.Schedule(lowestHealthUnits.Length, 75);
-        detectionHandle.Complete();
-        lowestHealthHandle.Complete();
+        JobHandle closestHandle = closestUnitsJob.Schedule(closestUnits.Length, 75);
+        JobHandle mostInjuredHandle = mostInjuredUnitJob.Schedule(mostInjuredUnits.Length, 75);
+        closestHandle.Complete();
+        mostInjuredHandle.Complete();
 
         //Update units info
-        unitsInfo.UpdateUnits(distanceUnits);
-        unitsInfo.UpdateUnits(lowestHealthUnits);
+        unitsInfo.UpdateUnits(closestUnits);
+        unitsInfo.UpdateUnits(mostInjuredUnits);
 
         //Dispose of the native lists
-        distanceUnits.Dispose();
-        lowestHealthUnits.Dispose();
+        closestUnits.Dispose();
+        mostInjuredUnits.Dispose();
         readOnly.Dispose();
     }
 
@@ -90,7 +90,7 @@ public class UnitsManager : Singleton<UnitsManager>
     private void OnDestroy()
     {
         unitsInfo.Dispose();
-        distanceSet.Dispose();
-        lowestHealthSet.Dispose();
+        closestSet.Dispose();
+        mostInjuredSet.Dispose();
     }
 }
