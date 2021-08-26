@@ -4,7 +4,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 
 [BurstCompile]
-public struct DistanceDetectionJob : IJobParallelFor
+public struct FindClosestUnitJob : IJobParallelFor
 {
     public NativeArray<UnitInfo> unitInfo;
     [ReadOnly] public NativeArray<UnitInfo> othersInfo;
@@ -18,10 +18,7 @@ public struct DistanceDetectionJob : IJobParallelFor
 
         foreach (UnitInfo other in othersInfo)
         {
-            if ((currentUnit.UnitMask & other.UnitTypeID) == 0)
-                continue;
-
-            if (currentUnit.InstanceID == other.InstanceID)
+            if (!currentUnit.CanAttack(other.InstanceID, other.UnitTypeID))
                 continue;
 
             //Calculate distance from unit
@@ -39,15 +36,4 @@ public struct DistanceDetectionJob : IJobParallelFor
         //Update unit info inside dictionary
         unitInfo[index] = currentUnit;
     }
-}
-
-//Struct used to store info inside jobs
-public struct UnitInfo
-{
-    public int InstanceID;
-    public float3 Position;
-    public float HealthPercentage;
-    public int TargetID;
-    public int UnitTypeID;
-    public int UnitMask;
 }

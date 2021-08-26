@@ -4,7 +4,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 
 [BurstCompile]
-public struct HealerDetectionJob : IJobParallelFor
+public struct FindMostInjuredUnitJob : IJobParallelFor
 {
     public NativeArray<UnitInfo> unitInfo;
     [ReadOnly] public NativeArray<UnitInfo> othersInfo;
@@ -17,10 +17,7 @@ public struct HealerDetectionJob : IJobParallelFor
 
         foreach (UnitInfo other in othersInfo)
         {
-            if ((currentUnit.UnitMask & other.UnitTypeID) == 0)
-                continue;
-
-            if (currentUnit.InstanceID == other.InstanceID)
+            if (!currentUnit.CanAttack(other.InstanceID, other.UnitTypeID))
                 continue;
 
             float temp = other.HealthPercentage;

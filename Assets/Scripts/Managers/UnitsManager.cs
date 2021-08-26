@@ -25,13 +25,13 @@ public class UnitsManager : Singleton<UnitsManager>
         NativeArray<UnitInfo> lowestHealthUnits = lowestHealthSet.GetJobArray();
         NativeArray<UnitInfo> readOnly = unitsInfo.GetJobArray();
 
-        DistanceDetectionJob distanceDetection = new DistanceDetectionJob()
+        FindClosestUnitJob distanceDetection = new FindClosestUnitJob()
         {
             unitInfo = distanceUnits,
             othersInfo = readOnly
         };
 
-        HealerDetectionJob lowestHealthDetection = new HealerDetectionJob()
+        FindMostInjuredUnitJob lowestHealthDetection = new FindMostInjuredUnitJob()
         {
             unitInfo = lowestHealthUnits,
             othersInfo = readOnly
