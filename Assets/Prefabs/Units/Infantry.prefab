@@ -112,6 +112,7 @@ MonoBehaviour:
   detectionSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
   attackCooldown: 0.25
   attackRange: 5
+  damage: 2
   agent: {fileID: -7493919820558565216}
   agentBody: {fileID: 4618477994666530619}
   geometry: {fileID: 8085759355982769812}
