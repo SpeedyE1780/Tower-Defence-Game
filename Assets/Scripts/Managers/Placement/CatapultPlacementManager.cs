@@ -43,7 +43,8 @@ public class CatapultPlacementManager : UnitPlacementManager
 
             if (Input.GetMouseButtonUp(0))
             {
-                if (Physics.OverlapSphere(towerTransform.position, distanceBetweenUnits, unitLayers).Length > 1)
+                //Tower is colliding with other units
+                if (IsUnitColliding(hitPoint))
                     continue;
 
                 catapult.enabled = true;
@@ -53,6 +54,7 @@ public class CatapultPlacementManager : UnitPlacementManager
             }
         }
 
+        //Pool unit if no valid position was found
         if (catapult != null)
             PoolTower(catapult);
 

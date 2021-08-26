@@ -78222,13 +78222,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightedAreas:
   - {fileID: 4395809}
-  distanceBetweenUnits: 1
+  distanceBetweenUnits: 2.5
+  unitsInfo: {fileID: 11400000, guid: bc198a6cfb9d6de438da90037f39ae99, type: 2}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  unitLayers:
-    serializedVersion: 2
-    m_Bits: 384
   infantryID: {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
 --- !u!114 &1953519220
 MonoBehaviour:
@@ -78244,13 +78242,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightedAreas:
   - {fileID: 4395809}
-  distanceBetweenUnits: 2.5
+  distanceBetweenUnits: 5
+  unitsInfo: {fileID: 11400000, guid: bc198a6cfb9d6de438da90037f39ae99, type: 2}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  unitLayers:
-    serializedVersion: 2
-    m_Bits: 384
   defaultCatapultPosition: {fileID: 2104358862}
 --- !u!1001 &1953674413
 PrefabInstance:

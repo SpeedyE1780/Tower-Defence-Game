@@ -38,7 +38,7 @@ public class TroopPlacementManager : UnitPlacementManager
                 continue;
 
             //Make sure units are not colliding
-            if (Physics.CheckSphere(hitPoint, distanceBetweenUnits, unitLayers, QueryTriggerInteraction.Ignore))
+            if (IsUnitColliding(hitPoint))
                 continue;
 
             SpawnUnit(hitPoint, isInfantry);

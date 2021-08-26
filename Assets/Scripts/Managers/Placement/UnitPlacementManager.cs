@@ -1,3 +1,5 @@
+using Unity.Collections;
+using Unity.Jobs;
 using UnityEngine;
 
 public abstract class UnitPlacementManager : PlacementManager
@@ -5,8 +7,8 @@ public abstract class UnitPlacementManager : PlacementManager
     public const int MaximumUnits = 150;
 
     [SerializeField] protected float distanceBetweenUnits;
+    [SerializeField] UnitsInfoSet unitsInfo;
     [SerializeField] protected LayerMask groundLayer;
-    [SerializeField] protected LayerMask unitLayers;
     protected PoolID currentUnitID;
     protected int currentUnitPrice;
 
@@ -19,6 +21,31 @@ public abstract class UnitPlacementManager : PlacementManager
     public static void ResetUnitCount() => UnitCount = 0;
     public static void RaiseUnitCount() => UnitCount += 1;
     public static void LowerUnitCount() => UnitCount -= 1;
+
+    protected bool IsUnitColliding(Vector3 position)
+    {
+        //Initialize Arrays
+        NativeArray<UnitInfo> units = unitsInfo.GetJobArray();
+        NativeArray<bool> unitsColliding = new NativeArray<bool>(new bool[] { false }, Allocator.TempJob);
+
+        UnitPlacementJob unitPlacement = new UnitPlacementJob()
+        {
+            unitsInfo = units,
+            MinimumDistance = distanceBetweenUnits,
+            Position = position,
+            InvalidPosition = unitsColliding
+        };
+
+        //Complete job
+        unitPlacement.Schedule(unitsInfo.Count, 75).Complete();
+
+        //Save outpput then dispose arrays
+        bool output = unitsColliding[0];
+        units.Dispose();
+        unitsColliding.Dispose();
+
+        return output;
+    }
 
     public void UpdateCurrentUnit(PoolID unitID, int unitPrice)
     {
