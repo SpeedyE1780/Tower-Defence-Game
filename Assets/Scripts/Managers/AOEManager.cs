@@ -69,11 +69,16 @@ public class AOEManager : Singleton<AOEManager>
 
         foreach (AOEDamagedUnit unit in affectedUnits)
         {
+            HealthController currentController = activeUnits[unit.UnitID];
+
+            if (currentController == null)
+                continue;
+
             if (unit.Heal > 0)
-                activeUnits[unit.UnitID].Heal(unit.Heal);
+                currentController.Heal(unit.Heal);
 
             if (unit.Damage > 0)
-                activeUnits[unit.UnitID].TakeHit(unit.Damage);
+                currentController.TakeHit(unit.Damage);
         }
 
         DisposeArrays();
