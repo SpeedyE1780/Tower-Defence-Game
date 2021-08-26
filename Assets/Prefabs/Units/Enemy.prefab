@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: -1180528016800537105}
   - component: {fileID: -4466851583145800845}
   - component: {fileID: 5425129296098598471}
+  - component: {fileID: 3341666598043309215}
+  - component: {fileID: 5224863221467511863}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Player
@@ -101,22 +103,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2483648066514071804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c793a759623e064ba22b389cfb909cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 99d4fc0ecc50f7543a095eca444e8361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitID: {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
   unitAnimation: {fileID: 8280347365027987656}
   unitHealth: {fileID: -4466851583145800845}
   detectionSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
-  attackCooldown: 0.25
-  attackRange: 6
+  attackCooldown: 0.75
+  attackRange: 5
   agent: {fileID: -3027272186058262500}
   agentBody: {fileID: 4618477994666530619}
   geometry: {fileID: 8085759355982769812}
-  speed: 3
+  speed: 6
   instantKill: 0
-  coins: 45
-  health: {fileID: -4466851583145800845}
 --- !u!114 &-4466851583145800845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +134,7 @@ MonoBehaviour:
   toggleBehaviours:
   - {fileID: -1180528016800537105}
   - {fileID: -3027272186058262500}
+  - {fileID: 3341666598043309215}
   healthBar: {fileID: 7699237998107939410}
   geometry: {fileID: 2971355877389920838}
   healParticle: {fileID: 1480708309073188657}
@@ -150,6 +151,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnParticles: {fileID: 9188659334290938986}
+--- !u!114 &3341666598043309215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba1d9607e2d1f344ac48cbfbd26cb14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+  coins: 10
+  health: {fileID: -4466851583145800845}
+--- !u!114 &5224863221467511863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483648066514071804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd36f52479ee8aa4cb5831a357b4f758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: -3027272186058262500}
 --- !u!1 &2913381700098321239
 GameObject:
   m_ObjectHideFlags: 0

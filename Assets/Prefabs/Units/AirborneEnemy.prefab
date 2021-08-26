@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8292647217066776590}
   - component: {fileID: 8292647217066776577}
   - component: {fileID: 8292647217066776576}
+  - component: {fileID: -7373783478897919652}
   m_Layer: 0
   m_Name: AirborneEnemy
   m_TagString: Untagged
@@ -103,9 +104,25 @@ MonoBehaviour:
   controller: {fileID: 8292647217066776577}
   toggleBehaviours:
   - {fileID: 8292647217066776577}
+  - {fileID: -7373783478897919652}
   healthBar: {fileID: 7760488123725246291}
   geometry: {fileID: 8506669101409596793}
   healParticle: {fileID: 7974324086441434801}
+--- !u!114 &-7373783478897919652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8292647217066776586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba1d9607e2d1f344ac48cbfbd26cb14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: {fileID: 11400000, guid: 0c87c89aa413a5f4f922207b652aa8c4, type: 2}
+  coins: 20
+  health: {fileID: 8292647217066776576}
 --- !u!1 &8292647217198751708
 GameObject:
   m_ObjectHideFlags: 0
