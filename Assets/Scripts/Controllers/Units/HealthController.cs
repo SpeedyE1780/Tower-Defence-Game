@@ -1,15 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Slider = UnityEngine.UI.Slider;
 
 public class HealthController : MonoBehaviour
 {
+    [Header("Unit Info")]
     [SerializeField] private int maxHealth;
-    [SerializeField] private Slider healthBar;
-    [Header("Components To Disable")]
-    [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
-    [SerializeField] private new Collider collider;
     [SerializeField] private UnitController controller;
+    [SerializeField] private List<Behaviour> toggleBehaviours;
+    [Header("Visuals")]
+    [SerializeField] private Slider healthBar;
     [SerializeField] private Transform geometry;
     [SerializeField] private ParticleSystem healParticle;
     private Vector3 initialScale;
@@ -29,7 +30,7 @@ public class HealthController : MonoBehaviour
 
     private void OnEnable()
     {
-        ToggleComponentsState(true);
+        ToggleBehaviourState(true);
 
         //Set health to max health
         UpdateHealth(currentMaxHealth);
@@ -71,7 +72,7 @@ public class HealthController : MonoBehaviour
     IEnumerator KillPlayer()
     {
         healthBar.gameObject.SetActive(false);
-        ToggleComponentsState(false);
+        ToggleBehaviourState(false);
         yield return StartCoroutine(PlayDeadAnimation());
         controller.PoolUnit();
     }
@@ -89,15 +90,12 @@ public class HealthController : MonoBehaviour
         }
     }
 
-    //Toggle movement and unit logic
-    private void ToggleComponentsState(bool state)
+    //Toggle navmesh and unit controller
+    private void ToggleBehaviourState(bool state)
     {
         geometry.localScale = initialScale;
 
-        if (agent != null)
-            agent.enabled = state;
-
-        collider.enabled = state;
-        controller.enabled = state;
+        foreach (Behaviour behaviour in toggleBehaviours)
+            behaviour.enabled = state;
     }
 }

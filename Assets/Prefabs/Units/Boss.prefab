@@ -105,7 +105,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitID: {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
-  isEnemy: 1
   unitAnimation: {fileID: 4063504079313141498}
   unitHealth: {fileID: -4684928551791343520}
   detectionSet: {fileID: 11400000, guid: afc501b55cc3a5145b49068169c06ba9, type: 2}
@@ -131,10 +130,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 250
-  healthBar: {fileID: 8731641966948908551}
-  agent: {fileID: -6167951554154646355}
-  collider: {fileID: 1131257113313240411}
   controller: {fileID: -1152847557135020367}
+  toggleBehaviours:
+  - {fileID: -1152847557135020367}
+  - {fileID: -6167951554154646355}
+  healthBar: {fileID: 8731641966948908551}
   geometry: {fileID: 8085759355982769812}
   healParticle: {fileID: 3562837750776922759}
 --- !u!114 &3561042304367087696

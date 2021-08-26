@@ -4913,10 +4913,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  healthBar: {fileID: 6201421980349668801}
-  agent: {fileID: 0}
-  collider: {fileID: 1566502556216194348}
   controller: {fileID: 3351762354553806347}
+  toggleBehaviours:
+  - {fileID: 3351762354553806347}
+  - {fileID: 9109035282098593371}
+  healthBar: {fileID: 6201421980349668801}
   geometry: {fileID: 8085759355982769812}
   healParticle: {fileID: 3029491385887284133}
 --- !u!114 &5866448380585122628

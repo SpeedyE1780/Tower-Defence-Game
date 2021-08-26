@@ -85,10 +85,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
-  healthBar: {fileID: 1050571722020983816}
-  agent: {fileID: 0}
-  collider: {fileID: 5766118632848513488}
   controller: {fileID: 6559590306770425524}
+  toggleBehaviours:
+  - {fileID: 6559590306770425524}
+  - {fileID: 2344381866449645735}
+  healthBar: {fileID: 1050571722020983816}
   geometry: {fileID: 6666138734652045043}
   healParticle: {fileID: 510090608732774377}
 --- !u!114 &2344381866449645735
