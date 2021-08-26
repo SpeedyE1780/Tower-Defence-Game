@@ -15,8 +15,11 @@ public class SpawnManager : Singleton<SpawnManager>
     private int currentWave;
     private float currentEnemyCount;
     private int activeEnemies;
+    private WaitForSeconds wait;
 
     public int MaxEnemyCount => maxEnemyCount;
+
+    private void Start() => wait = new WaitForSeconds(1);
 
     public void StartSpawning()
     {
@@ -143,8 +146,8 @@ public class SpawnManager : Singleton<SpawnManager>
         while (time > 0)
         {
             UIManager.Instance.SetWaveDelay((int)time + 1);
-            yield return null;
-            time -= Time.deltaTime;
+            yield return wait;
+            time -= 1;
         }
     }
 
