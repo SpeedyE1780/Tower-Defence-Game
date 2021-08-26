@@ -8,7 +8,7 @@ public class FactoryManager : Singleton<FactoryManager>
     {
         if (Catalog.ContainsKey(id))
         {
-            FactoryCategory category = Catalog[id];
+            FactorySet category = Catalog[id];
             GameObject item = category.GetRandomIten;
             return Instantiate(item, position, rotation);
         }
@@ -21,4 +21,4 @@ public class FactoryManager : Singleton<FactoryManager>
 }
 
 [System.Serializable]
-public class FactoryCatalog : SerializableDictionaryBase<PoolID, FactoryCategory> { }
+public class FactoryCatalog : SerializableDictionaryBase<PoolID, FactorySet> { }
