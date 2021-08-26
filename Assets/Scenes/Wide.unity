@@ -58064,8 +58064,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235f4feb797dd3446a4bf26c00c90f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyID: {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
-  bossID: {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
+  enemiesID:
+  - {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+  - {fileID: 11400000, guid: 0c87c89aa413a5f4f922207b652aa8c4, type: 2}
+  bossesID:
+  - {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
   startingEnemyCount: 50
   maxEnemyCount: 250
   raisePercentage: 1.4

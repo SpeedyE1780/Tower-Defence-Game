@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : Singleton<SpawnManager>
 {
-    [SerializeField] private PoolID enemyID;
-    [SerializeField] private PoolID bossID;
+    [SerializeField] private List<PoolID> enemiesID;
+    [SerializeField] private List<PoolID> bossesID;
     [SerializeField] private int startingEnemyCount;
     [SerializeField] private int maxEnemyCount;
     [SerializeField] private float raisePercentage;
@@ -101,7 +102,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator SpawnBoss()
     {
-        Rigidbody rb = SpawnEnemy(bossID, transform.position, transform.rotation);
+        Rigidbody rb = SpawnEnemy(bossesID.GetRandomElement(), transform.position, transform.rotation);
         activeEnemies++;
 
         //Wait for boss or ally units to die
@@ -115,7 +116,7 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             //Get position and rotation from children
             child = transform.GetChild(i);
-            SpawnEnemy(enemyID, child.position, child.rotation);
+            SpawnEnemy(enemiesID.GetRandomElement(), child.position, child.rotation);
             activeEnemies += 1;
         }
     }
