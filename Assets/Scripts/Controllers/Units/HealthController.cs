@@ -18,6 +18,7 @@ public class HealthController : MonoBehaviour
     private int currentMaxHealth;
     private int health;
 
+    public Vector3 Position => geometry.position;
     public float HealthPercentage => (float)health / currentMaxHealth;
     public bool IsDead => health <= 0;
 

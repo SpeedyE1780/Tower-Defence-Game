@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    private const float DistanceThreshold = 0.25f * 0.25f;
+    private const float DistanceThreshold = 0.5f * 0.5f;
 
     [SerializeField] private PoolID id;
     [SerializeField] protected float speed;
     [SerializeField] protected int damage;
+    protected Vector3 lastTargetPosition;
     protected float distance;
     protected HealthController target;
     protected int unitMask;
@@ -23,14 +24,21 @@ public class ProjectileController : MonoBehaviour
 
     void Update()
     {
+        CheckTarget();
+        UpdateTargetPosition();
         Move();
         CheckDistance();
-        CheckTarget();
+    }
+
+    private void UpdateTargetPosition()
+    {
+        if (target != null)
+            lastTargetPosition = target.Position;
     }
 
     protected virtual void Move()
     {
-        Vector3 direction = target.transform.position - transform.position;
+        Vector3 direction = lastTargetPosition - transform.position;
         distance = direction.sqrMagnitude;
         transform.position += direction.normalized * speed * Time.deltaTime;
         transform.forward = direction;
@@ -51,15 +59,17 @@ public class ProjectileController : MonoBehaviour
         unitMask = mask;
     }
 
+    //Make sure that current target is still active
     private void CheckTarget()
     {
-        if (!target.gameObject.activeSelf)
-            AddToPool();
+        if (target != null && !target.gameObject.activeSelf)
+            target = null;
     }
 
     protected virtual void ApplyDamage()
     {
-        target.TakeHit(damage);
+        if (target != null)
+            target.TakeHit(damage);
     }
 
     protected void AddToPool()
