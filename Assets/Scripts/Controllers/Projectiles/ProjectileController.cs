@@ -2,12 +2,24 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
+    private const float DistanceThreshold = 0.25f * 0.25f;
+
     [SerializeField] private PoolID id;
     [SerializeField] protected float speed;
     [SerializeField] protected int damage;
     protected float distance;
     protected HealthController target;
     protected int unitMask;
+
+    private void OnEnable()
+    {
+        EventManager.OnGameEnded += AddToPool;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnGameEnded -= AddToPool;
+    }
 
     void Update()
     {
@@ -26,7 +38,7 @@ public class ProjectileController : MonoBehaviour
 
     private void CheckDistance()
     {
-        if (distance <= 1)
+        if (distance <= DistanceThreshold)
         {
             ApplyDamage();
             AddToPool();
