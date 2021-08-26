@@ -5,10 +5,7 @@ public class AOEHealer : HealerController
     [SerializeField] float range;
     [SerializeField] ParticleSystem healingParticle;
 
-    private void Awake()
-    {
-        healingParticle.transform.localScale = Vector3.one * range;
-    }
+    private void Awake() => healingParticle.transform.localScale = Vector3.one * range;
 
     protected override void Heal()
     {

@@ -9,14 +9,12 @@ public class HealerController : RangedController
         if (!CanAttack)
             return;
 
-        ResetAttackCooldown();
+        //Heal target & set to null to find a new target the next frame
         Heal();
+        currentTarget = null;
+
+        ResetAttackCooldown();
     }
 
-    protected virtual void Heal()
-    {
-        //Heal target & set to null to find a new target the next frame
-        currentTarget.Heal(healAmount);
-        currentTarget = null;
-    }
+    protected virtual void Heal() => currentTarget.Heal(healAmount);
 }
