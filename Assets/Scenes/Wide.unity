@@ -46566,7 +46566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4541ffcd057948245942ee5b282de448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  physicsTimeStep: 0.05
 --- !u!114 &1166281136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78227,7 +78226,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  infantryID: {fileID: 11400000, guid: b16a52d260b1a1243a9011f7230a33a5, type: 2}
 --- !u!114 &1953519220
 MonoBehaviour:
   m_ObjectHideFlags: 0

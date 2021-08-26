@@ -25,7 +25,7 @@ public class UpgradePlacementUnits : MonoBehaviour
         //Buy upgrade and scale up the area
         currentUpgrade += 1;
         ShopManager.Instance.BuyUnit(areaUpgrades[currentUpgrade].cost);
-        areaTransform.localScale = maxScale * areaUpgrades[currentUpgrade].multiplier;
+        UpdateAreaScale();
 
         if (currentUpgrade >= areaUpgrades.Count - 1)
             gameObject.SetActive(false);
@@ -39,8 +39,15 @@ public class UpgradePlacementUnits : MonoBehaviour
 
         //Reset upgrades and set the scale to the starting scale
         currentUpgrade = 0;
-        areaTransform.localScale = maxScale * areaUpgrades[currentUpgrade].multiplier;
+        UpdateAreaScale();
         UpdatePrice();
+    }
+
+    //Scale up placing area and simulate physics to update area box collider
+    private void UpdateAreaScale()
+    {
+        areaTransform.localScale = maxScale * areaUpgrades[currentUpgrade].multiplier;
+        Physics.Simulate(Time.deltaTime);
     }
 
     private void UpdatePrice()
