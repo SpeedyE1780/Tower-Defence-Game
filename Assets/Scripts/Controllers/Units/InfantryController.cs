@@ -66,7 +66,7 @@ public class InfantryController : UnitController
         //Set destination to current target
         agent.SetDestination(currentTarget.transform.position);
 
-        if (CanAttack && TargetIsInRange())
+        if (CanAttack() && TargetIsInRange())
             DamageTarget();
     }
 

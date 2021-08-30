@@ -24,7 +24,7 @@ public abstract class UnitController : MonoBehaviour
     protected int unitMask;
     private int instanceID;
 
-    protected bool CanAttack => currentAttackCooldown < 0;
+    private bool AttackCooldownEnded => currentAttackCooldown < 0;
 
     private void Awake() => unitMask = unitID.GetLayerMask();
 
@@ -88,4 +88,5 @@ public abstract class UnitController : MonoBehaviour
     protected virtual bool IsTargetActive() => currentTarget != null && !currentTarget.IsDead && currentTarget.gameObject.activeInHierarchy;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected abstract void AttackTarget();
+    protected virtual bool CanAttack() => AttackCooldownEnded;
 }

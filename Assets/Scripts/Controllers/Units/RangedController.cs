@@ -20,7 +20,7 @@ public class RangedController : UnitController
 
     protected virtual void Shoot()
     {
-        if (!CanAttack)
+        if (!CanAttack())
             return;
 
         ResetAttackCooldown();

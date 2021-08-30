@@ -26,7 +26,7 @@ public class HealerController : RangedController
 
     protected override void Shoot()
     {
-        if (!CanAttack || !CanHeal)
+        if (!CanAttack())
             return;
 
         //Heal target & set to null to find a new target the next frame
@@ -36,6 +36,8 @@ public class HealerController : RangedController
         UpdateManaBar();
         ResetAttackCooldown();
     }
+
+    protected override bool CanAttack() => base.CanAttack() && CanHeal;
 
     private void UpdateManaBar()
     {
