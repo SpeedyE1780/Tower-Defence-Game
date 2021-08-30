@@ -6,8 +6,9 @@ using Unity.Mathematics;
 [BurstCompile]
 public struct FindMostInjuredUnitJob : IJobParallelFor
 {
-    private const float HealthFactor = 0.65f;
-    private const float DistanceFactor = 0.35f;
+    private const float HealthFactor = 5f;
+    private const float DistanceFactor = 95f;
+    private const float HealthThreshold = 0.95f;
 
     public NativeArray<UnitInfo> unitInfo;
     [ReadOnly] public NativeArray<UnitInfo> othersInfo;
@@ -21,6 +22,10 @@ public struct FindMostInjuredUnitJob : IJobParallelFor
         foreach (UnitInfo other in othersInfo)
         {
             if (!currentUnit.CanAttack(other.InstanceID, other.UnitTypeID))
+                continue;
+
+            //Ignore units who aren't injured
+            if (other.HealthPercentage > HealthThreshold)
                 continue;
 
             //Get how far the target is and how injured he is
