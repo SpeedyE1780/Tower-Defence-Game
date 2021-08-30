@@ -157,7 +157,7 @@ public class SpawnManager : Singleton<SpawnManager>
     {
         int xIndex = position % unitsInRow;
         int zIndex = position / unitsInRow;
-        Vector3 spawnPosition = new Vector3((xIndex - unitsInRow * 0.5f) * distanceBetweenUnits, 0, -zIndex * distanceBetweenUnits + ZOffset);
+        Vector3 spawnPosition = new Vector3((xIndex - unitsInRow * 0.5f) * distanceBetweenUnits, 0, zIndex * distanceBetweenUnits + ZOffset);
         return spawnPosition;
     }
 
@@ -174,13 +174,5 @@ public class SpawnManager : Singleton<SpawnManager>
             gameObject.transform.localPosition = GetSpawnPosition(i);
             gameObject.transform.localRotation = Quaternion.identity;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        ShowTroopHologram troop = GetComponent<ShowTroopHologram>();
-
-        for (int i = 0; i < maxEnemyCount; i++)
-            troop.ShowHologram(GetSpawnPosition(i), transform.rotation);
     }
 }
