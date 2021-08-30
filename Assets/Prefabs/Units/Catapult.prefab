@@ -56,7 +56,7 @@ MonoBehaviour:
   attackCooldown: 5
   shootPoint: {fileID: 6559590307037961522}
   projectileID: {fileID: 11400000, guid: 6d8f80bc501dec64eb1ba6cf4a51dc4a, type: 2}
-  rotationSpeed: 0.1
+  rotationSpeed: 30
   catapult: {fileID: 1512528431262101426}
 --- !u!114 &2946725615099158240
 MonoBehaviour:

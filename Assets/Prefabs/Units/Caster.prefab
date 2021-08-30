@@ -57,7 +57,7 @@ MonoBehaviour:
   attackCooldown: 1
   shootPoint: {fileID: 9036266385294470697}
   projectileID: {fileID: 11400000, guid: 0585ce01f0977844981b4d3b64ca5886, type: 2}
-  rotationSpeed: 0.2
+  rotationSpeed: 60
 --- !u!114 &-2760263632264079363
 MonoBehaviour:
   m_ObjectHideFlags: 0

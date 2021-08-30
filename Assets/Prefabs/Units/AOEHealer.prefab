@@ -4864,7 +4864,7 @@ MonoBehaviour:
   attackCooldown: 10
   shootPoint: {fileID: 9036266385294470697}
   projectileID: {fileID: 0}
-  rotationSpeed: 0.05
+  rotationSpeed: 60
   healAmount: 50
   healMana: 10
   manaBar: {fileID: 274178831708711253}

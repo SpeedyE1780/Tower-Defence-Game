@@ -5,7 +5,6 @@ public class RangedController : UnitController
     [SerializeField] private Transform shootPoint;
     [Header("Visual Elements")]
     [SerializeField] private PoolID projectileID;
-    [Range(0, 1)]
     [SerializeField] private float rotationSpeed;
     private Vector3 targetForward;
 
@@ -44,8 +43,14 @@ public class RangedController : UnitController
 
     protected virtual void RotateTowardTarget()
     {
+        //Get desired forward
         targetForward = currentTarget.transform.position - transform.position;
         targetForward.y = 0;
-        RotationTransform.rotation = Quaternion.Slerp(RotationTransform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
+
+        if (targetForward.sqrMagnitude < 0.2f)
+            return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(targetForward, Vector3.up);
+        RotationTransform.rotation = Quaternion.RotateTowards(RotationTransform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }
