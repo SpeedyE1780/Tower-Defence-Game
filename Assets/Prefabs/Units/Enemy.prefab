@@ -82,8 +82,6 @@ MonoBehaviour:
   attackRange: 5
   damage: 2
   agent: {fileID: -3027272186058262500}
-  agentBody: {fileID: 0}
-  geometry: {fileID: 8085759355982769812}
   speed: 6
   instantKill: 0
 --- !u!114 &-4466851583145800845
@@ -104,6 +102,7 @@ MonoBehaviour:
   - {fileID: -1180528016800537105}
   - {fileID: -3027272186058262500}
   - {fileID: 3341666598043309215}
+  - {fileID: 5224863221467511863}
   healthBar: {fileID: 7699237998107939410}
   geometry: {fileID: 2971355877389920838}
   healParticle: {fileID: 1480708309073188657}
