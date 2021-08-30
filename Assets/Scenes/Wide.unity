@@ -58069,6 +58069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesID:
   - {fileID: 11400000, guid: 56aaeaee91bab4e44b8b2ccc7a73414a, type: 2}
+  - {fileID: 11400000, guid: 0c87c89aa413a5f4f922207b652aa8c4, type: 2}
   bossesID:
   - {fileID: 11400000, guid: 551d9100b309a5a43a65465cbf68172f, type: 2}
   startingEnemyCount: 50

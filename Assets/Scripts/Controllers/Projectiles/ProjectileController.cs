@@ -2,32 +2,44 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    private const float DistanceThreshold = 0.5f * 0.5f;
-
     [SerializeField] private PoolID id;
+    [SerializeField] private AnimationCurve speedCurve;
     [SerializeField] protected float speed;
     [SerializeField] protected int damage;
     protected Vector3 lastTargetPosition;
-    protected float distance;
     protected HealthController target;
     protected int unitMask;
+    protected float progress;
+    private Vector3 startingPosition;
+    private float moveDuration;
+    private float currentLifetime;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         EventManager.OnGameEnded += AddToPool;
+        startingPosition = transform.position;
+        progress = 0;
+        currentLifetime = 0;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         EventManager.OnGameEnded -= AddToPool;
     }
 
     void Update()
     {
+        UpdateProgress();
         CheckTarget();
         UpdateTargetPosition();
         Move();
         CheckDistance();
+    }
+
+    private void UpdateProgress()
+    {
+        currentLifetime += Time.deltaTime;
+        progress = speedCurve.Evaluate(currentLifetime / moveDuration);
     }
 
     private void UpdateTargetPosition()
@@ -39,14 +51,16 @@ public class ProjectileController : MonoBehaviour
     protected virtual void Move()
     {
         Vector3 direction = lastTargetPosition - transform.position;
-        distance = direction.sqrMagnitude;
-        transform.position += direction.normalized * speed * Time.deltaTime;
-        transform.forward = direction;
+        transform.position = Vector3.Lerp(startingPosition, lastTargetPosition, progress);
+
+        //Check to prevent zero vector rotation error
+        if (direction.sqrMagnitude > 0.1f)
+            transform.forward = direction;
     }
 
     private void CheckDistance()
     {
-        if (distance <= DistanceThreshold)
+        if (progress >= 1)
         {
             ApplyDamage();
             AddToPool();
@@ -57,6 +71,9 @@ public class ProjectileController : MonoBehaviour
     {
         target = newTarget;
         unitMask = mask;
+
+        //Get duration to reach target
+        moveDuration = (transform.position - newTarget.Position).magnitude / speed;
     }
 
     //Make sure that current target is still active
