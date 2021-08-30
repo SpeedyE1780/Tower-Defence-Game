@@ -30,6 +30,7 @@ public abstract class PlacementManager : MonoBehaviour
         //Highlight areas where units can be deleted and start deleting units
         StartCoroutine(ProcessPlacement());
         ToggleHighlightedAreas(true);
+        UIManager.Instance.ToggleUnitPlacementCanvas(false);
         IsPlacingUnits = true;
         waitForDrag.Reset();
     }
@@ -37,6 +38,7 @@ public abstract class PlacementManager : MonoBehaviour
     public virtual void StopPlacement()
     {
         ToggleHighlightedAreas(false);
+        UIManager.Instance.ToggleUnitPlacementCanvas(true);
         IsPlacingUnits = false;
     }
 
