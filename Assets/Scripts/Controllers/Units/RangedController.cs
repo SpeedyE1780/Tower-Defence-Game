@@ -45,6 +45,7 @@ public class RangedController : UnitController
     protected virtual void RotateTowardTarget()
     {
         targetForward = currentTarget.transform.position - transform.position;
+        targetForward.y = 0;
         RotationTransform.rotation = Quaternion.Slerp(RotationTransform.rotation, Quaternion.LookRotation(targetForward, Vector3.up), rotationSpeed);
     }
 }
