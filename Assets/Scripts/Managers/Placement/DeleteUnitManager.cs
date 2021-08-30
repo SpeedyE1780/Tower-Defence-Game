@@ -47,7 +47,6 @@ public class DeleteUnitManager : PlacementManager
 
             deletePlacement.Run(unitsInfo.Count);
             int target = targetID[0];
-            Debug.Log(target);
 
             if (target < 0)
                 activeUnits[target].GetComponent<UnitController>().PoolUnit();
