@@ -24,7 +24,7 @@ public abstract class PlacementManager : MonoBehaviour
 
     public virtual void StartPlacement()
     {
-        if (IsPlacingUnits)
+        if (IsPlacingUnits || !CanPlaceUnits)
             return;
 
         //Highlight areas where units can be deleted and start deleting units

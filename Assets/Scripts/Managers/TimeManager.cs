@@ -10,12 +10,14 @@ public class TimeManager : MonoBehaviour
     public void PauseGame()
     {
         UIManager.Instance.TogglePauseUI(true);
+        PlacementManager.SetCanPlaceUnits(false);
         UpdateTimeScale(0);
     }
 
     public void ResumeGame()
     {
         UIManager.Instance.TogglePauseUI(false);
+        PlacementManager.SetCanPlaceUnits(true);
         UpdateTimeScale(1);
     }
 
