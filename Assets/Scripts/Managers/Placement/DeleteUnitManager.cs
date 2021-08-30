@@ -33,27 +33,30 @@ public class DeleteUnitManager : PlacementManager
             if (!CameraRay.GetCameraHitPoint(out Vector3 point, groundLayer))
                 continue;
 
-            //Initialize arrays
+            //Initialize job variables
+            DeletedUnitInfo info = new DeletedUnitInfo() { Found = false };
             NativeArray<UnitInfo> units = unitsInfo.GetJobArray();
-            NativeArray<int> targetID = new NativeArray<int>(new int[] { 1 }, Allocator.TempJob);
+            NativeArray<DeletedUnitInfo> deletedInfo = new NativeArray<DeletedUnitInfo>(new DeletedUnitInfo[] { info }, Allocator.TempJob);
 
             DeletePlacementJob deletePlacement = new DeletePlacementJob()
             {
                 Units = units,
-                TargetUnit = targetID,
+                DeletedInfo = deletedInfo,
                 DistanceThreshold = distanceThreshold,
                 Position = point
             };
 
+            //Run and update job
             deletePlacement.Run(unitsInfo.Count);
-            int target = targetID[0];
+            info = deletedInfo[0];
 
-            if (target < 0)
-                activeUnits[target].GetComponent<UnitController>().PoolUnit();
+            //If a unit was found delete it
+            if (info.Found)
+                activeUnits[info.ID].GetComponent<UnitController>().PoolUnit();
 
             //Dispose arrays
             units.Dispose();
-            targetID.Dispose();
+            deletedInfo.Dispose();
         }
 
         StopPlacement();
