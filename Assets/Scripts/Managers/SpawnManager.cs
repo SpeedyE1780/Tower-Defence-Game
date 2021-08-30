@@ -9,17 +9,17 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private int startingEnemyCount;
     [SerializeField] private int maxEnemyCount;
     [SerializeField] private float raisePercentage;
-    [SerializeField] private float waveDelay;
+    [SerializeField] private int waveDelay;
     [SerializeField] private int bossWaveFrequency;
     [SerializeField] private int difficultyModifierFrequency;
     private int currentWave;
     private float currentEnemyCount;
     private int activeEnemies;
-    private WaitForSeconds wait;
+    private WaitForSeconds waitForSecond;
 
     public int MaxEnemyCount => maxEnemyCount;
 
-    private void Start() => wait = new WaitForSeconds(1);
+    private void Start() => waitForSecond = new WaitForSeconds(1);
 
     public void StartSpawning()
     {
@@ -140,13 +140,13 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator WaitForWaveDelay()
     {
-        float time = waveDelay;
+        int time = waveDelay;
 
         //Wait for wave delay to end
         while (time > 0)
         {
-            UIManager.Instance.SetWaveDelay((int)time + 1);
-            yield return wait;
+            UIManager.Instance.SetWaveDelay(time);
+            yield return waitForSecond;
             time -= 1;
         }
     }
