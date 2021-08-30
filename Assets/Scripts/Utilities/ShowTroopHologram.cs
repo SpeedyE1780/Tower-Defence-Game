@@ -4,12 +4,10 @@ public class ShowTroopHologram : MonoBehaviour
 {
     [SerializeField] private Mesh troopMesh;
     [SerializeField] private Color highlightColor;
-    private void OnDrawGizmos()
+
+    public void ShowHologram(Vector3 position, Quaternion rotation)
     {
-        foreach (Transform child in transform)
-        {
-            Gizmos.color = highlightColor;
-            Gizmos.DrawMesh(troopMesh, child.position, child.rotation, Vector3.one);
-        }
+        Gizmos.color = highlightColor;
+        Gizmos.DrawMesh(troopMesh, position, rotation, Vector3.one);
     }
 }

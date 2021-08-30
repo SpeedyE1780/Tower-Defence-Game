@@ -8,6 +8,8 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private List<PoolID> bossesID;
     [SerializeField] private int startingEnemyCount;
     [SerializeField] private int maxEnemyCount;
+    [SerializeField] private int unitsInRow;
+    [SerializeField] private float distanceBetweenUnits;
     [SerializeField] private float raisePercentage;
     [SerializeField] private int waveDelay;
     [SerializeField] private int bossWaveFrequency;
@@ -17,6 +19,7 @@ public class SpawnManager : Singleton<SpawnManager>
     private float currentEnemyCount;
     private int activeEnemies;
 
+    private float ZOffset => transform.position.z;
     public int MaxEnemyCount => maxEnemyCount;
 
     private void OnEnable() => EventManager.OnEnemyDisabled += EnemyKilled;
@@ -113,12 +116,11 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void SpawnFormation()
     {
-        Transform child;
+        Quaternion rotation = transform.rotation;
+
         for (int i = 0; i < currentEnemyCount; i++)
         {
-            //Get position and rotation from children
-            child = transform.GetChild(i);
-            SpawnEnemy(enemiesID.GetRandomElement(), child.position, child.rotation);
+            SpawnEnemy(enemiesID.GetRandomElement(), GetSpawnPosition(i), rotation);
             activeEnemies += 1;
         }
     }
@@ -151,13 +153,34 @@ public class SpawnManager : Singleton<SpawnManager>
         }
     }
 
+    private Vector3 GetSpawnPosition(int position)
+    {
+        int xIndex = position % unitsInRow;
+        int zIndex = position / unitsInRow;
+        Vector3 spawnPosition = new Vector3((xIndex - unitsInRow * 0.5f) * distanceBetweenUnits, 0, -zIndex * distanceBetweenUnits + ZOffset);
+        return spawnPosition;
+    }
+
     [ContextMenu("SpawnRandomPoint")]
     public void SpawnRandomPosition()
     {
+        while (transform.childCount > 0)
+            DestroyImmediate(transform.GetChild(0).gameObject);
+
         for (int i = 0; i < maxEnemyCount; i++)
         {
             GameObject gameObject = new GameObject($"Point {i}");
-            gameObject.transform.position = new Vector3(Random.Range(-37.5f, 37.5f), 0, Random.Range(-25f, 25f));
+            gameObject.transform.SetParent(transform);
+            gameObject.transform.localPosition = GetSpawnPosition(i);
+            gameObject.transform.localRotation = Quaternion.identity;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        ShowTroopHologram troop = GetComponent<ShowTroopHologram>();
+
+        for (int i = 0; i < maxEnemyCount; i++)
+            troop.ShowHologram(GetSpawnPosition(i), transform.rotation);
     }
 }
