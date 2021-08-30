@@ -53,7 +53,7 @@ public class ProjectileController : MonoBehaviour
         }
     }
 
-    public void SetTarget(HealthController newTarget, int mask)
+    public virtual void SetTarget(HealthController newTarget, int mask)
     {
         target = newTarget;
         unitMask = mask;
