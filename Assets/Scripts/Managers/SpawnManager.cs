@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SpawnManager : Singleton<SpawnManager>
 {
-    [SerializeField] private List<PoolID> enemiesID;
+    [SerializeField] private List<PoolID> groundedEnemiesID;
+    [SerializeField] private List<PoolID> airborneEnemiesID;
     [SerializeField] private List<PoolID> bossesID;
     [SerializeField] private int startingEnemyCount;
     [SerializeField] private int maxEnemyCount;
@@ -16,7 +17,7 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private int difficultyModifierFrequency;
     private int currentWave;
     private bool skipWait;
-    private float currentEnemyCount;
+    private int currentEnemyCount;
     private int activeEnemies;
 
     private float ZOffset => transform.position.z;
@@ -86,7 +87,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
             //Raise enemy count until we reach the max count
             if (currentEnemyCount < maxEnemyCount)
-                currentEnemyCount = Mathf.Clamp(currentEnemyCount * raisePercentage, startingEnemyCount, maxEnemyCount);
+                currentEnemyCount = (int)Mathf.Clamp(currentEnemyCount * raisePercentage, startingEnemyCount, maxEnemyCount);
 
             yield return UIManager.Instance.ShowWaveCompleted();
         }
@@ -117,10 +118,12 @@ public class SpawnManager : Singleton<SpawnManager>
     private void SpawnFormation()
     {
         Quaternion rotation = transform.rotation;
+        int groundedEnemyCount = (int)(currentEnemyCount * Random.Range(0.35f, 0.5f));
 
         for (int i = 0; i < currentEnemyCount; i++)
         {
-            SpawnEnemy(enemiesID.GetRandomElement(), GetSpawnPosition(i), rotation);
+            PoolID enemyID = i < groundedEnemyCount ? groundedEnemiesID.GetRandomElement() : airborneEnemiesID.GetRandomElement();
+            SpawnEnemy(enemyID, GetSpawnPosition(i), rotation);
             activeEnemies += 1;
         }
     }
