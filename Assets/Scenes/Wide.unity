@@ -43842,9 +43842,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightedAreas:
   - {fileID: 983053109}
-  unitsLayer:
+  activeUnits: {fileID: 11400000, guid: 8ea6a04d3c55c974dac66d661d1cbb72, type: 2}
+  unitsInfo: {fileID: 11400000, guid: bc198a6cfb9d6de438da90037f39ae99, type: 2}
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 64
+  distanceThreshold: 1
 --- !u!1001 &1117514827
 PrefabInstance:
   m_ObjectHideFlags: 0
