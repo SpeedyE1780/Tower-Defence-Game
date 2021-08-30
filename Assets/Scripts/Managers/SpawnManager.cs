@@ -13,13 +13,16 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private int bossWaveFrequency;
     [SerializeField] private int difficultyModifierFrequency;
     private int currentWave;
+    private bool skipWait;
     private float currentEnemyCount;
     private int activeEnemies;
-    private WaitForSeconds waitForSecond;
 
     public int MaxEnemyCount => maxEnemyCount;
 
-    private void Start() => waitForSecond = new WaitForSeconds(1);
+    private void OnEnable() => EventManager.OnEnemyDisabled += EnemyKilled;
+    private void OnDisable() => EventManager.OnEnemyDisabled -= EnemyKilled;
+    public void SkipWaveDelay() => skipWait = true;
+    private void EnemyKilled() => activeEnemies -= 1;
 
     public void StartSpawning()
     {
@@ -29,10 +32,6 @@ public class SpawnManager : Singleton<SpawnManager>
         currentWave = 0;
         StartCoroutine(Spawn());
     }
-
-    private void OnEnable() => EventManager.OnEnemyDisabled += EnemyKilled;
-    private void OnDisable() => EventManager.OnEnemyDisabled -= EnemyKilled;
-    private void EnemyKilled() => activeEnemies -= 1;
 
     private IEnumerator Spawn()
     {
@@ -140,14 +139,15 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator WaitForWaveDelay()
     {
-        int time = waveDelay;
+        float time = waveDelay;
+        skipWait = false;
 
-        //Wait for wave delay to end
-        while (time > 0)
+        //Wait for wave delay to end or player pressing start wave button
+        while (time > 0 && !skipWait)
         {
-            UIManager.Instance.SetWaveDelay(time);
-            yield return waitForSecond;
-            time -= 1;
+            UIManager.Instance.SetWaveDelay((int)time + 1);
+            yield return null;
+            time -= Time.deltaTime;
         }
     }
 
