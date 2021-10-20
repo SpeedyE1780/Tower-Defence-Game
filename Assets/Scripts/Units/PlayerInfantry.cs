@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+//Reset ally infantry position to starting position at the end of each wave
 public class PlayerInfantry : MonoBehaviour
 {
     [SerializeField] NavMeshAgent agent;

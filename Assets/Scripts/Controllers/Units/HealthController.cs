@@ -44,7 +44,7 @@ public class HealthController : MonoBehaviour
 
     #region HEALTH FUNCTIONS
 
-    public void RaiseMaxHealth(float multiplier) => currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
+    public void UpdateMaxHealth(float multiplier) => currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
 
     private void UpdateHealth(int newHealth)
     {
