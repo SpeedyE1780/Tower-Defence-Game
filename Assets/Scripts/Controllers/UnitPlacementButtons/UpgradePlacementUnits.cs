@@ -50,15 +50,8 @@ public class UpgradePlacementUnits : MonoBehaviour
         Physics.Simulate(Time.deltaTime);
     }
 
-    private void UpdatePrice()
-    {
-        price.text = areaUpgrades[currentUpgrade + 1].cost.ToString();
-    }
-
-    private void OnDestroy()
-    {
-        EventManager.OnGameRestarted -= ResetArea;
-    }
+    private void UpdatePrice() => price.text = areaUpgrades[currentUpgrade + 1].cost.ToString();
+    private void OnDestroy() => EventManager.OnGameRestarted -= ResetArea;
 }
 
 [System.Serializable]

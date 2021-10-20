@@ -6,10 +6,12 @@ public abstract class BuyUnitController : MonoBehaviour
     [SerializeField] protected Image unitIcon;
     [SerializeField] protected Text priceText;
     [SerializeField] protected Sprite unitSprite;
-    [SerializeField] protected int unitPrice;
     [SerializeField] protected PoolID unitID;
+    [SerializeField] protected int unitPrice;
 
-    protected virtual void Awake()
+    private void Awake() => SetButtonVisuals();
+
+    protected void SetButtonVisuals()
     {
         //Set button sprite and text
         unitIcon.sprite = unitSprite;
