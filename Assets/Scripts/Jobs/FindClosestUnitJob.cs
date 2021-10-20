@@ -13,22 +13,22 @@ public struct FindClosestUnitJob : IJobParallelFor
     {
         //Get current unit info and position
         UnitInfo currentUnit = unitInfo[index];
-        float3 position = currentUnit.Position;
+        float3 position = currentUnit.position;
         float currentDistance = math.INFINITY;
 
         foreach (UnitInfo other in othersInfo)
         {
-            if (!currentUnit.CanAttack(other.InstanceID, other.UnitTypeID))
+            if (!currentUnit.CanTarget(other.instanceID, other.unitTypeID))
                 continue;
 
             //Calculate distance from unit
-            float3 otherPosition = other.Position;
+            float3 otherPosition = other.position;
             float temp = math.distance(position, otherPosition);
 
             //Update target and current distance
             if (temp < currentDistance)
             {
-                currentUnit.TargetID = other.InstanceID;
+                currentUnit.targetID = other.instanceID;
                 currentDistance = temp;
             }
         }

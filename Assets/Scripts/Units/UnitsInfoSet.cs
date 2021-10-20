@@ -25,7 +25,7 @@ public class UnitsInfoSet : ScriptableObject
     public void UpdateUnits(NativeArray<UnitInfo> newInfo)
     {
         foreach (UnitInfo info in newInfo)
-            unitsInfo[info.InstanceID] = info;
+            unitsInfo[info.instanceID] = info;
     }
 
     public void Add(UnitInfo info)
@@ -33,7 +33,7 @@ public class UnitsInfoSet : ScriptableObject
         if (!IsCreated)
             return;
 
-        unitsInfo.Add(info.InstanceID, info);
+        unitsInfo.Add(info.instanceID, info);
         Count += 1;
     }
 
@@ -49,14 +49,14 @@ public class UnitsInfoSet : ScriptableObject
     public void UpdateUnitInfo(int ID, Vector3 position, float healthPercentage)
     {
         UnitInfo info = unitsInfo[ID];
-        info.Position = position;
-        info.HealthPercentage = healthPercentage;
+        info.position = position;
+        info.healthPercentage = healthPercentage;
         unitsInfo[ID] = info;
     }
 
     public int GetTargetID(int ID)
     {
-        return unitsInfo[ID].TargetID;
+        return unitsInfo[ID].targetID;
     }
 
     public void Dispose()

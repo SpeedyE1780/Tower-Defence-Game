@@ -6,28 +6,30 @@ using Unity.Burst;
 [BurstCompile]
 public struct DeletePlacementJob : IJobParallelFor
 {
-    [NativeDisableParallelForRestriction] public NativeArray<DeletedUnitInfo> DeletedInfo;
-    [ReadOnly] public NativeArray<UnitInfo> Units;
-    public float3 Position;
-    public float DistanceThreshold;
+    //Pass info from job to manager in the first element
+    [NativeDisableParallelForRestriction] public NativeArray<DeletedUnitInfo> deletedInfo;
+    [ReadOnly] public NativeArray<UnitInfo> units;
+    public float3 position;
+    public float distanceThreshold;
 
     public void Execute(int index)
     {
-        if (math.distance(Position, Units[index].Position) < DistanceThreshold)
+        //Delete last unit that was in range of mouse position
+        if (math.distance(position, units[index].position) < distanceThreshold)
         {
             DeletedUnitInfo info = new DeletedUnitInfo()
             {
-                Found = true,
-                ID = Units[index].InstanceID
+                found = true,
+                id = units[index].instanceID
             };
 
-            DeletedInfo[0] = info;
+            deletedInfo[0] = info;
         }
     }
 }
 
 public struct DeletedUnitInfo
 {
-    public int ID;
-    public bool Found;
+    public int id;
+    public bool found;
 }

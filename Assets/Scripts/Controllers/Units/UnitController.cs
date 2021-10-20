@@ -43,10 +43,10 @@ public abstract class UnitController : MonoBehaviour
 
         UnitInfo unitInfo = new UnitInfo()
         {
-            InstanceID = instanceID,
-            Position = transform.position,
-            UnitTypeID = unitID.TypeID,
-            UnitMask = unitMask
+            instanceID = instanceID,
+            position = transform.position,
+            unitTypeID = unitID.TypeID,
+            unitMask = unitMask
         };
 
         AddUnitToSet(unitInfo);

@@ -60,7 +60,7 @@ public class UnitsManager : Singleton<UnitsManager>
             return;
 
         unitsInfo.Add(info);
-        activeUnits.Add(info.InstanceID, controller);
+        activeUnits.Add(info.instanceID, controller);
     }
 
     //Remove unit from active units and native dictionary

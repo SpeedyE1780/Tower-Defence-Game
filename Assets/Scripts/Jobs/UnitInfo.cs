@@ -2,14 +2,14 @@
 
 public struct UnitInfo
 {
-    public int InstanceID;
-    public float3 Position;
-    public float HealthPercentage;
-    public int TargetID;
-    public int UnitTypeID;
-    public int UnitMask;
+    public int instanceID;
+    public float3 position;
+    public float healthPercentage;
+    public int targetID;
+    public int unitTypeID;
+    public int unitMask;
 
-    public bool CanAttack(int otherInstanceID, int otherTypeID) => IsDifferentUnit(otherInstanceID) && IsValidTarget(otherTypeID);
-    private bool IsDifferentUnit(int otherInstanceID) => InstanceID != otherInstanceID;
-    private bool IsValidTarget(int otherTypeID) => (UnitMask & otherTypeID) != 0;
+    public bool CanTarget(int otherInstanceID, int otherTypeID) => IsDifferentUnit(otherInstanceID) && IsValidTarget(otherTypeID);
+    private bool IsDifferentUnit(int otherInstanceID) => instanceID != otherInstanceID;
+    private bool IsValidTarget(int otherTypeID) => (unitMask & otherTypeID) != 0;
 }
