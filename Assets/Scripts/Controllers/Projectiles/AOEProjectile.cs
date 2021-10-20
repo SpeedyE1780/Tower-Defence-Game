@@ -11,8 +11,5 @@ public class AOEProjectile : ProjectileController
         aoePosition = newTarget.transform.position;
     }
 
-    protected override void ApplyDamage()
-    {
-        AOEManager.Instance.ApplyAOEDamage(aoePosition, range, damage, unitMask);
-    }
+    protected override void ApplyDamage() => AOEManager.Instance.ApplyAOEDamage(aoePosition, range, damage, unitMask);
 }
