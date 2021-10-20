@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Draws mesh at gameobject position
 public class ShowTroopHologram : MonoBehaviour
 {
     [SerializeField] private Mesh troopMesh;
