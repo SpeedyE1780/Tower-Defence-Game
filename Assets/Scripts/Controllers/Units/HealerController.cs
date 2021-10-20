@@ -49,6 +49,7 @@ public class HealerController : RangedController
     {
         usedMana = 0;
         manaBar.value = 1;
+        UpdateManaBar();
     }
 
     protected virtual void Heal() => currentTarget.Heal(healAmount);

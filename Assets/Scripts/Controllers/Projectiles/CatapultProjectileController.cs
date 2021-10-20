@@ -9,6 +9,7 @@ public class CatapultProjectileController : AOEProjectile
     public override void SetTarget(HealthController newTarget, int mask)
     {
         base.SetTarget(newTarget, mask);
+        SetTargetPosition(newTarget.Position);
 
         //Prevents updating movement target position
         targetDisabled = true;
@@ -34,8 +35,8 @@ public class CatapultProjectileController : AOEProjectile
         transform.position = position;
     }
 
-    //Set target position and get the max distance
-    public void SetTargetPosition(Vector3 target)
+    //Set target position
+    private void SetTargetPosition(Vector3 target)
     {
         targetPosition = target;
         targetPosition.y = 0;
