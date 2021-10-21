@@ -25,7 +25,7 @@ public class RangedController : UnitController
         targetForward = currentTarget.transform.position - transform.position;
         targetForward.y = 0;
 
-        if (targetForward != Vector3.zero)
+        if (targetForward == Vector3.zero)
             return;
 
         Quaternion targetRotation = Quaternion.LookRotation(targetForward, Vector3.up);

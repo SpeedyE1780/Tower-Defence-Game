@@ -76,7 +76,6 @@ public class InfantryController : UnitController
 
     protected override void AttackTarget()
     {
-        Debug.Log("Attacking target");
         //Set destination to current target
         agent.SetDestination(currentTarget.transform.position);
 
