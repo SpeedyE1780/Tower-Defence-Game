@@ -13,8 +13,7 @@ public class AOEManager : Singleton<AOEManager>
     public void ApplyAOEDamage(Vector3 position, float range, int damage, int unitMask)
     {
         //Create arrays if they're not created
-        if (!units.IsCreated)
-            InitializeArrays();
+        InitializeArrays();
 
         AOEJob aoe = new AOEJob()
         {
@@ -32,8 +31,7 @@ public class AOEManager : Singleton<AOEManager>
     public void ApplyAOEHeal(Vector3 position, float range, int heal, int unitMask)
     {
         //Create arrays if they're not created
-        if (!units.IsCreated)
-            InitializeArrays();
+        InitializeArrays();
 
         AOEJob aoe = new AOEJob()
         {
@@ -54,9 +52,9 @@ public class AOEManager : Singleton<AOEManager>
             ExecuteJobs();
     }
 
+    //Schedule the current job and make it depend on the previously scheduled jobs 
     private void ScheduleAOEJob(AOEJob aoe)
     {
-        //Make the current job dependant from the previously scheduled jobs 
         int count = aoeJobHandles.Length;
         JobHandle dependency = count == 0 ? default : aoeJobHandles[count - 1];
         JobHandle aoeHandle = aoe.Schedule(unitsInfo.Count, 75, dependency);
@@ -67,6 +65,7 @@ public class AOEManager : Singleton<AOEManager>
     {
         JobHandle.CompleteAll(aoeJobHandles);
 
+        //Apply heal then damage to all units affected
         foreach (AOEAffectedUnit unit in affectedUnits)
         {
             HealthController currentController = activeUnits[unit.unitID];
@@ -86,17 +85,21 @@ public class AOEManager : Singleton<AOEManager>
 
     private void InitializeArrays()
     {
+        if (units.IsCreated)
+            return;
+
         aoeJobHandles = new NativeList<JobHandle>(10, Allocator.Persistent);
         units = unitsInfo.GetJobArray();
         affectedUnits = new NativeArray<AOEAffectedUnit>(unitsInfo.Count, Allocator.TempJob);
 
-        //Initialize units damage to 0
+        //Initialize units
         for (int i = 0; i < units.Length; i++)
         {
             affectedUnits[i] = new AOEAffectedUnit()
             {
                 unitID = units[i].instanceID,
-                damage = 0
+                damage = 0,
+                heal = 0
             };
         }
     }

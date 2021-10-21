@@ -7,7 +7,6 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
     [SerializeField] CanvasGroup group;
     [SerializeField] Canvas canvas;
 
-
     protected override void Awake()
     {
         if (Instance != null)

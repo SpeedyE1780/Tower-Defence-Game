@@ -11,8 +11,7 @@ public class GameManager : Singleton<GameManager>
     {
         kills = 0;
 
-        //Initialize Currency
-        ShopManager.Instance.SetCurrency();
+        ShopManager.Instance.InitializeCurrency();
 
         //Reset unit count and reset enemy multiplier
         UnitPlacementManager.ResetUnitCount();

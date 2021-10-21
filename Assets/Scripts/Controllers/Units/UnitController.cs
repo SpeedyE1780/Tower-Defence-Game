@@ -85,7 +85,7 @@ public abstract class UnitController : MonoBehaviour
         Vector3 position = transform.position;
         float healthPercentage = unitHealth.HealthPercentage;
 
-        UnitsManager.Instance.UpdateUnitPosition(instanceID, position, healthPercentage);
+        UnitsManager.Instance.UpdateUnitInfo(instanceID, position, healthPercentage);
         detectionSet.UpdateUnitInfo(instanceID, position, healthPercentage);
     }
 
