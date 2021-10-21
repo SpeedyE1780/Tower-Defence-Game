@@ -16,32 +16,31 @@ public abstract class PlacementManager : MonoBehaviour
     private static void SetIsPlacingUnits() => IsPlacingUnits = false;
     public static void SetCanPlaceUnits(bool state) => CanPlaceUnits = state;
 
-    private void Start()
-    {
-        //Wait for finger drag or wave to start
-        waitForDrag = new WaitUntil(() => Input.GetMouseButtonDown(0) || !CanPlaceUnits);
-    }
+    //Wait for finger drag or wave to start
+    private void Start() => waitForDrag = new WaitUntil(() => Input.GetMouseButtonDown(0) || !CanPlaceUnits);
 
     public virtual void StartPlacement()
     {
         if (IsPlacingUnits || !CanPlaceUnits)
             return;
 
-        //Highlight areas where units can be deleted and start deleting units
-        StartCoroutine(ProcessPlacement());
-        ToggleHighlightedAreas(true);
-        UIManager.Instance.ToggleUnitPlacementCanvas(false);
-        IsPlacingUnits = true;
         waitForDrag.Reset();
+        StartCoroutine(ProcessPlacement());
+        UpdatePlacementValues(true);
     }
 
-    public virtual void StopPlacement()
+    public virtual void StopPlacement() => UpdatePlacementValues(false);
+
+    private void UpdatePlacementValues(bool isPlacing)
     {
-        ToggleHighlightedAreas(false);
-        UIManager.Instance.ToggleUnitPlacementCanvas(true);
-        IsPlacingUnits = false;
+        IsPlacingUnits = isPlacing;
+        ToggleHighlightedAreas(isPlacing);
+
+        //Check with can place units to prevent enabling placement UI when wave starts in case stop placement is called on wave start
+        UIManager.Instance.ToggleUnitPlacementCanvas(!isPlacing && CanPlaceUnits);
     }
 
+    //Highlight areas where units can be placed/deleted
     protected void ToggleHighlightedAreas(bool state)
     {
         foreach (GameObject area in highlightedAreas)

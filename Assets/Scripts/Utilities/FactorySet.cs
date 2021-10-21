@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+//Set that contains a list of object with the same pool id
 [CreateAssetMenu(menuName = "Pooling/Factory Set")]
 public class FactorySet : ScriptableObject
 {

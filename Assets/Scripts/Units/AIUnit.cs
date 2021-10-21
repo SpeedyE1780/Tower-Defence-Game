@@ -8,7 +8,8 @@ public class AIUnit : MonoBehaviour
 
     private void OnEnable()
     {
-        health.RaiseMaxHealth(EnemyManager.Multiplier);
+        //Update max health based on current multiplier
+        health.UpdateMaxHealth(EnemyManager.Multiplier);
         EventManager.OnGameRestarted += PoolUnit;
     }
 
@@ -20,14 +21,13 @@ public class AIUnit : MonoBehaviour
 
     private void AddStats()
     {
+        //Update enemy count in spawn manager
         EventManager.RaiseEnemyDisabled();
 
+        //Add coins
         if (health.IsDead)
             EventManager.RaiseEnemyKilled(coins);
     }
 
-    private void PoolUnit()
-    {
-        PoolManager.Instance.AddToPool(id, gameObject);
-    }
+    private void PoolUnit() => PoolManager.Instance.AddToPool(id, gameObject);
 }

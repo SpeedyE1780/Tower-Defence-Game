@@ -31,9 +31,9 @@ public abstract class UnitPlacementManager : PlacementManager
         UnitPlacementJob unitPlacement = new UnitPlacementJob()
         {
             unitsInfo = units,
-            MinimumDistance = distanceBetweenUnits,
-            Position = position,
-            InvalidPosition = unitsColliding
+            minimumDistance = distanceBetweenUnits,
+            position = position,
+            invalidPosition = unitsColliding
         };
 
         //Complete job
@@ -47,6 +47,7 @@ public abstract class UnitPlacementManager : PlacementManager
         return output;
     }
 
+    //Update unit that is being currently placed
     public void UpdateCurrentUnit(PoolID unitID, int unitPrice)
     {
         currentUnitID = unitID;

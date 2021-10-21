@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Always look at the target
 public class LookAtTarget : MonoBehaviour
 {
     private static Transform lookAtTarget;

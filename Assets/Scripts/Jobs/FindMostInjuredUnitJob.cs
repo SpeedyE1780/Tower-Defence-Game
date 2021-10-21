@@ -21,22 +21,22 @@ public struct FindMostInjuredUnitJob : IJobParallelFor
 
         foreach (UnitInfo other in othersInfo)
         {
-            if (!currentUnit.CanAttack(other.InstanceID, other.UnitTypeID))
+            if (!currentUnit.CanTarget(other.instanceID, other.unitTypeID))
                 continue;
 
             //Ignore units who aren't injured
-            if (other.HealthPercentage > HealthThreshold)
+            if (other.healthPercentage > HealthThreshold)
                 continue;
 
             //Get how far the target is and how injured he is
-            float healthFactor = other.HealthPercentage * HealthFactor;
-            float distanceFactor = math.distance(currentUnit.Position, other.Position) * DistanceFactor;
+            float healthFactor = other.healthPercentage * HealthFactor;
+            float distanceFactor = math.distance(currentUnit.position, other.position) * DistanceFactor;
             float tempFactor = healthFactor + distanceFactor;
 
             //Update target and factor
             if (tempFactor < currentFactor)
             {
-                currentUnit.TargetID = other.InstanceID;
+                currentUnit.targetID = other.instanceID;
                 currentFactor = tempFactor;
             }
         }

@@ -28,6 +28,8 @@ public class TimeManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
+
+    //Update time scale whenever it's changed
     private void OnValidate()
     {
         if (Application.isPlaying)
@@ -35,5 +37,6 @@ public class TimeManager : MonoBehaviour
             Time.timeScale = timeScale;
         }
     }
+
 #endif
 }

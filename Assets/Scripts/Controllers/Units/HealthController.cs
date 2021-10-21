@@ -22,6 +22,8 @@ public class HealthController : MonoBehaviour
     public float HealthPercentage => (float)health / currentMaxHealth;
     public bool IsDead => health <= 0;
 
+    #region UNITY MESSAGES
+
     private void Awake()
     {
         initialScale = geometry.localScale;
@@ -38,7 +40,11 @@ public class HealthController : MonoBehaviour
         healthBar.gameObject.SetActive(false);
     }
 
-    public void RaiseMaxHealth(float multiplier) => currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
+    #endregion
+
+    #region HEALTH FUNCTIONS
+
+    public void UpdateMaxHealth(float multiplier) => currentMaxHealth = Mathf.RoundToInt(maxHealth * multiplier);
 
     private void UpdateHealth(int newHealth)
     {
@@ -70,6 +76,10 @@ public class HealthController : MonoBehaviour
         healParticle.Play();
     }
 
+    #endregion
+
+    #region UTITLITY
+
     IEnumerator KillPlayer()
     {
         healthBar.gameObject.SetActive(false);
@@ -99,4 +109,6 @@ public class HealthController : MonoBehaviour
         foreach (Behaviour behaviour in toggleBehaviours)
             behaviour.enabled = state;
     }
+
+    #endregion
 }

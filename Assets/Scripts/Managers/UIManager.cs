@@ -23,11 +23,16 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private float waveTextScaleDuration;
     [SerializeField] private Canvas unitPlacement;
 
-    private void Start() => ShowMenuUI();
+    #region MENU FUNCTIONS
 
+    private void Start() => ShowMenuUI();
     public void ShowMenuUI() => ToggleGameUI(MenuUI);
     public void ShowGameUI() => ToggleGameUI(GameUI);
     public void ShowEndGameUI() => ToggleGameUI(EndGameUI);
+
+    #endregion
+
+    #region TOGGLE FUNCTIONS
 
     //Enable the selected canvas and disable the other
     private void ToggleGameUI(Canvas current)
@@ -39,14 +44,28 @@ public class UIManager : Singleton<UIManager>
     }
 
     public void TogglePauseUI(bool state) => PauseUI.enabled = state;
-    public void UpdateKillText(int score) => killsText.text = score.ToString();
-    public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
-    public void SetWaveDelay(int delay) => waveDelay.text = delay.ToString();
+    public void ToggleWaveDelayText(bool toggle) => waveDelay.gameObject.SetActive(toggle);
+    public void ToggleUnitPlacementCanvas(bool toggle) => unitPlacement.enabled = toggle;
 
-    public void ToggleUnitPlacementCanvas(bool toggle)
+    #endregion
+
+    #region TEXT FUNCTIONS
+
+    public void UpdateKillText(int score) => killsText.text = score.ToString();
+    public void UpdateCoinText(int coins) => coinText.text = coins.ToString();
+    public void UpdateWaveDelay(int delay) => waveDelay.text = delay.ToString();
+
+    #endregion
+
+    #region TEXT ANIMATIONS
+
+    public Coroutine ShowWaveCompleted() => StartCoroutine(ShowAnimatedText(waveCompleted));
+
+    public Coroutine ShowWaveDelayUI(int number)
     {
-        unitPlacement.enabled = toggle;
-        waveDelay.gameObject.SetActive(toggle);
+        waveStarted.text = $"Wave {number}";
+        StartCoroutine(ShowAnimatedText(waveStarted.gameObject));
+        return StartCoroutine(ShowAnimatedText(placeUnits.gameObject));
     }
 
     private IEnumerator ShowAnimatedText(GameObject waveText)
@@ -76,12 +95,5 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    public void ShowWaveNumber(int number)
-    {
-        waveStarted.text = $"Wave {number}";
-        StartCoroutine(ShowAnimatedText(waveStarted.gameObject));
-    }
-
-    public Coroutine ShowWaveCompleted() => StartCoroutine(ShowAnimatedText(waveCompleted));
-    public Coroutine ShowPlaceUnits() => StartCoroutine(ShowAnimatedText(placeUnits.gameObject));
+    #endregion
 }

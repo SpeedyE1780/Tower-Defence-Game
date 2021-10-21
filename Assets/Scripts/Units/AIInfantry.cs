@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+//Stop enemy infantry movement when player loses
 public class AIInfantry : MonoBehaviour
 {
     [SerializeField] NavMeshAgent agent;

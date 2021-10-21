@@ -10,12 +10,26 @@ public class RangedController : UnitController
 
     //Transform that will rotate and follow the current target
     protected virtual Transform RotationTransform => transform;
+
     protected void Start() => targetForward = new Vector3();
 
     protected override void AttackTarget()
     {
         RotateTowardTarget();
         Shoot();
+    }
+
+    protected virtual void RotateTowardTarget()
+    {
+        //Get desired forward
+        targetForward = currentTarget.transform.position - transform.position;
+        targetForward.y = 0;
+
+        if (targetForward == Vector3.zero)
+            return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(targetForward, Vector3.up);
+        RotationTransform.rotation = Quaternion.RotateTowards(RotationTransform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     protected virtual void Shoot()
@@ -39,18 +53,5 @@ public class RangedController : UnitController
         GameObject projectile = PoolManager.Instance.GetPooledObject(projectileID, shootPoint.position, projectileRotation);
         projectile.SetActive(true);
         return projectile;
-    }
-
-    protected virtual void RotateTowardTarget()
-    {
-        //Get desired forward
-        targetForward = currentTarget.transform.position - transform.position;
-        targetForward.y = 0;
-
-        if (targetForward.sqrMagnitude < 0.2f)
-            return;
-
-        Quaternion targetRotation = Quaternion.LookRotation(targetForward, Vector3.up);
-        RotationTransform.rotation = Quaternion.RotateTowards(RotationTransform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }

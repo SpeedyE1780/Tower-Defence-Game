@@ -5,11 +5,13 @@ using UnitData = Unity.Collections.NativeHashMap<int, UnitInfo>;
 [CreateAssetMenu(menuName = "Units/Set/Info")]
 public class UnitsInfoSet : ScriptableObject
 {
-    //Contains all units info
+    //Contains all units info in set
     private UnitData unitsInfo;
 
     public int Count { get; private set; }
     public bool IsCreated => unitsInfo.IsCreated;
+
+    #region SETUP
 
     public void InitializeUnitsInfo(int capacity)
     {
@@ -17,26 +19,26 @@ public class UnitsInfoSet : ScriptableObject
         Count = 0;
     }
 
-    public NativeArray<UnitInfo> GetJobArray()
-    {
-        return unitsInfo.GetValueArray(Allocator.TempJob);
-    }
-
-    public void UpdateUnits(NativeArray<UnitInfo> newInfo)
-    {
-        foreach (UnitInfo info in newInfo)
-            unitsInfo[info.InstanceID] = info;
-    }
-
+    //Add unit once enabled
     public void Add(UnitInfo info)
     {
         if (!IsCreated)
             return;
 
-        unitsInfo.Add(info.InstanceID, info);
+        unitsInfo.Add(info.instanceID, info);
         Count += 1;
     }
 
+    //Update unit info every frame
+    public void UpdateUnitInfo(int ID, Vector3 position, float healthPercentage)
+    {
+        UnitInfo info = unitsInfo[ID];
+        info.position = position;
+        info.healthPercentage = healthPercentage;
+        unitsInfo[ID] = info;
+    }
+
+    //Remove units once disabled
     public void Remove(int ID)
     {
         if (!IsCreated)
@@ -46,21 +48,26 @@ public class UnitsInfoSet : ScriptableObject
         Count -= 1;
     }
 
-    public void UpdateUnitInfo(int ID, Vector3 position, float healthPercentage)
+    #endregion
+
+    #region JOB FUNCTIONS
+
+    //Get value array to use in units manager jobs
+    public NativeArray<UnitInfo> GetJobArray() => unitsInfo.GetValueArray(Allocator.TempJob);
+
+    //Update unit info after jobs are completed in units manager
+    public void UpdateUnits(NativeArray<UnitInfo> newInfo)
     {
-        UnitInfo info = unitsInfo[ID];
-        info.Position = position;
-        info.HealthPercentage = healthPercentage;
-        unitsInfo[ID] = info;
+        foreach (UnitInfo info in newInfo)
+            unitsInfo[info.instanceID] = info;
     }
 
-    public int GetTargetID(int ID)
-    {
-        return unitsInfo[ID].TargetID;
-    }
+    #endregion
 
-    public void Dispose()
-    {
-        unitsInfo.Dispose();
-    }
+    #region UTILITY
+
+    public int GetTargetID(int ID) => unitsInfo[ID].targetID;
+    public void Dispose() => unitsInfo.Dispose();
+
+    #endregion
 }

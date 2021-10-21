@@ -25,7 +25,7 @@ public class DeleteUnitManager : PlacementManager
         //Wait for finger drag or wave to start
         yield return waitForDrag;
 
-        //Delete any units we hovered over while dragging our finger while waiting for the wave to start
+        //Delete any units we hovered over
         while (CanPlaceUnits && Input.GetMouseButton(0))
         {
             yield return null;
@@ -34,16 +34,16 @@ public class DeleteUnitManager : PlacementManager
                 continue;
 
             //Initialize job variables
-            DeletedUnitInfo info = new DeletedUnitInfo() { Found = false };
+            DeletedUnitInfo info = new DeletedUnitInfo() { found = false };
             NativeArray<UnitInfo> units = unitsInfo.GetJobArray();
             NativeArray<DeletedUnitInfo> deletedInfo = new NativeArray<DeletedUnitInfo>(new DeletedUnitInfo[] { info }, Allocator.TempJob);
 
             DeletePlacementJob deletePlacement = new DeletePlacementJob()
             {
-                Units = units,
-                DeletedInfo = deletedInfo,
-                DistanceThreshold = distanceThreshold,
-                Position = point
+                units = units,
+                deletedInfo = deletedInfo,
+                distanceThreshold = distanceThreshold,
+                position = point
             };
 
             //Run and update job
@@ -51,8 +51,8 @@ public class DeleteUnitManager : PlacementManager
             info = deletedInfo[0];
 
             //If a unit was found delete it
-            if (info.Found)
-                activeUnits[info.ID].GetComponent<UnitController>().PoolUnit();
+            if (info.found)
+                activeUnits[info.id].GetComponent<UnitController>().PoolUnit();
 
             //Dispose arrays
             units.Dispose();

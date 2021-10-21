@@ -24,9 +24,11 @@ public abstract class UnitController : MonoBehaviour
     protected int unitMask;
     private int instanceID;
 
-    private bool AttackCooldownEnded => currentAttackCooldown < 0;
+    private bool AttackCooldownEnded => currentAttackCooldown <= 0;
 
-    private void Awake() => unitMask = unitID.GetLayerMask();
+    #region UNITY MESSAGES
+
+    protected virtual void Awake() => unitMask = unitID.GetLayerMask();
 
     protected virtual void OnEnable()
     {
@@ -37,25 +39,20 @@ public abstract class UnitController : MonoBehaviour
 
         //Reset target and attack cooldown
         currentTarget = null;
-        currentAttackCooldown = 0;
+        currentAttackCooldown = attackCooldown;
 
         UnitInfo unitInfo = new UnitInfo()
         {
-            InstanceID = instanceID,
-            Position = transform.position,
-            UnitTypeID = unitID.TypeID,
-            UnitMask = unitID.GetLayerMask()
+            instanceID = instanceID,
+            position = transform.position,
+            unitTypeID = unitID.TypeID,
+            unitMask = unitMask
         };
 
-        UnitsManager.Instance.AddUnit(unitInfo, unitHealth);
-        detectionSet.Add(unitInfo);
+        AddUnitToSet(unitInfo);
     }
 
-    protected virtual void OnDisable()
-    {
-        UnitsManager.Instance.RemoveUnit(instanceID);
-        detectionSet.Remove(instanceID);
-    }
+    protected virtual void OnDisable() => RemoveUnitFromSet();
 
     protected virtual void Update()
     {
@@ -71,14 +68,36 @@ public abstract class UnitController : MonoBehaviour
         currentAttackCooldown -= Time.deltaTime;
     }
 
-    private void LateUpdate()
+    private void LateUpdate() => UpdateUnitInSet();
+
+    #endregion
+
+    #region SET FUNCTIONS
+
+    private void AddUnitToSet(UnitInfo unitInfo)
+    {
+        UnitsManager.Instance.AddUnit(unitInfo, unitHealth);
+        detectionSet.Add(unitInfo);
+    }
+
+    private void UpdateUnitInSet()
     {
         Vector3 position = transform.position;
         float healthPercentage = unitHealth.HealthPercentage;
 
-        UnitsManager.Instance.UpdateUnitPosition(instanceID, position, healthPercentage);
+        UnitsManager.Instance.UpdateUnitInfo(instanceID, position, healthPercentage);
         detectionSet.UpdateUnitInfo(instanceID, position, healthPercentage);
     }
+
+    private void RemoveUnitFromSet()
+    {
+        UnitsManager.Instance.RemoveUnit(instanceID);
+        detectionSet.Remove(instanceID);
+    }
+
+    #endregion
+
+    #region INHERITED VIRTUAL FUNCTIONS
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public virtual void PoolUnit() => PoolManager.Instance.AddToPool(unitID, gameObject);
@@ -89,4 +108,6 @@ public abstract class UnitController : MonoBehaviour
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected abstract void AttackTarget();
     protected virtual bool CanAttack() => AttackCooldownEnded;
+
+    #endregion
 }

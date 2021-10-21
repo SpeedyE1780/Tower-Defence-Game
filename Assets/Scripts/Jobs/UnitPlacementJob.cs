@@ -6,16 +6,18 @@ using Unity.Mathematics;
 [BurstCompile]
 public struct UnitPlacementJob : IJobParallelFor
 {
+    //Pass info from job to manager in the first element
     [ReadOnly] public NativeArray<UnitInfo> unitsInfo;
-    public float3 Position;
-    public float MinimumDistance;
-    [NativeDisableParallelForRestriction] public NativeArray<bool> InvalidPosition;
+    public float3 position;
+    public float minimumDistance;
+    [NativeDisableParallelForRestriction] public NativeArray<bool> invalidPosition;
 
     public void Execute(int index)
     {
-        float3 unitPosition = unitsInfo[index].Position;
+        float3 unitPosition = unitsInfo[index].position;
 
-        if (math.distance(Position, unitPosition) < MinimumDistance)
-            InvalidPosition[0] = true;
+        //If unit is too close to mouse position then its invalid
+        if (math.distance(position, unitPosition) < minimumDistance)
+            invalidPosition[0] = true;
     }
 }

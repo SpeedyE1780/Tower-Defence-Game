@@ -10,30 +10,84 @@ public class ProjectileController : MonoBehaviour
     protected HealthController target;
     protected int unitMask;
     protected float progress;
+    protected bool targetDisabled;
     private Vector3 startingPosition;
     private float moveDuration;
     private float currentLifetime;
 
+    private bool MovementIncomplete => progress < 1;
+
+    #region UNITY MESSAGES
+
     protected virtual void OnEnable()
     {
         EventManager.OnGameEnded += AddToPool;
+        ResetValues();
+    }
+
+    protected virtual void OnDisable() => EventManager.OnGameEnded -= AddToPool;
+
+    private void Update()
+    {
+        UpdateProgress();
+        UpdateTargetPosition();
+        Move();
+        CheckDestination();
+    }
+
+    #endregion
+
+    #region TARGET FUNCTIONS
+
+    public virtual void SetTarget(HealthController newTarget, int mask)
+    {
+        target = newTarget;
+        lastTargetPosition = newTarget.Position;
+        unitMask = mask;
+        targetDisabled = false;
+
+        //Get duration to reach target
+        moveDuration = (transform.position - lastTargetPosition).magnitude / speed;
+    }
+
+    private void UpdateTargetPosition()
+    {
+        if (targetDisabled || IsTargetDisabled())
+            return;
+
+        lastTargetPosition = target.Position;
+    }
+
+    private bool IsTargetDisabled()
+    {
+        targetDisabled = target == null || !target.gameObject.activeSelf;
+        return targetDisabled;
+    }
+
+    #endregion
+
+    #region MOVEMENT
+
+    //Move towards target last known position
+    protected virtual void Move()
+    {
+        Vector3 direction = lastTargetPosition - transform.position;
+        transform.position = Vector3.Lerp(startingPosition, lastTargetPosition, progress);
+
+        //Check to prevent zero vector rotation error
+        if (direction != Vector3.zero)
+            transform.forward = direction;
+    }
+
+    #endregion
+
+    #region UTILITY
+
+    protected virtual void ResetValues()
+    {
         startingPosition = transform.position;
         progress = 0;
         currentLifetime = 0;
-    }
-
-    protected virtual void OnDisable()
-    {
-        EventManager.OnGameEnded -= AddToPool;
-    }
-
-    void Update()
-    {
-        UpdateProgress();
-        CheckTarget();
-        UpdateTargetPosition();
-        Move();
-        CheckDistance();
     }
 
     private void UpdateProgress()
@@ -42,55 +96,24 @@ public class ProjectileController : MonoBehaviour
         progress = speedCurve.Evaluate(currentLifetime / moveDuration);
     }
 
-    private void UpdateTargetPosition()
+    private void CheckDestination()
     {
-        if (target != null)
-            lastTargetPosition = target.Position;
-    }
+        if (MovementIncomplete)
+            return;
 
-    protected virtual void Move()
-    {
-        Vector3 direction = lastTargetPosition - transform.position;
-        transform.position = Vector3.Lerp(startingPosition, lastTargetPosition, progress);
-
-        //Check to prevent zero vector rotation error
-        if (direction.sqrMagnitude > 0.1f)
-            transform.forward = direction;
-    }
-
-    private void CheckDistance()
-    {
-        if (progress >= 1)
-        {
-            ApplyDamage();
-            AddToPool();
-        }
-    }
-
-    public virtual void SetTarget(HealthController newTarget, int mask)
-    {
-        target = newTarget;
-        unitMask = mask;
-
-        //Get duration to reach target
-        moveDuration = (transform.position - newTarget.Position).magnitude / speed;
-    }
-
-    //Make sure that current target is still active
-    private void CheckTarget()
-    {
-        if (target != null && !target.gameObject.activeSelf)
-            target = null;
+        ApplyDamage();
+        AddToPool();
     }
 
     protected virtual void ApplyDamage()
     {
-        if (target != null)
-            target.TakeHit(damage);
+        if (targetDisabled)
+            return;
+
+        target.TakeHit(damage);
     }
 
-    protected void AddToPool()
-    {
-        PoolManager.Instance.AddToPool(id, gameObject);
-    }
+    protected void AddToPool() => PoolManager.Instance.AddToPool(id, gameObject);
+
+    #endregion
 }

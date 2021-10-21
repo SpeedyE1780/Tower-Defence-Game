@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Units/Set/Active")]
 public class ActiveUnitsSet : ScriptableObject
 {
+    //Contains all active units health controller
     private Dictionary<int, HealthController> activeUnits;
 
     public HealthController this[int index] => TryGetValue(index);

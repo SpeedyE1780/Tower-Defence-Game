@@ -6,7 +6,7 @@ using Unity.Mathematics;
 [BurstCompile]
 public struct AOEJob : IJobParallelFor
 {
-    public NativeArray<AOEDamagedUnit> affectedUnits;
+    public NativeArray<AOEAffectedUnit> affectedUnits;
     [ReadOnly] public NativeArray<UnitInfo> units;
     public float3 aoePosition;
     public float range;
@@ -18,9 +18,9 @@ public struct AOEJob : IJobParallelFor
     {
         //Get distance from blast
         UnitInfo current = units[index];
-        float distance = math.distance(aoePosition, current.Position);
+        float distance = math.distance(aoePosition, current.position);
 
-        if ((unitMask & current.UnitTypeID) == 0)
+        if ((unitMask & current.unitTypeID) == 0)
             return;
 
         if (distance > range)
@@ -32,16 +32,16 @@ public struct AOEJob : IJobParallelFor
         int unitHeal = (int)math.round(multiplier * heal);
 
         //Add damage/heal from current job to the damage received from the previous jobs
-        AOEDamagedUnit unit = affectedUnits[index];
-        unit.Damage += unitDamage;
-        unit.Heal += unitHeal;
+        AOEAffectedUnit unit = affectedUnits[index];
+        unit.damage += unitDamage;
+        unit.heal += unitHeal;
         affectedUnits[index] = unit;
     }
 }
 
-public struct AOEDamagedUnit
+public struct AOEAffectedUnit
 {
-    public int UnitID;
-    public int Damage;
-    public int Heal;
+    public int unitID;
+    public int damage;
+    public int heal;
 }

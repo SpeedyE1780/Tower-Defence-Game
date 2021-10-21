@@ -16,8 +16,11 @@ public class InfantryController : UnitController
 
     private float DistanceToTarget => (currentTarget.transform.position - transform.position).sqrMagnitude;
 
-    protected virtual void Awake()
+    #region UNITY MESSAGES
+
+    protected override void Awake()
     {
+        base.Awake();
         rotation = new Quaternion();
         DisableAgentAutoUpdate();
         agent.speed = speed;
@@ -29,8 +32,16 @@ public class InfantryController : UnitController
     protected override void Update()
     {
         base.Update();
-        UpdatePosition();
+        UpdateTransform();
+        UpdateAnimation();
+    }
 
+    #endregion
+
+    #region UTILITY
+
+    private void UpdateAnimation()
+    {
         if (unitAnimation.IsPlaying(AttackAnimation))
             return;
 
@@ -45,21 +56,23 @@ public class InfantryController : UnitController
             unitAnimation.Play(RunAnimation);
     }
 
-    protected void UpdatePosition()
+    protected void UpdateTransform()
     {
-        //Update navmesh position and geometry position
-        transform.position = agent.nextPosition;
-
-        if (agent.velocity.sqrMagnitude > IdleMovementThreshold)
-            UpdateRotation();
+        bool isMoving = agent.velocity.sqrMagnitude > IdleMovementThreshold;
+        rotation = isMoving ? Quaternion.LookRotation(agent.velocity) : transform.rotation;
+        transform.SetPositionAndRotation(agent.nextPosition, rotation);
     }
 
-    //Update navmesh rotation
-    protected virtual void UpdateRotation()
+    private void DisableAgentAutoUpdate()
     {
-        rotation.SetLookRotation(agent.velocity);
-        transform.rotation = rotation;
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
+
+    #endregion
+
+    #region ATTACK
 
     protected override void AttackTarget()
     {
@@ -78,13 +91,8 @@ public class InfantryController : UnitController
         ResetAttackCooldown();
     }
 
-    private void DisableAgentAutoUpdate()
-    {
-        agent.updatePosition = false;
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-    }
-
     protected virtual void ApplyDamage() => currentTarget.TakeHit(damage, instantKill);
     protected virtual bool TargetIsInRange() => DistanceToTarget <= attackRange;
+
+    #endregion
 }

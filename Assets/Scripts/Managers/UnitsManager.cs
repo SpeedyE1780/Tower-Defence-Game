@@ -21,9 +21,9 @@ public class UnitsManager : Singleton<UnitsManager>
 
     private void Update()
     {
-        NativeArray<UnitInfo> closestUnits = closestSet.GetJobArray();
-        NativeArray<UnitInfo> mostInjuredUnits = mostInjuredSet.GetJobArray();
-        NativeArray<UnitInfo> readOnly = unitsInfo.GetJobArray();
+        NativeArray<UnitInfo> closestUnits = closestSet.GetJobArray(); //Units that target closest units
+        NativeArray<UnitInfo> mostInjuredUnits = mostInjuredSet.GetJobArray(); //Units that most injured units
+        NativeArray<UnitInfo> readOnly = unitsInfo.GetJobArray(); //All active units
 
         FindClosestUnitJob closestUnitsJob = new FindClosestUnitJob()
         {
@@ -60,7 +60,7 @@ public class UnitsManager : Singleton<UnitsManager>
             return;
 
         unitsInfo.Add(info);
-        activeUnits.Add(info.InstanceID, controller);
+        activeUnits.Add(info.instanceID, controller);
     }
 
     //Remove unit from active units and native dictionary
@@ -73,16 +73,12 @@ public class UnitsManager : Singleton<UnitsManager>
         activeUnits.Remove(instanceID);
     }
 
-    //Update units position in native dictionary
-    public void UpdateUnitPosition(int instanceID, Vector3 position, float healthPercentage)
-    {
-        unitsInfo.UpdateUnitInfo(instanceID, position, healthPercentage);
-    }
+    //Update units info in native dictionary
+    public void UpdateUnitInfo(int instanceID, Vector3 position, float healthPercentage) => unitsInfo.UpdateUnitInfo(instanceID, position, healthPercentage);
 
-    //Get target from native dictionary info
+    //Get target from native dictionary info using target id
     public HealthController GetTarget(int instanceID)
     {
-        //Get transform using target id
         int targetID = unitsInfo.GetTargetID(instanceID);
         return activeUnits[targetID];
     }

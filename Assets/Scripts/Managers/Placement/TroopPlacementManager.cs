@@ -27,7 +27,7 @@ public class TroopPlacementManager : UnitPlacementManager
 
         bool canPlaceUnit = true;
 
-        do
+        while (CanPlaceUnits && Input.GetMouseButton(0) && canPlaceUnit)
         {
             yield return null;
 
@@ -46,7 +46,7 @@ public class TroopPlacementManager : UnitPlacementManager
             //Check whether or not we reached the limit and can buy the next unit
             canPlaceUnit = CanAddUnits && ShopManager.Instance.CanBuyUnit(currentUnitPrice);
 
-        } while (CanPlaceUnits && Input.GetMouseButton(0) && canPlaceUnit);
+        }
 
         StopPlacement();
     }

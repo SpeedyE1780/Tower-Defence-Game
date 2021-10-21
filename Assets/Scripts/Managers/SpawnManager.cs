@@ -19,14 +19,27 @@ public class SpawnManager : Singleton<SpawnManager>
     private bool skipWait;
     private int currentEnemyCount;
     private int activeEnemies;
+    private WaitForSeconds waveDelayWait;
+    private WaitUntil bossWaveWait;
+    private GameObject currentBoss;
 
     private float ZOffset => transform.position.z;
     public int MaxEnemyCount => maxEnemyCount;
 
+    #region UNITY MESSAGES
+
+    private void Start()
+    {
+        waveDelayWait = new WaitForSeconds(1f);
+        bossWaveWait = new WaitUntil(() => !currentBoss.activeSelf || UnitPlacementManager.UnitCount == 0);
+    }
+
     private void OnEnable() => EventManager.OnEnemyDisabled += EnemyKilled;
     private void OnDisable() => EventManager.OnEnemyDisabled -= EnemyKilled;
-    public void SkipWaveDelay() => skipWait = true;
-    private void EnemyKilled() => activeEnemies -= 1;
+
+    #endregion
+
+    #region SPAWNING
 
     public void StartSpawning()
     {
@@ -50,6 +63,7 @@ public class SpawnManager : Singleton<SpawnManager>
             if (currentWave % difficultyModifierFrequency == 0)
                 EnemyManager.IncrementMultiplier();
 
+            //Spawn formation and wait for player to position his units
             SpawnFormation();
             yield return StartCoroutine(WaveDelay());
             UnitController.waitForWaveStart = false;
@@ -57,13 +71,8 @@ public class SpawnManager : Singleton<SpawnManager>
             //Wait for all enemies to die
             while (activeEnemies > 0)
             {
-                //Player lost all his units
-                if (UnitPlacementManager.UnitCount == 0)
-                {
-                    UIManager.Instance.ShowEndGameUI();
-                    EventManager.RaiseGameEnded();
+                if (IsGameOver())
                     yield break;
-                }
 
                 yield return null;
             }
@@ -71,15 +80,12 @@ public class SpawnManager : Singleton<SpawnManager>
             //Check if we should spawn a boss or no
             if (currentWave % bossWaveFrequency == 0)
             {
-                yield return StartCoroutine(SpawnBoss());
+                //Spawn boss and wait for boss or ally units to die
+                SpawnBoss();
+                yield return bossWaveWait;
 
-                //Player lost all his units
-                if (UnitPlacementManager.UnitCount == 0)
-                {
-                    UIManager.Instance.ShowEndGameUI();
-                    EventManager.RaiseGameEnded();
+                if (IsGameOver())
                     yield break;
-                }
             }
 
             UnitController.waitForWaveStart = true;
@@ -89,30 +95,18 @@ public class SpawnManager : Singleton<SpawnManager>
             if (currentEnemyCount < maxEnemyCount)
                 currentEnemyCount = (int)Mathf.Clamp(currentEnemyCount * raisePercentage, startingEnemyCount, maxEnemyCount);
 
+            //Wait for text popup
             yield return UIManager.Instance.ShowWaveCompleted();
         }
     }
 
-    private IEnumerator WaveDelay()
+    private void SpawnBoss()
     {
-        //Wait unitl pop up text disappears
-        UIManager.Instance.ShowWaveNumber(currentWave);
-        yield return UIManager.Instance.ShowPlaceUnits();
-        ToggleUnitPlacement(true);
-        yield return WaitForWaveDelay();
-        ToggleUnitPlacement(false);
-
-        //Change to default camera
-        CameraManager.Instance.SetDefaultCamera();
-    }
-
-    private IEnumerator SpawnBoss()
-    {
-        GameObject boss = SpawnEnemy(bossesID.GetRandomElement(), transform.position, transform.rotation);
+        //Update current boss and reset yield instruction
+        currentBoss = SpawnEnemy(bossesID.GetRandomElement(), transform.position, transform.rotation);
         activeEnemies++;
+        bossWaveWait.Reset();
 
-        //Wait for boss or ally units to die
-        yield return new WaitUntil(() => !boss.activeSelf || UnitPlacementManager.UnitCount == 0);
     }
 
     private void SpawnFormation()
@@ -128,32 +122,12 @@ public class SpawnManager : Singleton<SpawnManager>
         }
     }
 
-    //Get enemy from pool and update its rigidbody position and rotation
+    //Get enemy from pool and update its position and rotation
     private GameObject SpawnEnemy(PoolID id, Vector3 position, Quaternion rotation)
     {
         GameObject enemy = PoolManager.Instance.GetPooledObject(id, position, rotation);
-        enemy.gameObject.SetActive(true);
+        enemy.SetActive(true);
         return enemy;
-    }
-
-    private void ToggleUnitPlacement(bool toggle)
-    {
-        UIManager.Instance.ToggleUnitPlacementCanvas(toggle);
-        PlacementManager.SetCanPlaceUnits(toggle);
-    }
-
-    private IEnumerator WaitForWaveDelay()
-    {
-        float time = waveDelay;
-        skipWait = false;
-
-        //Wait for wave delay to end or player pressing start wave button
-        while (time > 0 && !skipWait)
-        {
-            UIManager.Instance.SetWaveDelay((int)time + 1);
-            yield return null;
-            time -= Time.deltaTime;
-        }
     }
 
     private Vector3 GetSpawnPosition(int position)
@@ -163,6 +137,8 @@ public class SpawnManager : Singleton<SpawnManager>
         Vector3 spawnPosition = new Vector3((xIndex - unitsInRow * 0.5f) * distanceBetweenUnits, 0, zIndex * distanceBetweenUnits + ZOffset);
         return spawnPosition;
     }
+
+#if UNITY_EDITOR
 
     [ContextMenu("SpawnRandomPoint")]
     public void SpawnRandomPosition()
@@ -178,4 +154,61 @@ public class SpawnManager : Singleton<SpawnManager>
             gameObject.transform.localRotation = Quaternion.identity;
         }
     }
+
+#endif
+    #endregion
+
+    #region UTILITY
+
+    public void SkipWaveDelay() => skipWait = true;
+    private void EnemyKilled() => activeEnemies -= 1;
+
+    private IEnumerator WaveDelay()
+    {
+        //Wait unitl pop up text disappears
+        yield return UIManager.Instance.ShowWaveDelayUI(currentWave);
+        ToggleUnitPlacement(true);
+        yield return WaitForWaveDelay();
+        ToggleUnitPlacement(false);
+
+        //Change to default camera
+        CameraManager.Instance.SetDefaultCamera();
+    }
+
+    private IEnumerator WaitForWaveDelay()
+    {
+        float time = waveDelay;
+        skipWait = false;
+
+        //Wait for wave delay to end or player pressing start wave button
+        while (time > 0 && !skipWait)
+        {
+            UIManager.Instance.UpdateWaveDelay((int)time);
+            yield return waveDelayWait;
+            time -= 1;
+        }
+    }
+
+    private void ToggleUnitPlacement(bool toggle)
+    {
+        UIManager.Instance.ToggleWaveDelayText(toggle);
+        UIManager.Instance.ToggleUnitPlacementCanvas(toggle);
+        PlacementManager.SetCanPlaceUnits(toggle);
+    }
+
+    private bool IsGameOver()
+    {
+        //Player lost all his units
+        bool gameOver = UnitPlacementManager.UnitCount == 0;
+
+        if (gameOver)
+        {
+            UIManager.Instance.ShowEndGameUI();
+            EventManager.RaiseGameEnded();
+        }
+
+        return gameOver;
+    }
+
+    #endregion
 }
