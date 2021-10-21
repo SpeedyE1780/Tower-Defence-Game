@@ -138,6 +138,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void ToggleUnitPlacement(bool toggle)
     {
+        UIManager.Instance.ToggleWaveDelayText(toggle);
         UIManager.Instance.ToggleUnitPlacementCanvas(toggle);
         PlacementManager.SetCanPlaceUnits(toggle);
     }

@@ -32,18 +32,18 @@ public class CatapultPlacementManager : UnitPlacementManager
 
             if (!CameraRay.GetCameraHitPoint(out Vector3 hitPoint, groundLayer))
             {
+                //Stop placing if finger released outside of placement area
                 if (Input.GetMouseButtonUp(0))
                     break;
                 else
                     continue;
             }
 
-
             towerTransform.position = hitPoint;
 
+            //If finger released and no unit is colliding with tower place it
             if (Input.GetMouseButtonUp(0))
             {
-                //Tower is colliding with other units
                 if (IsUnitColliding(hitPoint))
                     continue;
 
@@ -61,8 +61,5 @@ public class CatapultPlacementManager : UnitPlacementManager
         StopPlacement();
     }
 
-    private void PoolTower(CatapultController catapult)
-    {
-        PoolManager.Instance.AddToPool(currentUnitID, catapult.gameObject);
-    }
+    private void PoolTower(CatapultController catapult) => PoolManager.Instance.AddToPool(currentUnitID, catapult.gameObject);
 }

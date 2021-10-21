@@ -42,12 +42,8 @@ public class UIManager : Singleton<UIManager>
     public void UpdateKillText(int score) => killsText.text = score.ToString();
     public void UpdateCurrencyText(int coins) => coinText.text = coins.ToString();
     public void SetWaveDelay(int delay) => waveDelay.text = delay.ToString();
-
-    public void ToggleUnitPlacementCanvas(bool toggle)
-    {
-        unitPlacement.enabled = toggle;
-        waveDelay.gameObject.SetActive(toggle);
-    }
+    public void ToggleWaveDelayText(bool toggle) => waveDelay.gameObject.SetActive(toggle);
+    public void ToggleUnitPlacementCanvas(bool toggle) => unitPlacement.enabled = toggle;
 
     private IEnumerator ShowAnimatedText(GameObject waveText)
     {
